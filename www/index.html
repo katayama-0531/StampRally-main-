@@ -1,0 +1,66 @@
+<!DOCTYPE HTML>
+<html> 
+
+<head ng-app>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Security-Policy" content="default-src * https://codepush.azurewebsites.net 'self' data: gap://ready file: https://ssl.gstatic.com 'unsafe-eval'; style-src * 'self' 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'; media-src *">
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/onsenui/js/onsenui.js"></script>
+    <script src="bower_components/onsenui/js/angular-onsenui.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
+    <link rel="stylesheet" href="bower_components/onsenui/css/onsenui.css">
+    <link rel="stylesheet" href="bower_components/onsenui/css/onsen-css-components.css">    
+    <link rel="stylesheet" href="css/style.css">
+    <!--追加のモジュール-->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />    
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/angular-i18n/angular-locale_ja-jp.js"></script>
+    <!--ここまで-->
+    <!-- ログイン画面のスクリプト-->
+    <script src="js/login.js"></script>
+    <!-- スタンプラリー選択画面のスクリプト-->
+    <script src="js/select.js"></script>
+    <!-- ホーム画面のスクリプト-->
+    <script src="js/home.js"></script>
+    <!--スライドメニューのスクリプト-->
+    <script src="js/slide-menu.js"></script>
+    <!--QRコード読込のスクリプト-->
+    <!--<script src="js/qr-scan.js"></script>
+    <!-- 位置情報取得のスクリプト-->
+    <!--<script src="js/stamp.js"></script>
+    <!-- webviewテストのスクリプト-->
+    <!--<script src="js/tab1.js"></script>
+    <!--メモのスクリプト-->
+    <!--<script src="js/tab2.js"></script>
+    <!--メモ詳細のスクリプト-->
+    <!--<script src="js/memo.js"></script>
+    <!--カメラのスクリプト-->
+    <!--<script src="js/camera.js"></script>
+    <!--スライドメニューのスクリプト-->
+    <!--<script src="js/menu1.js"></script>
+    <!--スライドメニューのスクリプト-->
+    <!--<script src="js/menu2.js"></script>
+    <script src="js/menu2-5.js"></script>
+    <!--スライドメニューのスクリプト-->
+    <!--<script src="js/menu3.js"></script>
+    <!--バッジのスクリプト-->
+    <!--<script src="js/listItem.js"></script>
+    <!--ファイル保存の為のスクリプト-->
+    <!--<script src="js/util/b64utils.js"></script>
+    <!--GoogleMap API-->
+    <!--<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCb6kDC-SGXLPG2HpTPTN7qfjnYCipuZqc&channel=001" async crossorigin="anonymous"></script>
+    <!--リスト移動のためのスクリプト-->
+    <!--<script src="js/util/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8" async></script>
+    <script src="js/util/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript" charset="utf-8" async></script>
+    <script src="js/util/jquery.ui.touch-punch.min.js" type="text/javascript" charset="utf-8" async></script>
+    <link rel="stylesheet" href="js/util/jquery-ui-1.12.1/jquery-ui.min.css">-->
+</head>
+
+<body>
+    <!--ログイン画面-->
+    <ons-navigator page="html/login.html" var="navi" ng-controller="AppController as app">
+    </ons-navigator>
+</body>
+
+</html>

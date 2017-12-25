@@ -1,0 +1,28 @@
+<!--ホーム画面-->
+<ons-page ng-controller="homeCtr as home" id="homePage">
+    <article class="container" style="text-align: center; overflow: hidden;">
+        <header>
+            <ons-button id="updataBtn" ng-click="home.updataClick()">更新確認</ons-button>
+            <p id="loginName"></p>
+            <p ons-if-platform="ios">iPhoneまたはiPadでアプリ使用中</p>
+            <p ons-if-platform="Android">Androidでアプリ使用中</p>
+        </header>
+    </article>
+
+    <ons-list-title>List Title</ons-list-title>
+    <div id="listView">
+    <ons-list>
+        <ons-list-item class="list__item__line-height" ons-lazy-repeat="MyDelegate">
+            {{ item }}
+        </ons-list-item>
+    </ons-list>
+</div>
+
+    <!--モーダルレイヤー-->
+    <ons-modal var="updataModal">
+        <ons-icon icon="ion-load-c" spin="true"></ons-icon>
+        <br>
+        <br> 更新データ確認中
+        <br>しばらくお待ちください。
+    </ons-modal>
+</ons-page>
