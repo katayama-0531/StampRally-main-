@@ -10,16 +10,15 @@
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "com.example.StampRally"
     },
-    "cordova-plugin-file-transfer": {
+    "cordova-plugin-dialogs": {
       "PACKAGE_NAME": "com.example.StampRally"
     },
-    "cordova-plugin-dialogs": {
+    "cordova-plugin-file": {
+      "PACKAGE_NAME": "com.example.StampRally"
+    },
+    "cordova-plugin-file-transfer": {
       "PACKAGE_NAME": "com.example.StampRally"
     }
   },
-  "dependent_plugins": {
-    "cordova-plugin-file": {
-      "PACKAGE_NAME": "com.example.StampRally"
-    }
-  }
+  "dependent_plugins": {}
 }

@@ -16,13 +16,13 @@
 		3047A5131AB8059700498E2A /* build-release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3047A5101AB8059700498E2A /* build-release.xcconfig */; };
 		3047A5141AB8059700498E2A /* build.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 3047A5111AB8059700498E2A /* build.xcconfig */; };
 		6AFF5BF91D6E424B00AB3073 /* CDVLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AFF5BF81D6E424B00AB3073 /* CDVLaunchScreen.storyboard */; };
-		E0DBC74664EA4BFCA57E2160 /* CDVFile.m in Sources */ = {isa = PBXBuildFile; fileRef = AF6E72AB519048E6B131CB4A /* CDVFile.m */; };
-		DB38E805E36546D0BD4598B7 /* CDVLocalFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 4586232C25D549E89A3C4259 /* CDVLocalFilesystem.m */; };
-		97178F839AB748D7B725F149 /* CDVAssetLibraryFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = C4967767E66446BDA582BEF5 /* CDVAssetLibraryFilesystem.m */; };
-		FD3247605B3F4375B3114748 /* CDVFileTransfer.m in Sources */ = {isa = PBXBuildFile; fileRef = 793CD6ED1F91406A8F557D65 /* CDVFileTransfer.m */; };
-		DEA921AD28694103901602AE /* CDVNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = F3161A0E5BE14DD1A70AE08D /* CDVNotification.m */; };
-		FB1C79BA038846A6A77F5C64 /* CDVNotification.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0CCC8F5539D740FCB2FCF07F /* CDVNotification.bundle */; };
-		718B0D458CC4425CB3E5F34D /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E1FBAAD77C44D91B02FB4AD /* AudioToolbox.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		1D43C66365324A30802F21D3 /* CDVNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = 251DB20AF41649FF8959B824 /* CDVNotification.m */; };
+		41BB3E4B5E2A4292A479EDC9 /* CDVNotification.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 95BFFABB2DF447C2AF7AB494 /* CDVNotification.bundle */; };
+		D13FC05567584B14AFC5A46E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3803EDC385945B7AB0CB99A /* AudioToolbox.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		12FDAF152D13465FB2AF9C7D /* CDVFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A65CB2C3E084A3C99C060C7 /* CDVFile.m */; };
+		898247A4D0B844F2833159B2 /* CDVLocalFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 76E2984C963040378B4D5AEE /* CDVLocalFilesystem.m */; };
+		56FCC46004D74627BCC41377 /* CDVAssetLibraryFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 35F4DCEA0071413C86259F09 /* CDVAssetLibraryFilesystem.m */; };
+		2413970A6BEA4D368717A575 /* CDVFileTransfer.m in Sources */ = {isa = PBXBuildFile; fileRef = F7681F4C3ECE4DAB9C96A8D0 /* CDVFileTransfer.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,18 +63,18 @@
 		EB87FDF41871DAF40020F90C /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = ../../config.xml; sourceTree = "<group>"; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = "StampRally/config.xml"; sourceTree = "<group>"; };
 		ED33DF2A687741AEAF9F8254 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Bridging-Header.h"; path = "Bridging-Header.h"; sourceTree = "<group>"; };
-		AF6E72AB519048E6B131CB4A /* CDVFile.m */ = {isa = PBXFileReference; name = "CDVFile.m"; path = "cordova-plugin-file/CDVFile.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
-		4586232C25D549E89A3C4259 /* CDVLocalFilesystem.m */ = {isa = PBXFileReference; name = "CDVLocalFilesystem.m"; path = "cordova-plugin-file/CDVLocalFilesystem.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
-		C4967767E66446BDA582BEF5 /* CDVAssetLibraryFilesystem.m */ = {isa = PBXFileReference; name = "CDVAssetLibraryFilesystem.m"; path = "cordova-plugin-file/CDVAssetLibraryFilesystem.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
-		4AB9D25F325945A1ACA4DEFB /* CDVFile.h */ = {isa = PBXFileReference; name = "CDVFile.h"; path = "cordova-plugin-file/CDVFile.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
-		384D92F3FD86434FBD5A74F9 /* CDVLocalFilesystem.h */ = {isa = PBXFileReference; name = "CDVLocalFilesystem.h"; path = "cordova-plugin-file/CDVLocalFilesystem.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
-		E43C2013AF7246AFB0E6B658 /* CDVAssetLibraryFilesystem.h */ = {isa = PBXFileReference; name = "CDVAssetLibraryFilesystem.h"; path = "cordova-plugin-file/CDVAssetLibraryFilesystem.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
-		793CD6ED1F91406A8F557D65 /* CDVFileTransfer.m */ = {isa = PBXFileReference; name = "CDVFileTransfer.m"; path = "cordova-plugin-file-transfer/CDVFileTransfer.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
-		AF0956248ED646B1861D7255 /* CDVFileTransfer.h */ = {isa = PBXFileReference; name = "CDVFileTransfer.h"; path = "cordova-plugin-file-transfer/CDVFileTransfer.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
-		F3161A0E5BE14DD1A70AE08D /* CDVNotification.m */ = {isa = PBXFileReference; name = "CDVNotification.m"; path = "cordova-plugin-dialogs/CDVNotification.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
-		6DDC347256234C74B99EB2FB /* CDVNotification.h */ = {isa = PBXFileReference; name = "CDVNotification.h"; path = "cordova-plugin-dialogs/CDVNotification.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
-		0CCC8F5539D740FCB2FCF07F /* CDVNotification.bundle */ = {isa = PBXFileReference; name = "CDVNotification.bundle"; path = "CDVNotification.bundle"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.plug-in; explicitFileType = undefined; includeInIndex = 0; };
-		9E1FBAAD77C44D91B02FB4AD /* AudioToolbox.framework */ = {isa = PBXFileReference; name = "AudioToolbox.framework"; path = "System/Library/Frameworks/AudioToolbox.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		251DB20AF41649FF8959B824 /* CDVNotification.m */ = {isa = PBXFileReference; name = "CDVNotification.m"; path = "cordova-plugin-dialogs/CDVNotification.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		939A1731DA8F48EF96542C5E /* CDVNotification.h */ = {isa = PBXFileReference; name = "CDVNotification.h"; path = "cordova-plugin-dialogs/CDVNotification.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		95BFFABB2DF447C2AF7AB494 /* CDVNotification.bundle */ = {isa = PBXFileReference; name = "CDVNotification.bundle"; path = "CDVNotification.bundle"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.plug-in; explicitFileType = undefined; includeInIndex = 0; };
+		F3803EDC385945B7AB0CB99A /* AudioToolbox.framework */ = {isa = PBXFileReference; name = "AudioToolbox.framework"; path = "System/Library/Frameworks/AudioToolbox.framework"; sourceTree = SDKROOT; fileEncoding = undefined; lastKnownFileType = wrapper.framework; explicitFileType = undefined; includeInIndex = 0; };
+		3A65CB2C3E084A3C99C060C7 /* CDVFile.m */ = {isa = PBXFileReference; name = "CDVFile.m"; path = "cordova-plugin-file/CDVFile.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		76E2984C963040378B4D5AEE /* CDVLocalFilesystem.m */ = {isa = PBXFileReference; name = "CDVLocalFilesystem.m"; path = "cordova-plugin-file/CDVLocalFilesystem.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		35F4DCEA0071413C86259F09 /* CDVAssetLibraryFilesystem.m */ = {isa = PBXFileReference; name = "CDVAssetLibraryFilesystem.m"; path = "cordova-plugin-file/CDVAssetLibraryFilesystem.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		7C3AC451BA80468C93B8119F /* CDVFile.h */ = {isa = PBXFileReference; name = "CDVFile.h"; path = "cordova-plugin-file/CDVFile.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		5336D1C6DE024E8ABDA8EF7A /* CDVLocalFilesystem.h */ = {isa = PBXFileReference; name = "CDVLocalFilesystem.h"; path = "cordova-plugin-file/CDVLocalFilesystem.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		4D4D84F8CF174C0E82F73248 /* CDVAssetLibraryFilesystem.h */ = {isa = PBXFileReference; name = "CDVAssetLibraryFilesystem.h"; path = "cordova-plugin-file/CDVAssetLibraryFilesystem.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
+		F7681F4C3ECE4DAB9C96A8D0 /* CDVFileTransfer.m */ = {isa = PBXFileReference; name = "CDVFileTransfer.m"; path = "cordova-plugin-file-transfer/CDVFileTransfer.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		E375D88375B74A0DBAC8F957 /* CDVFileTransfer.h */ = {isa = PBXFileReference; name = "CDVFileTransfer.h"; path = "cordova-plugin-file-transfer/CDVFileTransfer.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,7 +83,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				301BF552109A68D80062928A /* libCordova.a in Frameworks */,
-				718B0D458CC4425CB3E5F34D /* AudioToolbox.framework in Frameworks */,
+				D13FC05567584B14AFC5A46E /* AudioToolbox.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -146,7 +146,7 @@
 				3047A50E1AB8057F00498E2A /* config */,
 				8D1107310486CEB800E47090 /* StampRally-Info.plist */,
 				6AFF5BF81D6E424B00AB3073 /* CDVLaunchScreen.storyboard */,
-				0CCC8F5539D740FCB2FCF07F /* CDVNotification.bundle */,
+				95BFFABB2DF447C2AF7AB494 /* CDVNotification.bundle */,
 			);
 			name = Resources;
 			path = "StampRally/Resources";
@@ -155,7 +155,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				9E1FBAAD77C44D91B02FB4AD /* AudioToolbox.framework */,
+				F3803EDC385945B7AB0CB99A /* AudioToolbox.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -181,16 +181,16 @@
 		307C750510C5A3420062BCA9 /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
-				AF6E72AB519048E6B131CB4A /* CDVFile.m */,
-				4586232C25D549E89A3C4259 /* CDVLocalFilesystem.m */,
-				C4967767E66446BDA582BEF5 /* CDVAssetLibraryFilesystem.m */,
-				4AB9D25F325945A1ACA4DEFB /* CDVFile.h */,
-				384D92F3FD86434FBD5A74F9 /* CDVLocalFilesystem.h */,
-				E43C2013AF7246AFB0E6B658 /* CDVAssetLibraryFilesystem.h */,
-				793CD6ED1F91406A8F557D65 /* CDVFileTransfer.m */,
-				AF0956248ED646B1861D7255 /* CDVFileTransfer.h */,
-				F3161A0E5BE14DD1A70AE08D /* CDVNotification.m */,
-				6DDC347256234C74B99EB2FB /* CDVNotification.h */,
+				251DB20AF41649FF8959B824 /* CDVNotification.m */,
+				939A1731DA8F48EF96542C5E /* CDVNotification.h */,
+				3A65CB2C3E084A3C99C060C7 /* CDVFile.m */,
+				76E2984C963040378B4D5AEE /* CDVLocalFilesystem.m */,
+				35F4DCEA0071413C86259F09 /* CDVAssetLibraryFilesystem.m */,
+				7C3AC451BA80468C93B8119F /* CDVFile.h */,
+				5336D1C6DE024E8ABDA8EF7A /* CDVLocalFilesystem.h */,
+				4D4D84F8CF174C0E82F73248 /* CDVAssetLibraryFilesystem.h */,
+				F7681F4C3ECE4DAB9C96A8D0 /* CDVFileTransfer.m */,
+				E375D88375B74A0DBAC8F957 /* CDVFileTransfer.h */,
 			);
 			name = Plugins;
 			path = "StampRally/Plugins";
@@ -272,7 +272,7 @@
 				302D95F214D2391D003F00A1 /* MainViewController.xib in Resources */,
 				0207DA581B56EA530066E2B4 /* Images.xcassets in Resources */,
 				6AFF5BF91D6E424B00AB3073 /* CDVLaunchScreen.storyboard in Resources */,
-				FB1C79BA038846A6A77F5C64 /* CDVNotification.bundle in Resources */,
+				41BB3E4B5E2A4292A479EDC9 /* CDVNotification.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -304,11 +304,11 @@
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
 				302D95F114D2391D003F00A1 /* MainViewController.m in Sources */,
-				E0DBC74664EA4BFCA57E2160 /* CDVFile.m in Sources */,
-				DB38E805E36546D0BD4598B7 /* CDVLocalFilesystem.m in Sources */,
-				97178F839AB748D7B725F149 /* CDVAssetLibraryFilesystem.m in Sources */,
-				FD3247605B3F4375B3114748 /* CDVFileTransfer.m in Sources */,
-				DEA921AD28694103901602AE /* CDVNotification.m in Sources */,
+				1D43C66365324A30802F21D3 /* CDVNotification.m in Sources */,
+				12FDAF152D13465FB2AF9C7D /* CDVFile.m in Sources */,
+				898247A4D0B844F2833159B2 /* CDVLocalFilesystem.m in Sources */,
+				56FCC46004D74627BCC41377 /* CDVAssetLibraryFilesystem.m in Sources */,
+				2413970A6BEA4D368717A575 /* CDVFileTransfer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
