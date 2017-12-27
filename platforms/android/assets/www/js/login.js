@@ -1,6 +1,8 @@
 ons.bootstrap(['app']);
-var app = angular.module('app',['onsen.directives','ui.bootstrap']);
-app.controller('AppController', function($scope, $http, $timeout) {
+var app = angular.module('app',[]);
+app.controller('AppController',  ['$scope', '$http', '$timeout', function($scope, $http, $timeout) {
+    //bootstrap使いたいときに入れる
+    //angular.bootstrap(app, ['app']);
     //ログイン画面のコントローラー
     // メンバ
     this.menu = null;
@@ -19,7 +21,7 @@ app.controller('AppController', function($scope, $http, $timeout) {
     document.addEventListener("deviceready", function() {
         login(id, $http);
     });
-});
+}]);
 
 function login(id, $http) {
     //ログイン処理
@@ -52,7 +54,7 @@ function login(id, $http) {
         }
     }, function onError(data, status) {
         ons.notification.alert({ message: "ログイン中にエラーが発生しました。", title: "エラー", cancelable: true });
-        console.log("エラー："+data);
+        console.log("エラー："+data.data);
         console.log("ステータス："+status);
         retry();
     });

@@ -1,7 +1,8 @@
-app.controller('homeCtr', function($scope) {
+app.controller('homeCtr', ['$scope', function($scope) {
 
     loginName.innerHTML = "ID:" + localStorage.getItem('ID') + "でログイン中";
-
+    var img = window.localStorage.getItem('img');
+    this.imgdata = img;
     //更新チェック
     this.updataClick=function(){
         codePush.sync(function (status) {
@@ -43,16 +44,4 @@ app.controller('homeCtr', function($scope) {
             return ons.platform.isAndroid() ? 48 : 44;
         }
     };
-
-    /* 前ページにスワイプ
-    documentにイベントリスナーをつけるとメモリを保持し続けるようなので
-    各ページ毎に書いた方が良い*/
-    // document.addEventListener('swiperight', function(event) {
-    //     mainTab.setActiveTab(mainTab.getActiveTabIndex() - 1);
-    // });
-
-    /* 次ページにスワイプ */
-    // document.addEventListener('swipeleft', function(event) {
-    //     mainTab.setActiveTab(mainTab.getActiveTabIndex() + 1);
-    // });
-});
+}]);
