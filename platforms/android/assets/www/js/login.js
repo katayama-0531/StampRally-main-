@@ -1,6 +1,11 @@
 ons.bootstrap(['app']);
-var app = angular.module('app',[]);
-app.controller('AppController',  ['$scope', '$http', '$timeout', function($scope, $http, $timeout) {
+var app = angular.module('app',['ngResource', 'ngStorage']);
+//画像表示の際に使用する共通変数
+app.constant('img_num', {
+      'num': 0,
+      'img_list':[]
+    });
+app.controller('AppController',  ['$scope', '$http', '$timeout',function($scope, $http, $timeout) {
     //bootstrap使いたいときに入れる
     //angular.bootstrap(app, ['app']);
     //ログイン画面のコントローラー

@@ -1,7 +1,8 @@
-app.controller('homeCtr', ['$scope', function($scope) {
+app.controller('homeCtr', ['$scope', 'img_num', function($scope, img_num) {
 
     loginName.innerHTML = "ID:" + localStorage.getItem('ID') + "でログイン中";
-    var img = window.localStorage.getItem('img');
+
+    var img = img_num.img_list[0].img1;
     this.imgdata = img;
     //更新チェック
     this.updataClick=function(){

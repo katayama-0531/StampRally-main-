@@ -7,7 +7,7 @@ app.controller('stampCtr', ['$scope', '$http' , function ($scope, $http) {
         ons.notification.alert({ message: "お使いの端末ではGPSがご利用いただけません。", title: "エラー", cancelable: true });
     }
     
-    $scope.getGps = function () {
+    this.getGps = function () {
         //現在位置取得ボタンタップ時
         lodingIcon.style.visibility = "visible";
         gpsButton.innerHTML = "現在位置取得中";

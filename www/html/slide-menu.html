@@ -1,6 +1,11 @@
 <ons-page ng-controller="slideMenuCtr as slideMenu">
     <ons-toolbar id="title">
         <div class="center">スタンプラリーアプリ</div>
+        <div class="right">
+            <ons-toolbar-button>
+                <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+            </ons-toolbar-button>
+        </div>
     </ons-toolbar>
     <ons-splitter>
         <ons-splitter-side id="menu" side="left" width="250px" var="slidingMenu.menu" collapse swipeable>

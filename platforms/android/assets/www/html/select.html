@@ -1,7 +1,10 @@
 <ons-page id="selectPage" ng-controller="select as selectCtr">
     <article class="container" style="text-align: center">
-        <ul>
-            <li ng-repeat="nameList in selectCtr.data track by $index">
+        <div>
+            <p>開始するスタンプラリーを選択して下さい</p>
+        </div>
+        <ul class="btnList">
+            <li class="btnList" ng-repeat="nameList in selectCtr.data track by $index">
                 <ons-button crass="list-group-item-action" ng-click="selectCtr.dlClick(nameList.id)">{{ nameList.name }}</ons-button>
             </li>
         </ul>

@@ -18,6 +18,8 @@
     "onsenui": "^2.8.3",
     "bootstrap": "^3.3.7",
     "angular-bootstrap": "^2.5.0",
-    "angular-i18n": "^1.6.7"
+    "angular-i18n": "^1.6.7",
+    "ngstorage": "^0.3.11",
+    "angular-resource": "^1.6.8"
   }
 }

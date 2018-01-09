@@ -1,17 +1,21 @@
-app.factory("DirectoryMethod", ["$q", "FileSystem", function($q, FS) {
-  return {
-      getTargetDirectory: function(dirPath) {
-          let deferred = $q.defer();
-          FS.getFileSystem()
-          .then(function(filesystem){
-              filesystem.root.getDirectory(dirPath, {create: false}, function(dirEntry){
-                  deferred.resolve(dirEntry);
-              },
-              function(erroe){
-                  deferred.reject(error);
-              });
-          });
-          return deferred.promise;
-      }
+angular.module('app').factory('get_img_service', ['$resource', '$localStorage',
+function($resource, $localStorage){
+  return{
+    all: function(url){
+        // $resource(ngResource)を使って読み込む
+        var res = $resource(url);
+
+        // $resourceは遅延実行なので$promiseを使ってデータを取得できるまで待ってから$localStorageへ保存
+        var data = res.query();  //戻り値が配列（複数）の場合はquery
+        //var data = res.get();　//戻り値がJSON１つの場合はget
+        //Angularjs 1.6以降はエラー処理を書かないとエラーになる
+        return data.$promise.then(function() {
+          $localStorage.$default(data); // localStorageの$defaultへ
+          return $localStorage; // $localStorageを返す
+          //return jString; // $localStorageを返す
+        }, function(reason){
+          return reason; // reasonを返す
+        });
+    }
   };
 }]);
