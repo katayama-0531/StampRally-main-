@@ -1,4 +1,4 @@
-app.controller('stampCtr', ['$scope', '$http' , function ($scope, $http) {
+app.controller('stampCtr', 'get_img_service' ['$scope', '$http', 'get_img_service',  function ($scope, $http, get_img_service) {
     //スタンプ画面のコントローラー
     lodingIcon.style.visibility = "hidden";
 
@@ -150,63 +150,75 @@ function checkGps(gpsData, $http) {
         config = {
             timeout: 5000
         };
-    $http.post(url, gpsData, config).
-        success(function (data, status) {
-            lodingIcon.style.visibility = "hidden";
-            var str =
-                //Latitude(緯度)：-90.0～90.0
-                "緯度:" + gpsData["lat"] +
-                //Longitude(経度)：-180.0～180.0
-                "/経度:" + gpsData["lng"] + " \n" +
-                //Altitude(高度)　単位：メートル
-                "高度:" + gpsData["alt"] + "m" + " \n" +
-                //Accuracy(位置精度)　単位：メートル
-                "位置精度:" + gpsData["acc"] + "m/ " +
-                //AltitudeAccuracy(高度精度)　単位：メートル *Androidでは使えない。
-                "高度精度:" + gpsData["altacc"] + "m";
-            $('#gps').html(str.replace(/\r?\n/g, '<br>'));
 
-            gpsButton.innerHTML = "範囲内";
-            stamp.innerHTML = "スタンプ取得済み";
-            stampImg.src = "img/gif-test.gif";
-            stampImg.className = "animated bounceInDown";
-            stampImg2.src = "img/png-test.png";
-            stampImg2.className = "animated wobble";
-            gpsButton.disabled = true;
-            var mapOptions = {
-                center: new google.maps.LatLng(0, 0),
-                zoom: 16,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-            };
+    var req = {
+        method: 'POST',
+        url: url,
+        data: gpsData
+    };
 
-            var map = new google.maps.Map(mapCanvas, mapOptions);
+    $http(req).then(function onSuccess(data, status) {
+        lodingIcon.style.visibility = "hidden";
+        var str =
+            //Latitude(緯度)：-90.0～90.0
+            "緯度:" + gpsData["lat"] +
+            //Longitude(経度)：-180.0～180.0
+            "/経度:" + gpsData["lng"] + " \n" +
+            //Altitude(高度)　単位：メートル
+            "高度:" + gpsData["alt"] + "m" + " \n" +
+            //Accuracy(位置精度)　単位：メートル
+            "位置精度:" + gpsData["acc"] + "m/ " +
+            //AltitudeAccuracy(高度精度)　単位：メートル *Androidでは使えない。
+            "高度精度:" + gpsData["altacc"] + "m";
+        $('#gps').html(str.replace(/\r?\n/g, '<br>'));
 
-            var latLong = new google.maps.LatLng(gpsData["lat"], gpsData["lng"]);
+        gpsButton.innerHTML = "範囲内";
+        stamp.innerHTML = "スタンプ取得済み";
+        //injectしたいサービスを記述。ngも必要。
+        var injector = angular.injector(['ng','app']);
+        //injectorからサービスを取得
+        var service = injector.get('get_img_service');
 
-            var marker = new google.maps.Marker({
-                position: latLong
-            });
+        //stampImg.src = "img/gif-test.gif";
+        stampImg.src = service.getURL();
+        stampImg.className = "animated bounceInDown";
+        //stampImg2.src = "img/png-test.png";
+        stampImg2.src = service.getURL();;
+        stampImg2.className = "animated wobble";
+        gpsButton.disabled = true;
+        var mapOptions = {
+            center: new google.maps.LatLng(0, 0),
+            zoom: 16,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
 
-            // 誤差を円で描く
-            new google.maps.Circle({
-                map: map,
-                center: latLong,
-                radius: gpsData["acc"], // 単位はメートル
-                strokeColor: '#0088ff',
-                strokeOpacity: 0.8,
-                strokeWeight: 1,
-                fillColor: '#0088ff',
-                fillOpacity: 0.2
-            });
-            marker.setMap(map);
-            map.setZoom(16);
-            map.setCenter(marker.getPosition());
-            navigator.vibrate(1000, 1000);
-        }).
-        error(function (data, status) {
-            ons.notification.alert({ message: "エラーが発生しました。", title: "エラー", cancelable: true });
-            console.log(data);
-        }); 
+        var map = new google.maps.Map(mapCanvas, mapOptions);
+
+        var latLong = new google.maps.LatLng(gpsData["lat"], gpsData["lng"]);
+
+        var marker = new google.maps.Marker({
+            position: latLong
+        });
+
+        // 誤差を円で描く
+        new google.maps.Circle({
+            map: map,
+            center: latLong,
+            radius: gpsData["acc"], // 単位はメートル
+            strokeColor: '#0088ff',
+            strokeOpacity: 0.8,
+            strokeWeight: 1,
+            fillColor: '#0088ff',
+            fillOpacity: 0.2
+        });
+        marker.setMap(map);
+        map.setZoom(16);
+        map.setCenter(marker.getPosition());
+        navigator.vibrate(1000, 1000);
+    }, function onError(data, status) {
+        ons.notification.alert({ message: "エラーが発生しました。", title: "エラー", cancelable: true });
+        console.log(data);
+    });
 }
 
 function stampPageReset(){

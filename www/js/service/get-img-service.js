@@ -1,7 +1,7 @@
-angular.module('app').factory('get_img_service', ['$resource', '$localStorage',
-function($resource, $localStorage){
+angular.module('app').factory('get_img_service', ['$resource', '$localStorage', 'img_num', 
+function($resource, $localStorage, img_num){
   return{
-    all: function(url){
+    leadAndSet: function(url){
         // $resource(ngResource)を使って読み込む
         var res = $resource(url);
 
@@ -16,6 +16,9 @@ function($resource, $localStorage){
         }, function(reason){
           return reason; // reasonを返す
         });
+    },
+    getURL: function(){
+      return img_num.img_list[0].img1;
     }
   };
 }]);

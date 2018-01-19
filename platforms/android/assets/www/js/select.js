@@ -26,7 +26,8 @@ app.controller('select', ['$scope','img_num', 'get_img_service', '$localStorage'
 
         if($localStorage.$default[0]){
             console.log("デフォルトデータあり");
-            console.log($localStorage.$default[0]);
+            console.log(img_num.img_list);
+            navi.replacePage("html/slide-menu.html");
         }else{
             console.log("デフォルトデータなし");
             // 選択ファイルの読み込み
@@ -36,7 +37,7 @@ app.controller('select', ['$scope','img_num', 'get_img_service', '$localStorage'
             var injector = angular.injector(['ng','app']);
             //injectorからサービスを取得
             var service = injector.get('get_img_service');
-            service.all(filePath).then(function(res){
+            service.leadAndSet(filePath).then(function(res){
                 //jsonList = JSON.parse(res);
                 img_num.img_list = res;
                 //$scope.show_loading = false; // ローディング中、を非表示へ

@@ -1,0 +1,105 @@
+@charset "utf-8";
+/* ------------------------------------------------------------------------------
+japan-izm.com
+------------------------------------------------------------------------------ */
+
+body {
+margin: 0;
+padding: 0;
+/*ゴシック体*/
+font: 13px/1.6 Verdana, Roboto, "Droid Sans", "游ゴシック", YuGothic, "ヒラギノ角ゴ ProN W3", "Hiragino Kaku Gothic ProN", "メイリオ", Meiryo, sans-serif;
+/*明朝体*/
+/*font: 13px/1.6 "Times New Roman", "游明朝", YuMincho, "ヒラギノ明朝 ProN W3", "Hiragino Mincho ProN", "メイリオ", Meiryo, serif;*/
+}
+h1, h2, h3, h4, h5, h6 {
+font-size: 100%;
+font-weight: normal;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { 
+display: block;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, canvas, summary, time, mark, audio, video,
+div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, textarea, p, blockquote, th, td {
+margin: 0;
+padding: 0;
+}
+select, input, button, textarea {
+font: 99%;
+}
+input, select {
+vertical-align: middle;
+}
+table {
+border-collapse: collapse;
+border-spacing :0;
+font-size: inherit;
+font: 100%;
+}
+address, caption, cite, code, dfn, em, strong, th, var, small {
+font-style: normal;
+font-weight: normal;
+}
+pre, code, kbd, samp, tt {
+font-family: monospace;
+*font-size: 108%;
+line-height: 100%;
+}
+abbr, acronym {
+border: 0;
+font-variant: normal;
+}
+ol, ul {
+list-style: none;
+}
+caption, th {
+text-align: left;
+}
+fieldset, img {
+border: 0;
+}
+a {
+display: inline;
+}
+img {
+vertical-align: bottom;
+}
+legend {
+color: #000;
+}
+sup {
+vertical-align: text-top;
+}
+sub {
+vertical-align: text-bottom;
+}
+del {
+text-decoration: line-through;
+}
+ins {
+text-decoration: none;
+}
+q:before, q:after, blockquote:before, blockquote:after {
+content: '';
+}
+hr {
+display: block;
+height: 1px;
+border-top: 1px solid #CCCCCC;
+margin: 1em 0px;
+padding: 0px;
+border-right: 0px;
+border-bottom: 0px;
+border-left: 0px;
+}
+/* ClearBoth */
+.cb {
+clear: both;
+}
+/* ClearFix */
+.cf:before, .cf:after {
+content: "";
+display: table;
+}
+.cf:after {
+clear: both;
+}

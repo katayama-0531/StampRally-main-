@@ -70,5 +70,13 @@
     },
     "is_top_level": true,
     "variables": {}
+  },
+  "cordova-plugin-androidGps": {
+    "source": {
+      "type": "local",
+      "path": "/Users/graphic12/Documents/Workspace/StampRally-main-/node_modules/androidgps"
+    },
+    "is_top_level": true,
+    "variables": {}
   }
 }

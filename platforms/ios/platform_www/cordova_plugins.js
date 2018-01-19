@@ -284,6 +284,14 @@ module.exports = [
     "clobbers": [
       "cordova.plugins.permissions"
     ]
+  },
+  {
+    "id": "cordova-plugin-androidGps.androidGps",
+    "file": "plugins/cordova-plugin-androidGps/www/androidGps.js",
+    "pluginId": "cordova-plugin-androidGps",
+    "clobbers": [
+      "androidGps"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -297,7 +305,8 @@ module.exports.metadata =
   "phonegap-plugin-barcodescanner": "7.0.1",
   "cordova-plugin-geolocation": "4.0.1",
   "cordova-plugin-device": "2.0.1",
-  "cordova-plugin-android-permissions": "1.0.0"
+  "cordova-plugin-android-permissions": "1.0.0",
+  "cordova-plugin-androidGps": "0.0.1"
 };
 // BOTTOM OF METADATA
 });

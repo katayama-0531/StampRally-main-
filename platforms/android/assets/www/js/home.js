@@ -1,8 +1,13 @@
-app.controller('homeCtr', ['$scope', 'img_num', function($scope, img_num) {
+app.controller('homeCtr', ['$scope', 'img_num', 'get_img_service', function($scope, img_num, get_img_service) {
 
     loginName.innerHTML = "ID:" + localStorage.getItem('ID') + "でログイン中";
 
-    var img = img_num.img_list[0].img1;
+    // var img = img_num.img_list[0].img1;
+    //injectしたいサービスを記述。ngも必要。
+    var injector = angular.injector(['ng','app']);
+    //injectorからサービスを取得
+    var service = injector.get('get_img_service');
+    var img = service.getURL();
     this.imgdata = img;
     //更新チェック
     this.updataClick=function(){
