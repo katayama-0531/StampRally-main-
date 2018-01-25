@@ -2451,7 +2451,8 @@ h4, h5, h6 {
 }
 .tabbar--material {
   background: none;
-  background-color: #ffffff;
+  /*background-color: #ffffff;*/
+  background-color: #0071BC;
   border-bottom-width: 0;
   box-shadow:
     0 4px 2px -2px rgba(0, 0, 0, .14),

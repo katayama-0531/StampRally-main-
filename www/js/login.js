@@ -1,5 +1,5 @@
-ons.bootstrap(['app']);
-var app = angular.module('app',['ngResource', 'ngStorage']);
+ons.bootstrap(['stampRallyApp']);
+var app = angular.module('stampRallyApp',['ngResource', 'ngStorage']);
 //画像表示の際に使用する共通変数
 app.constant('img_num', {
       'num': 0,
@@ -51,7 +51,7 @@ function login(id, $http) {
     $http(req).then(function onSuccess(data, status) {
         if (data.data[0] == "success") {
             localStorage.setItem("ID", data.data[1]);
-            navi.replacePage("html/select.html");
+            navi.replacePage("html/tab-bar.html");
         } else {
             ons.notification.alert({ message: "ログインできませんでした。", title: "エラー", cancelable: true });
             console.log(data);

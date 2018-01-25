@@ -1,3 +1,4 @@
+//使わないので機能をhomeに移植後削除
 app.controller('select', ['$scope','img_num', 'get_img_service', '$localStorage', function($scope, img_num, get_img_service, $localStorage) {
     var listItem = [{id: 1, name: 'スタンプラリー1', package: 200}, {id: 2, name: 'スタンプラリー2', package: 200}];
     this.data = listItem;
@@ -41,7 +42,6 @@ app.controller('select', ['$scope','img_num', 'get_img_service', '$localStorage'
                 //jsonList = JSON.parse(res);
                 img_num.img_list = res;
                 //$scope.show_loading = false; // ローディング中、を非表示へ
-                console.log(img_num.img_list);
                 navi.replacePage("html/slide-menu.html");
             });
         };

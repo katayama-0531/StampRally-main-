@@ -47,10 +47,6 @@
             {
               "xml": "<feature name=\"Permissions\"><param name=\"android-package\" value=\"com.android.plugins.Permissions\" /></feature>",
               "count": 1
-            },
-            {
-              "xml": "<feature name=\"androidGps\"><param name=\"android-package\" value=\"com.example.android.gps.AndroidGps\" /></feature>",
-              "count": 1
             }
           ]
         }
@@ -103,22 +99,6 @@
             {
               "xml": "<uses-feature android:name=\"android.hardware.camera\" android:required=\"true\" />",
               "count": 1
-            },
-            {
-              "xml": "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\" />",
-              "count": 1
-            },
-            {
-              "xml": "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\" />",
-              "count": 1
-            },
-            {
-              "xml": "<uses-permission android:name=\"android.permission.ACCESS_COARSE_UPDATES\" />",
-              "count": 1
-            },
-            {
-              "xml": "<uses-permission android:name=\"android.permission.WAKE_LOCK\" />",
-              "count": 1
             }
           ]
         }
@@ -151,9 +131,6 @@
       "PACKAGE_NAME": "com.example.StampRally"
     },
     "cordova-plugin-android-permissions": {
-      "PACKAGE_NAME": "com.example.StampRally"
-    },
-    "cordova-plugin-androidGps": {
       "PACKAGE_NAME": "com.example.StampRally"
     }
   },
@@ -433,14 +410,6 @@
       "clobbers": [
         "cordova.plugins.permissions"
       ]
-    },
-    {
-      "id": "cordova-plugin-androidGps.androidGps",
-      "file": "plugins/cordova-plugin-androidGps/www/androidGps.js",
-      "pluginId": "cordova-plugin-androidGps",
-      "clobbers": [
-        "androidGps"
-      ]
     }
   ],
   "plugin_metadata": {
@@ -452,7 +421,6 @@
     "phonegap-plugin-barcodescanner": "7.0.1",
     "cordova-plugin-geolocation": "4.0.1",
     "cordova-plugin-device": "2.0.1",
-    "cordova-plugin-android-permissions": "1.0.0",
-    "cordova-plugin-androidGps": "0.0.1"
+    "cordova-plugin-android-permissions": "1.0.0"
   }
 }

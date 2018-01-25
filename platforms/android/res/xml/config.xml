@@ -30,9 +30,6 @@
     <feature name="Permissions">
         <param name="android-package" value="com.android.plugins.Permissions" />
     </feature>
-    <feature name="androidGps">
-        <param name="android-package" value="com.example.android.gps.AndroidGps" />
-    </feature>
     <name>StampRally</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.

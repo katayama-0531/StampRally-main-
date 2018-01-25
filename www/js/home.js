@@ -4,11 +4,11 @@ app.controller('homeCtr', ['$scope', 'img_num', 'get_img_service', function($sco
 
     // var img = img_num.img_list[0].img1;
     //injectしたいサービスを記述。ngも必要。
-    var injector = angular.injector(['ng','app']);
+    var injector = angular.injector(['ng','stampRallyApp']);
     //injectorからサービスを取得
     var service = injector.get('get_img_service');
-    var img = service.getURL();
-    this.imgdata = img;
+    //var img = service.getURL();
+    //this.imgdata = img;
     //更新チェック
     this.updataClick=function(){
         codePush.sync(function (status) {

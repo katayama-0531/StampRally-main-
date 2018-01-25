@@ -1,4 +1,4 @@
-angular.module('app').factory('get_img_service', ['$resource', '$localStorage', 'img_num', 
+angular.module('stampRallyApp').factory('get_img_service', ['$resource', '$localStorage', 'img_num', 
 function($resource, $localStorage, img_num){
   return{
     leadAndSet: function(url){

@@ -34,9 +34,6 @@
     },
     "cordova-plugin-android-permissions": {
       "PACKAGE_NAME": "com.example.StampRally"
-    },
-    "cordova-plugin-androidGps": {
-      "PACKAGE_NAME": "com.example.StampRally"
     }
   },
   "dependent_plugins": {}

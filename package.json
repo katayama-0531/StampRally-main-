@@ -36,8 +36,7 @@
       },
       "cordova-plugin-geolocation": {},
       "cordova-plugin-device": {},
-      "cordova-plugin-android-permissions": {},
-      "cordova-plugin-androidGps": {}
+      "cordova-plugin-android-permissions": {}
     },
     "platforms": [
       "android",
