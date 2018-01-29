@@ -1,11 +1,4 @@
 <!--ホーム画面-->
-<ons-page ng-controller="homeCtr as home" id="homePage">
-    <article class="container" style="text-align: center; overflow: hidden;">
-        <header>
-            <p id="loginName"></p>
-            <p ons-if-platform="ios">iPhoneまたはiPadでアプリ使用中</p>
-            <p ons-if-platform="Android">Androidでアプリ使用中</p>
-        </header>
-        <!--<img src="{{home.imgdata}}">-->
-    </article>
+<ons-page>
+        <ons-navigator page="html/home-view.html" var="navi">
 </ons-page>

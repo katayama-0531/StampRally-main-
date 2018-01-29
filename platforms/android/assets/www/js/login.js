@@ -13,18 +13,19 @@ app.controller('AppController',  ['$scope', '$http', '$timeout',function($scope,
     this.menu = null;
     var id = localStorage.getItem('ID');
     $scope.loginClick = function() {
-        login(id, $http);
+        //login(id, $http);
     };
 
-    $scope.loginInit = function() {
-        //ログインの通信の為の準備
-        app.config(function($httpProvider) {
-            $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;application/json;charset=utf-8';
-        });
-    };
+    // $scope.loginInit = function() {
+    //     //ログインの通信の為の準備
+    //     app.config(function($httpProvider) {
+    //         $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;application/json;charset=utf-8';
+    //     });
+    // };
 
     document.addEventListener("deviceready", function() {
-        login(id, $http);
+        navi.replacePage("html/tab-bar.html");
+        //login(id, $http);
     });
 }]);
 

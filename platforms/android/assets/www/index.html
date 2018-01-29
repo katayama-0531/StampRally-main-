@@ -33,16 +33,19 @@
     <script src="js/login.js"></script>
     <!-- ホーム画面のスクリプト-->
     <script src="js/home.js"></script>
-    <!--QRコード読込のスクリプト-->
-    <script src="js/qr-scan.js"></script>
+    <script src="js/home-view.js"></script>
+    <!--ラリー帳のスクリプト-->
+    <script src="js/rally.js"></script>
     <!-- 近くのスポットのスクリプト-->
     <script src="js/spot.js"></script>
     <!--クーポンのスクリプト-->
     <script src="js/coupon.js"></script>
     <!-- お気に入りのスクリプト-->
-    <script src="js/stamp.js"></script>
+    <script src="js/star.js"></script>
     <!-- 設定画面のスクリプト-->
     <script src="js/setting.js"></script>
+    <!-- お知らせ画面のスクリプト-->
+    <!--<script src="js/news.js"></script>-->
     <!-- ヘッダーメニューとフッターメニューのスクリプト-->
     <script src="js/tab-bar.js"></script>
     <!--ファイル保存の為のスクリプト-->
@@ -54,9 +57,54 @@
 </head>
 
 <body>
+    <!--読み込み中モーダル-->
+    <ons-modal var="roadingModal">
+            <div style="text-align: center">
+                    <p>
+                            <ons-icon icon="md-spinner" size="28px" spin></ons-icon> 読み込み中...
+                    </p>
+            </div>
+    </ons-modal>
     <!--ログイン画面-->
-    <ons-navigator page="html/login.html" var="navi" ng-controller="AppController as app">
-    </ons-navigator>
+    <!--<ons-navigator page="html/tab-bar.html" var="navi" ng-controller="AppController as app">
+    </ons-navigator>-->
+    <ons-page ng-controller="tabCtr as tab">
+        <!--ツールバー-->
+        <ons-toolbar id="title" fixed-style>
+                <div class="toolbar__left toolbar--material__left" style="position: relative;">
+                        <img class="toolBarIcons" src="img_common/logo_jaf.png" width="100" height="38" alt="JAF" style="width:100%;height:auto;" ng-click="tab.iconTouch()">
+                </div>
+                <div class="toolbar__center toolbar--material__center">
+                    <h2><img src="img_common/logo_stamprally.png" width="281" height="66" alt="スタンプラリー" style="width:100%;height:auto;"></h2>
+                </div>
+                <div class="toolbar__right toolbar--material__right" style="position: relative;">
+                    <span class="newsBtn">
+                        <img src="img_common/head_icon_news.png" width="36" height="36" alt="" align="left"　style="width:50%;height:auto;" ng-click="tab.newsTouch()">
+                    </span>
+                    <span class="settingBtn">
+                        <img src="img_common/head_icon_setting.png" width="36" height="36" alt="" align="right"　style="width:50%;height:auto;" ng-click="tab.settingTouch()">
+                     </span>
+                </div>
+        </ons-toolbar>
+        <!--タブバー-->
+        <ons-tabbar var="mainTab">
+                <ons-tab page="html/home.html" active="true">
+                    <img src="img_common/navbar_icon_home.png" width="40" height="42" alt="">
+                </ons-tab page="html/rally.html">
+                <ons-tab >
+                    <img src="img_common/navbar_icon_note.png" width="40" height="42" alt="">
+                </ons-tab>
+                <ons-tab page="html/spot.html">
+                    <img src="img_common/navbar_icon_stamp.png" width="40" height="42" alt="">
+                </ons-tab>
+                <ons-tab page="html/coupon.html">
+                    <img src="img_common/navbar_icon_coupon.png" width="40" height="42" alt="">
+                </ons-tab>
+                <ons-tab page="html/star.html">
+                    <img src="img_common/navbar_icon_star.png" width="40" height="42" alt="">
+                </ons-tab>
+        </ons-tabbar>
+    </ons-page>
 </body>
 
 </html>
