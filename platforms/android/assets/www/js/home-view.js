@@ -2,6 +2,7 @@ app.controller('homeCtr', ['$scope', '$http', '$timeout',function($scope, $http,
     roadingModal.show();
 
     var id = localStorage.getItem('ID');
+    var url = "";
     $scope.loginClick = function() {
         login(id, $http);
     };
@@ -13,14 +14,49 @@ app.controller('homeCtr', ['$scope', '$http', '$timeout',function($scope, $http,
         });
     };
 
+    //JavaScriptからネイティブ機能へアクセスが可能になった時の処理
     document.addEventListener("deviceready", function() {
-        login(id, $http);
+        if(id==""){
+            var data = login(id, $http);
+            id = data[1];
+        }
+    });
+    
+    //アクティブなタブの切り替え完了後の処理
+    mainTab.on('postchange',function(event){
+        if(event.index==0){
+            homeFrame.src="http://japan-izm.com/dat/kon/test/stamp/app_view/index.php";
+        }
     });
 
-    // homePage.addEventListener('show', function(event) {
-    //     //ページが見えなくなった時
-    //     navi.replacePage("html/tab-bar.html")
-    // });
+    //アクティブなタブが再度押された場合の処理
+    mainTab.on('reactive',function(event){
+        if(event.index==0){
+            homeFrame.src="http://japan-izm.com/dat/kon/test/stamp/app_view/index.php";
+        }
+    });
+
+    if(mainTab.getActiveTabIndex()==0){
+        //homeFrame.src="http://japan-izm.com/dat/kon/test/stamp/app_view/index.php";
+    }
+
+    //iframe読み込み完了後の処理
+    homeFrame.addEventListener('load',function() {
+        // iframeのwindowオブジェクトを取得
+        var ifrm = homeFrame.contentWindow;
+        // 外部サイトにメッセージを投げる
+        var postMessage =id;
+        ifrm.postMessage(postMessage, "http://japan-izm.com/dat/kon/test/stamp/app_view/index.php");
+        roadingModal.hide();
+    });
+    
+
+    // メッセージ受信イベント
+    window.addEventListener('message', function(event) {
+        if(event.data["page"]=="list"){
+            mainTab.setActiveTab(1);
+        }
+    }, false);
 
 }]);
 
@@ -47,16 +83,16 @@ function login(id, $http) {
     $http(req).then(function onSuccess(data, status) {
         if (data.data[0] == "success") {
             localStorage.setItem("ID", data.data[1]);
-            roadingModal.hide();
+            return data.data;
         } else {
+            roadingModal.hide();
             ons.notification.alert({ message: "ログインできませんでした。", title: "エラー", cancelable: true });
             console.log(data);
-            retry();
         }
     }, function onError(data, status) {
+        roadingModal.hide();
         ons.notification.alert({ message: "ログイン中にエラーが発生しました。", title: "エラー", cancelable: true });
         console.log("エラー："+data.data);
         console.log("ステータス："+status);
-        retry();
     });
 }
