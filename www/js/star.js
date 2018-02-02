@@ -10,11 +10,10 @@ app.controller('starCtr', ['$scope', function($scope) {
         ifrm.postMessage(postMessage, "http://japan-izm.com/dat/kon/test/stamp/app_view/star/index.php");
     });
     
-    // メッセージ受信イベント
-    // window.addEventListener('message', function(event) {
-    //     if(event.data["page"]){
-    //         mainTab.setActiveTab(1);
-    //     }
-    // }, false);
-
+    //アクティブなタブが再度押された場合の処理
+    mainTab.on('reactive',function(event){
+        if(event.index==4){
+            starFrame.src="http://japan-izm.com/dat/kon/test/stamp/app_view/star/index.php";
+        }
+    });
 }]);

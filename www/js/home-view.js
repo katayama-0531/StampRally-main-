@@ -1,4 +1,5 @@
-app.controller('homeCtr', ['$scope', '$http', '$timeout',function($scope, $http, $timeout){
+//app.controller('homeCtr', ['$scope', '$http', '$timeout','page_val', 'get_img_service',function($scope, $http, $timeout, img_num, get_img_service){
+app.controller('homeCtr', ['$scope', '$http', function($scope, $http){
     roadingModal.show();
 
     var id = localStorage.getItem('ID');
@@ -36,10 +37,6 @@ app.controller('homeCtr', ['$scope', '$http', '$timeout',function($scope, $http,
         }
     });
 
-    if(mainTab.getActiveTabIndex()==0){
-        //homeFrame.src="http://japan-izm.com/dat/kon/test/stamp/app_view/index.php";
-    }
-
     //iframe読み込み完了後の処理
     homeFrame.addEventListener('load',function() {
         // iframeのwindowオブジェクトを取得
@@ -55,6 +52,23 @@ app.controller('homeCtr', ['$scope', '$http', '$timeout',function($scope, $http,
     window.addEventListener('message', function(event) {
         if(event.data["page"]=="list"){
             mainTab.setActiveTab(1);
+        }
+        if(event.data["course_id"] > 0){
+            var courseId = event.data["course_id"];
+            if(window.localStorage.getItem(courseId)){
+                console.log("デフォルトデータあり");
+            }else{
+                console.log("デフォルトデータなし");
+                // 選択ファイルの読み込み
+                // var filePath = encodeURI('http://japan-izm.com/dat/kon/test/stamp/img/' + courseId + '/stamp' + courseId + '.json');
+                //  //injectしたいサービスを記述。ngも必要。
+                // var injector = angular.injector(['ng','stampRallyApp']);
+                // //injectorからサービスを取得
+                // var service = injector.get('get_img_service');
+                // service.leadAndSet(filePath).then(function(res){
+                //     page_val.img_list = res;
+                // });
+            }
         }
     }, false);
 

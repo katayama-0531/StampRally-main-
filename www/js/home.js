@@ -3,5 +3,6 @@ var app = angular.module('stampRallyApp',['ngResource', 'ngStorage']);
 app.constant('page_val', {
   'spot_id': 0,
   'num': 0,
+  'img_num': 0,
   'img_list':[]
     });

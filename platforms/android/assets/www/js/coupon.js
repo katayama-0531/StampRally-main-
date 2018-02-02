@@ -1,23 +1,49 @@
-app.controller('couponCtr', ['$scope', 'page_val', function($scope, page_val) {
-//クーポン画面のコントローラー
-var id = localStorage.getItem('ID');
+app.controller('couponCtr', ['$scope', 'page_val', '$timeout', function($scope, page_val, $timeout) {
 
-mainTab.on('postchange',function(e){
-    if(event.index==3){
-        if(page_val.spot_id == 0){
+    //クーポン画面のコントローラー
+    var id = localStorage.getItem('ID');
+    var spotId = 0;
+    //アクティブなタブの切り替え完了後の処理
+    mainTab.on('postchange',function(e){
+        if(event.index==3){
+            // 外部サイトにメッセージを投げる
+            spotId =page_val.spot_id;
+            // if(spotId > 0){
+            //     $timeout(function () {
+            //         this.list=false;
+            //         this.ditail=true;
+            //       });
+            // }else{
+            //     $timeout(function () {
+            //         this.list=true;
+            //         this.ditail=false;
+            //       });
+            // }
             // iframeのwindowオブジェクトを取得
             var ifrm = couponFrame.contentWindow;
-            // 外部サイトにメッセージを投げる
-            var postMessage =page_val.spot_id;
-            ifrm.postMessage(postMessage, "http://japan-izm.com/dat/kon/test/stamp/app_view/coupon/index.php");
-        }else{
-            couponFrame.scr = "http://japan-izm.com/dat/kon/test/stamp/app_view/coupon/index_detail.php";
-            // iframeのwindowオブジェクトを取得
-            var ifrm = couponFrame.contentWindow;
-            // 外部サイトにメッセージを投げる
-            var postMessage =page_val.spot_id;
-            ifrm.postMessage(postMessage, "http://japan-izm.com/dat/kon/test/stamp/app_view/coupon/index_detail.php");
+            ifrm.postMessage(spotId, "http://japan-izm.com/dat/kon/test/stamp/app_view/coupon/index.php");
         }
-    }
-});
+    });
+
+    //アクティブなタブが再度押された場合の処理
+    mainTab.on('reactive',function(event){
+        if(event.index==3){
+            // 外部サイトにメッセージを投げる
+            spotId =page_val.spot_id;
+            // if(spotId > 0){
+            //     $timeout(function () {
+            //         this.list=false;
+            //         this.ditail=true;
+            //       });
+            // }else{
+            //     $timeout(function () {
+            //         this.list=true;
+            //         this.ditail=false;
+            //       });
+            // }
+            // iframeのwindowオブジェクトを取得
+            var ifrm = couponFrame.contentWindow;
+            ifrm.postMessage(spotId, "http://japan-izm.com/dat/kon/test/stamp/app_view/coupon/index.php");
+        }
+    });
 }]);
