@@ -5,7 +5,7 @@ app.controller('spotCtr', ['$scope', '$http','page_val', function ($scope, $http
     //アクティブなタブが再度押された場合の処理
     mainTab.on('reactive',function(event){
         if(event.index==2){
-            homeFrame.src="http://japan-izm.com/dat/kon/test/stamp/app_view/stamp/index.php";
+            spotFrame.src="http://japan-izm.com/dat/kon/test/stamp/app_view/stamp/index.php";
         }
     });
 

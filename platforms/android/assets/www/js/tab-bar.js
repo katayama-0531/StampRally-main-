@@ -19,4 +19,5 @@ app.controller('tabCtr' ,['$scope', function ($scope) {
             navi.resetToPage("html/home.html");
         }
     }
+    
 }]);
