@@ -30,7 +30,7 @@
     <script src="js/util/jquery.ui.touch-punch.min.js" type="text/javascript" charset="utf-8" async></script>
 
     <!-- ログイン画面のスクリプト-->
-    <script src="js/login.js"></script>
+    <!--<script src="js/login.js"></script>-->
     <!-- ホーム画面のスクリプト-->
     <script src="js/home.js"></script>
     <script src="js/home-view.js"></script>
@@ -54,6 +54,8 @@
     <!--<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCb6kDC-SGXLPG2HpTPTN7qfjnYCipuZqc&channel=001" async crossorigin="anonymous"></script>-->
     <!-- サービス-->
     <script src="js/service/get-img-service.js"></script>
+    <script src="js/service/get-json-service.js"></script>
+    <!--<script src="js/service/get-gps-service.js"></script>-->
 </head>
 
 <body>
@@ -66,9 +68,13 @@
             </div>
     </ons-modal>
     <!--ログイン画面-->
-    <!--<ons-navigator page="html/tab-bar.html" var="navi" ng-controller="AppController as app">
-    </ons-navigator>-->
     <ons-page ng-controller="tabCtr as tab">
+    <!--応募ボタン-->
+    <ons-button id="compBtn" modifier="quiet" style="display:block; width:25%; height:18%; position:absolute; bottom:0; left:38%; margin:auto; z-index:10000; padding:0; border:none; background:transparent;background: url(img_common/foot_icon_stamp_complete.png) no-repeat center bottom;
+    background-size:100%; visibility:hidden;" ng-click="tab.compTouch()"></ons-button>
+    <!--スタンプを押すボタン-->
+    <ons-button id="stampBtn" modifier="quiet" style="display:block; width:25%; height:18%; position:absolute; bottom:0; left:38%; margin:auto; z-index:10000; padding:0; border:none; background:transparent;background: url(img_common/navbar_icon_stamp_active.png) no-repeat center bottom;
+    background-size:100%; visibility:hidden;" ng-click="tab.stampTouch()"></ons-button>
         <!--ツールバー-->
         <ons-toolbar id="header" style="background-color:WHITE"　fixed-style>
                 <div class="toolbar__left toolbar--material__left" style="position: relative;">
@@ -87,7 +93,7 @@
                 </div>
         </ons-toolbar>
         <!--タブバー-->
-        <ons-tabbar var="mainTab">
+        <ons-tabbar var="mainTab" modifier="autogrow">
                 <ons-tab page="html/home.html" active="true">
                     <img src="img_common/navbar_icon_home.png" width="40" height="42" alt="">
                 </ons-tab>

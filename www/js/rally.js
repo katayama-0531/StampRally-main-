@@ -2,10 +2,15 @@ app.controller('rallyCtr', ['$scope', 'page_val', 'get_img_service', function($s
     //ラリー帳画面のコントローラー
     var id = localStorage.getItem('ID');
 
-    //アクティブなタブの切り替え完了後の処理
+    //アクティブなタブの切り替え前の処理
     mainTab.on('postchange',function(event){
         if(event.index==1){
             rallyFrame.src="http://japan-izm.com/dat/kon/test/stamp/app_view/index_list.php";
+        }
+    });
+    //アクティブなタブの切り替え完了後の処理
+    mainTab.on('postchange',function(event){
+        if(event.index==1){
             page_val.header_color_code="WHITE";
             page_val.header_title_img="logo_stamprally.png";
             page_val.header_news_img="head_icon_news.png";

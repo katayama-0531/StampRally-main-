@@ -24,39 +24,32 @@ function($resource, $localStorage, page_val){
           //TODO：いきなりファイルをフルパスで検索すると初回アクセス時エラーになる。
           //エラー回避の為、ディレクトリ検索→ファイル検索の順に行っている。
           window.resolveLocalFileSystemURL(filePath, function(fileSystem) {
-            if(fileSystem.isFile) {
+            if(fileSystem.isDirectory) {
               console.log(filePath + ' ディレクトリが存在する');
-              window.resolveLocalFileSystemURL(filePath+fileName, function(fileSystem) {
-                if(fileSystem.isFile) {
-                  page_val.img_URL = fileSystem.toURL();
-                  console.log(page_val.course_id + '.json ファイルが存在する');
-                  saveFile.push(true);
-                  saveFile.push(fileSystem.toURL());
-                }else {
-                  console.log(page_val.course_id + '.json ファイルが存在しない');
-                   // ファイルを生成する
-                   fileSystem.getFile(fileName, options, function(fileEntry) {
-                    // 生成したファイル情報が FileEntry オブジェクトで返される
-                    page_val.img_URL = fileEntry.toURL();
-                    console.log('ファイル生成 成功', fileEntry.toURL());
-                    saveFile.push(true);
-                    saveFile.push(fileEntry.toURL());
-    
-                  }, function(getFileError) {
-                    console.log('ファイル生成 失敗', getFileError.code);
-                    saveFile.push(false);
-                    saveFile.push(getFileError);
-                  }, function(error) {
-                    console.log('files ディレクトリ操作 エラー', error.code);
-                    saveFile.push(false);
-                    saveFile.push(error.code);
-                  });
-                }
-              }, function(error) {
-                console.log(filePath + fileName+'ファイル存在確認中にエラーが発生', error.code);
-                    saveFile.push(false);
-                    saveFile.push(error.code);
-              });
+              if(fileSystem.isFile) {
+                page_val.img_URL = fileSystem.toURL();
+                console.log(page_val.course_id + '.json ファイルが存在する');
+                saveFile.push(true);
+                saveFile.push(fileSystem.toURL());
+              }else {
+                console.log(page_val.course_id + '.json ファイルが存在しない');
+                // ファイルを生成する
+                fileSystem.getFile(fileName, options, function(fileEntry) {
+                // 生成したファイル情報が FileEntry オブジェクトで返される
+                page_val.img_URL = fileEntry.toURL();
+                console.log('ファイル生成 成功', fileEntry.toURL());
+                saveFile.push(true);
+                saveFile.push(fileEntry.toURL());
+                }, function(getFileError) {
+                  console.log('ファイル生成 失敗', getFileError.code);
+                  saveFile.push(false);
+                  saveFile.push(getFileError);
+                }, function(error) {
+                  console.log('files ディレクトリ操作 エラー', error.code);
+                  saveFile.push(false);
+                  saveFile.push(error.code);
+                });
+              }
             }else {
               console.log(filePath + ' ディレクトリが存在しない');
               window.resolveLocalFileSystemURL(filePath+fileName, function(fileSystem) {

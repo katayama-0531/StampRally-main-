@@ -1,49 +1,116 @@
-<!DOCTYPE html>
-<!--
-    Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements.  See the NOTICE file
-    distributed with this work for additional information
-    regarding copyright ownership.  The ASF licenses this file
-    to you under the Apache License, Version 2.0 (the
-    "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the License at
+<!DOCTYPE HTML>
+<html> 
 
-    http://www.apache.org/licenses/LICENSE-2.0
+<head ng-app="stampRallyApp">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="Content-Security-Policy" content="default-src * https://codepush.azurewebsites.net 'self' data: gap://ready file: https://ssl.gstatic.com 'unsafe-eval'; style-src * 'self' 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'; media-src *">
+    
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/onsenui/js/onsenui.js"></script>
+    <script src="bower_components/onsenui/js/angular-onsenui.js"></script>
+    <script type="text/javascript" src="cordova.js"></script>
 
-    Unless required by applicable law or agreed to in writing,
-    software distributed under the License is distributed on an
-    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-     KIND, either express or implied.  See the License for the
-    specific language governing permissions and limitations
-    under the License.
--->
-<html>
-    <head>
-        <!--
-        Customize this policy to fit your own app's needs. For more guidance, see:
-            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
-        Some notes:
-            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
-            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
-            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
-                * Enable inline JS: add 'unsafe-inline' to default-src
-        -->
-        <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *; img-src 'self' data: content:;">
-        <meta name="format-detection" content="telephone=no">
-        <meta name="msapplication-tap-highlight" content="no">
-        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-        <link rel="stylesheet" type="text/css" href="css/index.css">
-        <title>Hello World</title>
-    </head>
-    <body>
-        <div class="app">
-            <h1>Apache Cordova</h1>
-            <div id="deviceready" class="blink">
-                <p class="event listening">Connecting to Device</p>
-                <p class="event received">Device is Ready</p>
+    <link rel="stylesheet" href="bower_components/onsenui/css/onsenui.css">
+    <link rel="stylesheet" href="bower_components/onsenui/css/onsen-css-components.css">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="js/util/jquery-ui-1.12.1/jquery-ui.min.css"> 
+    <link rel="stylesheet" href="css/style.css">
+
+    <link href="css/default.css" rel="stylesheet">
+    <link href="css/base.css" rel="stylesheet">
+    <!--追加のモジュール-->   
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/angular-i18n/angular-locale_ja-jp.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/ngstorage/ngStorage.js"></script>
+    <!--jQuery-->
+    <script src="js/util/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8" async></script>
+    <script src="js/util/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript" charset="utf-8" async></script>
+    <script src="js/util/jquery.ui.touch-punch.min.js" type="text/javascript" charset="utf-8" async></script>
+
+    <!-- ログイン画面のスクリプト-->
+    <script src="js/login.js"></script>
+    <!-- ホーム画面のスクリプト-->
+    <script src="js/home.js"></script>
+    <script src="js/home-view.js"></script>
+    <!--ラリー帳のスクリプト-->
+    <script src="js/rally.js"></script>
+    <!-- 近くのスポットのスクリプト-->
+    <script src="js/spot.js"></script>
+    <!--クーポンのスクリプト-->
+    <script src="js/coupon.js"></script>
+    <!-- お気に入りのスクリプト-->
+    <script src="js/star.js"></script>
+    <!-- 設定画面のスクリプト-->
+    <script src="js/setting.js"></script>
+    <!-- お知らせ画面のスクリプト-->
+    <script src="js/news.js"></script>
+    <!-- ヘッダーメニューとフッターメニューのスクリプト-->
+    <script src="js/tab-bar.js"></script>
+    <!--ファイル保存の為のスクリプト-->
+    <!--<script src="js/util/b64utils.js"></script>-->
+    <!--GoogleMap API-->
+    <!--<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCb6kDC-SGXLPG2HpTPTN7qfjnYCipuZqc&channel=001" async crossorigin="anonymous"></script>-->
+    <!-- サービス-->
+    <script src="js/service/get-img-service.js"></script>
+    <script src="js/service/get-json-service.js"></script>
+    <!--<script src="js/service/get-gps-service.js"></script>-->
+</head>
+
+<body>
+    <!--読み込み中モーダル-->
+    <ons-modal var="roadingModal">
+            <div style="text-align: center">
+                    <p>
+                            <ons-icon icon="md-spinner" size="28px" spin></ons-icon> 読み込み中...
+                    </p>
             </div>
-        </div>
-        <script type="text/javascript" src="cordova.js"></script>
-        <script type="text/javascript" src="js/index.js"></script>
-    </body>
+    </ons-modal>
+    <!--ログイン画面-->
+    <ons-page ng-controller="tabCtr as tab">
+    <!--応募ボタン-->
+    <ons-button id="compBtn" modifier="quiet" style="display:block; width:25%; height:18%; position:absolute; bottom:0; left:38%; margin:auto; z-index:10000; padding:0; border:none; background:transparent;background: url(img_common/foot_icon_stamp_complete.png) no-repeat center bottom;
+    background-size:100%; visibility:hidden;" ng-click="tab.compTouch()"></ons-button>
+    <!--スタンプを押すボタン-->
+    <ons-button id="stampBtn" modifier="quiet" style="display:block; width:25%; height:18%; position:absolute; bottom:0; left:38%; margin:auto; z-index:10000; padding:0; border:none; background:transparent;background: url(img_common/navbar_icon_stamp_active.png) no-repeat center bottom;
+    background-size:100%; visibility:hidden;" ng-click="tab.stampTouch()"></ons-button>
+        <!--ツールバー-->
+        <ons-toolbar id="header" style="background-color:WHITE"　fixed-style>
+                <div class="toolbar__left toolbar--material__left" style="position: relative;">
+                        <img class="toolBarIcons" src="img_common/logo_jaf.png" width="100" height="38" alt="JAF" style="width:100%;height:auto;" ng-click="tab.iconTouch()">
+                </div>
+                <div class="toolbar__center toolbar--material__center"  style="position: relative;">
+                        <h2><img id="head_icon" class="toolBarIcons" src="img_common/logo_stamprally.png" width="281" height="66" alt="スタンプラリー" style="width:100%;height:auto;"></h2>
+                </div>
+                <div class="toolbar__right toolbar--material__right" style="position: relative;">
+                        <span class="newsBtn">
+                        <img id="head_news" src="img_common/head_icon_news.png" width="36" height="36" alt="" align="left"　style="width:50%;height:auto;" ng-click="tab.newsTouch()">
+                        </span>
+                        <span class="settingBtn">
+                        <img id="head_setting" src="img_common/head_icon_setting.png" width="36" height="36" alt="" align="right"　style="width:50%;height:auto;" ng-click="tab.settingTouch()">
+                        </span>
+                </div>
+        </ons-toolbar>
+        <!--タブバー-->
+        <ons-tabbar var="mainTab" modifier="autogrow">
+                <ons-tab page="html/home.html" active="true">
+                    <img src="img_common/navbar_icon_home.png" width="40" height="42" alt="">
+                </ons-tab>
+                <ons-tab page="html/rally.html">
+                    <img src="img_common/navbar_icon_note.png" width="40" height="42" alt="">
+                </ons-tab>
+                <ons-tab page="html/spot.html">
+                    <img src="img_common/navbar_icon_stamp.png" width="40" height="42" alt="">
+                </ons-tab>
+                <ons-tab page="html/coupon.html">
+                    <img src="img_common/navbar_icon_coupon.png" width="40" height="42" alt="">
+                </ons-tab>
+                <ons-tab page="html/star.html">
+                    <img src="img_common/navbar_icon_star.png" width="40" height="42" alt="">
+                </ons-tab>
+        </ons-tabbar>
+    </ons-page>
+</body>
+
 </html>

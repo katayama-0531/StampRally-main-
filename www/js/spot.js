@@ -1,33 +1,46 @@
-app.controller('spotCtr', ['$scope', '$http','page_val', function ($scope, $http, page_val) {
+var spotFrameLoad = false;
+app.controller('spotCtr', ['$scope', 'page_val', function ($scope, page_val) {
     //近くのスポット画面のコントローラー
     var id = localStorage.getItem('ID');
-    
     //アクティブなタブが再度押された場合の処理
     mainTab.on('reactive',function(event){
         if(event.index==2){
-            spotFrame.src="http://japan-izm.com/dat/kon/test/stamp/app_view/stamp/index.php";
+            spotFrame.src="http://japan-izm.com/dat/kon/test/stamp/app_view/rally/list/index.php";
         }
     });
 
     //アクティブなタブの切り替え完了後の処理
     mainTab.on('postchange',function(e){
         if(event.index==2){
-            // iframeのwindowオブジェクトを取得
-            var ifrm = spotFrame.contentWindow;
-            // 外部サイトにメッセージを投げる
-            var postMessage =id;
-            ifrm.postMessage(postMessage, "http://japan-izm.com/dat/kon/test/stamp/app_view/stamp/index.php");
-            roadingModal.hide();
+            //checkPermission($filter);
+            spotFrameLoad=true;
+        }
+    });
+
+    //アクティブなタブの切り替え前の処理
+    mainTab.on('postchange',function(event){
+        if(event.index!=2){
+            if(compBtn.style.visibility==""){
+                compBtn.style.visibility="hidden";
+            }
+            if(stampBtn.style.visibility==""){
+                stampBtn.style.visibility="hidden";
+            }
+        }
+
+        if(event.index==2){
+            roadingModal.show();
+            spotFrame.src="http://japan-izm.com/dat/kon/test/stamp/app_view/rally/list/index.php";
         }
     });
     
     //iframe読み込み完了後の処理(iframe内で画面遷移した場合も呼ばれる)
     spotFrame.addEventListener('load',function() {
-        // iframeのwindowオブジェクトを取得
-        var ifrm = spotFrame.contentWindow;
-        // 外部サイトにメッセージを投げる
-        var postMessage =id;
-        //ifrm.postMessage(postMessage, "http://japan-izm.com/dat/kon/test/stamp/app_view/stamp/index.php");
+        console.log("spotFrame読み込み完了");
+        if(spotFrameLoad){
+            roadingModal.hide();
+            spotFrameLoad=false;
+        }
     });
 
     // メッセージ受信イベント

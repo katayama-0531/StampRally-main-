@@ -1,15 +1,17 @@
-app.controller('homeCtr', ['$scope', '$http', 'page_val', 'get_img_service', function($scope, $http, page_val, get_img_service){
+app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_service', function($scope, $http, $filter, page_val, get_img_service){
     roadingModal.show();
 
     var id = localStorage.getItem('ID');
     var url = "";
+    var page = "";
 
-    $scope.loginClick = function() {
-        login(id, $http);
-    };
+    //TODO:ログイン失敗した時の処理
+    // this.loginClick = function() {
+    //     login(id, $http);
+    // };
 
-    $scope.loginInit = function() {
-        //ログインの通信の為の準備
+    this.loginInit = function() {
+        //通信の為の準備
         app.config(function($httpProvider) {
             $httpProvider.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;application/json;charset=utf-8';
         });
@@ -26,14 +28,16 @@ app.controller('homeCtr', ['$scope', '$http', 'page_val', 'get_img_service', fun
     //アクティブなタブの切り替え前の処理
     mainTab.on('postchange',function(event){
         if(event.index==0){
+            console.log("homeタブへ切り替え前");
             homeFrame.src="http://japan-izm.com/dat/kon/test/stamp/app_view/index.php";
+            page="";
         }
     });
     
     //アクティブなタブの切り替え完了後の処理
     mainTab.on('postchange',function(event){
         if(event.index==0){
-            //homeFrame.src="http://japan-izm.com/dat/kon/test/stamp/app_view/index.php";
+            console.log("homeタブへ切り替え完了");
             page_val.header_color_code="WHITE";
             page_val.header_title_img="logo_stamprally.png";
             page_val.header_news_img="head_icon_news.png";
@@ -44,11 +48,21 @@ app.controller('homeCtr', ['$scope', '$http', 'page_val', 'get_img_service', fun
     //アクティブなタブが再度押された場合の処理
     mainTab.on('reactive',function(event){
         if(event.index==0){
+            console.log("homeタブが再度押された");
+            //homeタブ内で遷移してスタンプボタンを出していた場合は消す
+            if(compBtn.style.visibility==""){
+                compBtn.style.visibility="hidden";
+            }
+            if(stampBtn.style.visibility==""){
+                stampBtn.style.visibility="hidden";
+            }
+
             homeFrame.src="http://japan-izm.com/dat/kon/test/stamp/app_view/index.php";
             page_val.header_color_code="WHITE";
             page_val.header_title_img="logo_stamprally.png";
             page_val.header_news_img="head_icon_news.png";
             page_val.header_setting_img="head_icon_setting.png";
+            page="";
         }
     });
 
@@ -63,41 +77,97 @@ app.controller('homeCtr', ['$scope', '$http', 'page_val', 'get_img_service', fun
         // iframeのwindowオブジェクトを取得
         var ifrm = homeFrame.contentWindow;
         // 外部サイトにメッセージを投げる
-        var postMessage =id;
-        ifrm.postMessage(postMessage, "http://japan-izm.com/dat/kon/test/stamp/app_view/index.php");
-        roadingModal.hide();
+        var postMessage =
+        {   "user":id,
+            "page":"home"};
+        if(page==""){
+            ifrm.postMessage(postMessage, "http://japan-izm.com/dat/kon/test/stamp/app_view/index.php");
+            page="rally";
+            roadingModal.hide();
+        }else if(page=="rally"){
+            console.log(page);
+            //位置情報取得(パーミッション周りはiOSとAndroidで異なる為処理を分ける)
+            if (device.platform == "Android") {
+                var permissions = cordova.plugins.permissions; 
+                //permission確認
+                permissions.hasPermission(permissions.ACCESS_FINE_LOCATION, function (status) {
+                    if ( status.hasPermission ) {
+                        console.log("位置情報使用許可済み");
+                        this.getGps($filter,$http);
+                    } else {
+                        console.warn("位置情報使用未許可");
+                        permissions.requestPermission(permissions.ACCESS_COARSE_LOCATION, permissionSuccess, permissionError);
+                        function permissionSuccess (status){
+                            if( !status.hasPermission ){
+                                permissionError();
+                            } else {
+                                getGps($filter,$http);
+                            }
+                        };
+                        function permissionError (){
+                            console.warn('許可されなかった...');
+                            stampPageReset();
+                            ons.notification.alert({ message: "位置情報へのアクセスが許可されなかったため、現在位置が取得できません。", title: "エラー", cancelable: true });
+                            roadingModal.hide();
+                        };
+                    }
+                });
+            }else{
+                getGps($filter,$http);
+            }
+            ifrm.postMessage(postMessage, "http://japan-izm.com/dat/kon/test/stamp/app_view/rally/index.php");
+        }
+        
     });
-
-    
 
     // メッセージ受信イベント
     window.addEventListener('message', function(event) {
+        console.log("homeiframeメッセージ受信");
         if(event.data["page"]=="list"){
             mainTab.setActiveTab(1);
         }
         if(event.data["course_id"] > 0){
+            roadingModal.show();
             page_val.course_id=event.data["course_id"];
             console.log("カラーコード"+page_val.header_color_code);
 
             // 選択ファイルの読み込み
             var filePath = encodeURI('http://japan-izm.com/dat/kon/test/stamp/img/' + event.data["course_id"] + '/stamp' + event.data["course_id"] + '.json');
-                //injectしたいサービスを記述。ngも必要。
+            //injectしたいサービスを記述。ngも必要。
             var injector = angular.injector(['ng','stampRallyApp']);
             //injectorからサービスを取得
             var service = injector.get('get_img_service');
             service.leadAndSet(filePath).then(function(res){
-                ///ダウンロード失敗
+                //ダウンロード失敗
                 if(res["name"] === "Error"){
+                    //ダウンロード失敗
                     ons.notification.alert({ message: "ダウンロード中にエラーが発生しました。", title: "エラー", cancelable: true });
                     homeFrame.src="http://japan-izm.com/dat/kon/test/stamp/app_view/index.php";
                     rallyFrame.src="http://japan-izm.com/dat/kon/test/stamp/app_view/index_list.php";
+                    roadingModal.show();
                 }else{
+                    //ダウンロード成功
                     page_val.header_title_img="tit_chikugositikoku.png";
                     page_val.header_news_img="head_icon_news_rally.png";
                     page_val.header_setting_img="head_icon_setting_rally.png";
                     page_val.header_color_code=event.data["color_code"];
+                    roadingModal.show();
                 }
             });
+        }
+        switch (event.data["stamp_type"]){
+            case "complete":
+                compBtn.style.visibility="";
+                stampBtn.style.visibility="hidden";
+                break;
+            case "stamp":
+                compBtn.style.visibility="hidden";
+                stampBtn.style.visibility="";
+                break;
+            default:
+                compBtn.style.visibility="hidden";
+                stampBtn.style.visibility="hidden";
+                break;
         }
     }, false);
 
@@ -132,6 +202,86 @@ function login(id, $http) {
             ons.notification.alert({ message: "ログインできませんでした。", title: "エラー", cancelable: true });
             console.log(data);
         }
+    }, function onError(data, status) {
+        roadingModal.hide();
+        ons.notification.alert({ message: "ログイン中にエラーが発生しました。", title: "エラー", cancelable: true });
+        console.log("エラー："+data.data);
+        console.log("ステータス："+status);
+    });
+}
+
+function getGps($filter,$http) {
+    //位置情報取得
+    var onGpsSuccess = function (position) {
+        //この辺りで緯度、経度を送信する
+        var id = localStorage.getItem('ID');
+        var n = 6; // 小数点第n位まで残す
+        //緯度
+        var latitude = Math.floor(position.coords.latitude * Math.pow(10, n)) / Math.pow(10, n);
+        //経度
+        var longitude = Math.floor(position.coords.longitude * Math.pow(10, n)) / Math.pow(10, n);
+        //高度
+        var altitude = Math.floor(position.coords.altitude * Math.pow(10, n)) / Math.pow(10, n);
+        //位置精度
+        var accuracy = Math.floor(position.coords.accuracy * Math.pow(10, n)) / Math.pow(10, n);
+        var gpsData = {
+            userId: id,
+            lat: latitude,
+            lng: longitude,
+            alt: altitude,
+            acc: accuracy
+        };
+
+        var postData =$filter('json')(gpsData);
+
+        stampSetting(postData, $http)
+        // // iframeのwindowオブジェクトを取得
+        // var ifrm = homeFrame.contentWindow;
+        // // 外部サイトにメッセージを投げる
+        // var postMessage =$filter('json')(gpsData);
+        // console.log(postMessage);
+        // ifrm.postMessage(postMessage, "http://japan-izm.com/dat/kon/test/stamp/app_view/rally/index.php");
+        // roadingModal.hide();
+    };
+
+    var onGpsError = function (message) {
+        //iOSでalterを使用すると問題が発生する可能性がある為、問題回避の為setTimeoutを使用する。
+     
+   setTimeout(function () {
+            // エラーコードのメッセージを定義
+            var errorMessage = {
+                0: "原因不明のエラーが発生しました。",
+                1: "位置情報の取得が許可されませんでした。",
+                2: "電波状況などで位置情報が取得できませんでした。",
+                3: "位置情報の取得に時間がかかり過ぎてタイムアウトしました。",
+            };
+            // エラーコードに合わせたエラー内容をアラート表示
+            ons.notification.alert({ message: errorMessage[message.code], title: "エラー", cancelable: true });
+        }, 0);
+        roadingModal.hide();
+    };
+    //位置情報取得
+    navigator.geolocation.getCurrentPosition(onGpsSuccess, onGpsError);
+}
+
+function stampSetting(postData, $http) {
+    //Ajax通信でphpにアクセス
+    var url = "http://japan-izm.com/dat/kon/test/stamp/api/nearStampSpot.php",
+        config = {
+            timeout: 5000
+        };
+    
+    var req = {
+        method: 'POST',
+        url: url,
+        data: postData
+    };
+
+    $http(req).then(function onSuccess(data, status) {
+        //jsondata = JSON.parse(data.data);
+            console.log(data.data);
+            roadingModal.hide();
+            //return data.data;
     }, function onError(data, status) {
         roadingModal.hide();
         ons.notification.alert({ message: "ログイン中にエラーが発生しました。", title: "エラー", cancelable: true });

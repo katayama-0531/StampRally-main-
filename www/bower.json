@@ -20,6 +20,6 @@
     "angular-bootstrap": "^2.5.0",
     "angular-i18n": "^1.6.7",
     "ngstorage": "^0.3.11",
-    "angular-resource": "^1.6.8"
+    "angular-resource": "^1.6.9"
   }
 }
