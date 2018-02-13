@@ -1,0 +1,13 @@
+@charset "utf-8";
+/* CSS Document */
+
+.rally {
+background: #388ca8;
+}
+.spotActive {
+position: fixed;
+bottom: 0;
+left: 50%;
+transform: translate(-50%, 0);
+z-index: 500;
+}

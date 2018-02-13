@@ -1,0 +1,83 @@
+/**/
+
+
+/*アニメーションのcss*/
+
+@import "animate.css";
+html,
+body {
+    height: 100%;
+    -webkit-touch-callout: none;
+    /*テキスト長押しの選択ボックスを無効化*/
+}
+
+#container {
+    height: 100%;
+}
+
+ons-list-item {
+    max-height: 44px;
+}
+
+iframe {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+}
+
+ons-carousel-item {
+    display: table;
+    text-align: center;
+}
+
+/*選択画面のボタンのリスト*/
+.btnList {
+    list-style: none;
+}
+
+/*ホーム画面のリストのアイテム*/
+#listView {
+    margin: 0;
+    width: 100%;
+    height: 80%;
+    overflow:scroll;
+}
+
+/*メモ画面のテキストエリア*/
+#description {
+    margin: 0;
+    width: 98%;
+    height: 91%;
+    max-width: 98%;
+    max-height: 91%;
+}
+
+/*バッジの表示位置*/
+.badgeToolbar {
+    top: 10%;
+    left: -10%;
+}
+
+.toolBarIcons{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.newsBtn{
+    position: absolute;
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%,-50%);
+}
+
+.settingBtn{
+    position: absolute;
+    top: 50%;
+    left: 75%;
+    transform: translate(-50%,-50%);
+}

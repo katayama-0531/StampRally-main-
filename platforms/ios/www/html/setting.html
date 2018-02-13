@@ -1,0 +1,23 @@
+<!--設定画面-->
+<ons-page ng-controller="settingCtr as setting" id="settingPage">
+    <article class="container" style="text-align: center">
+            <h3>アプリ設定</h3>
+        <ons-list>
+            <!--今すぐは使わないのでコメントアウト-->
+            <!--<ons-list-item modifier="chevron">通知設定</ons-list-item>
+            <ons-list-item modifier="chevron">ニックネーム</ons-list-item>-->
+            <ons-list-item modifier="chevron">アプリの使い方</ons-list-item>
+            <ons-list-item modifier="chevron">ご利用規約</ons-list-item>
+            <ons-list-item modifier="chevron">よくあるご質問</ons-list-item>
+            <ons-list-item modifier="chevron">お問い合わせ</ons-list-item>
+        </ons-list>
+        <div id="wrap">
+            <p class="setTxt">
+            本アプリケーションは一般社団法人　日本自動車連盟によって運営されています。
+            </p>                        
+            <div class="entBtn">
+            <ons-button modifier="outline" ng-click="setting.back()">TOPページへ</ons-button>
+            </div>
+        </div>
+    </article>
+</ons-page>
