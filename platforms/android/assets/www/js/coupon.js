@@ -3,6 +3,15 @@ app.controller('couponCtr', ['$scope', 'page_val', '$timeout', function($scope, 
     //クーポン画面のコントローラー
     var id = localStorage.getItem('ID');
     var spotId = 0;
+
+    //アクティブなタブの切り替え前の処理
+    mainTab.on('postchange',function(event){
+        if(event.index==3){
+            console.log("couponタブへ切り替え前");
+            couponFrame.scr="http://japan-izm.com/dat/kon/test/stamp/app_view/coupon/index.php";
+        }
+    });
+
     //アクティブなタブの切り替え完了後の処理
     mainTab.on('postchange',function(e){
         if(event.index==3){

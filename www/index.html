@@ -54,8 +54,6 @@
     <!--<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCb6kDC-SGXLPG2HpTPTN7qfjnYCipuZqc&channel=001" async crossorigin="anonymous"></script>-->
     <!-- サービス-->
     <script src="js/service/get-img-service.js"></script>
-    <script src="js/service/get-json-service.js"></script>
-    <!--<script src="js/service/get-gps-service.js"></script>-->
 </head>
 
 <body>
@@ -69,6 +67,8 @@
     </ons-modal>
     <!--ログイン画面-->
     <ons-page ng-controller="tabCtr as tab">
+    <!--スタンプ画像-->
+    <img id="stampImg" src="" style="position:absolute; z-index: 10000; bottom:25%; left:13%;visibility:hidden;">
     <!--応募ボタン-->
     <ons-button id="compBtn" modifier="quiet" style="display:block; width:25%; height:18%; position:absolute; bottom:0; left:38%; margin:auto; z-index:10000; padding:0; border:none; background:transparent;background: url(img_common/foot_icon_stamp_complete.png) no-repeat center bottom;
     background-size:100%; visibility:hidden;" ng-click="tab.compTouch()"></ons-button>

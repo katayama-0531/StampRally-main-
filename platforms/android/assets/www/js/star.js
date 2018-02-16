@@ -23,7 +23,7 @@ app.controller('starCtr', ['$scope', function($scope) {
     //アクティブなタブが再度押された場合の処理
     mainTab.on('reactive',function(event){
         if(event.index==4){
-            starFrame.src="http://japan-izm.com/dat/kon/test/stamp/app_view/star/index.php";
+            
         }
     });
 

@@ -21,7 +21,6 @@ app.controller('rallyCtr', ['$scope', 'page_val', 'get_img_service', function($s
     //アクティブなタブが再度押された場合の処理
     mainTab.on('reactive',function(event){
         if(event.index==1){
-            rallyFrame.src="http://japan-izm.com/dat/kon/test/stamp/app_view/index_list.php";
             page_val.header_color_code="WHITE";
             page_val.header_title_img="logo_stamprally.png";
             page_val.header_news_img="head_icon_news.png";

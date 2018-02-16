@@ -1,4 +1,4 @@
-app.controller('tabCtr', ['$scope', 'page_val', 'get_img_service', 'get_json_service', function ($scope, page_val, get_img_service, get_json_service) {
+app.controller('tabCtr', ['$scope', '$http', 'page_val', 'get_img_service', function ($scope, $http, page_val, get_img_service) {
     //タブバー、ヘッダーメニューのコントローラー
     this.settingTouch=function(){
         mainTab.setActiveTab(0);
@@ -24,35 +24,26 @@ app.controller('tabCtr', ['$scope', 'page_val', 'get_img_service', 'get_json_ser
     }
     this.stampTouch=function(){
         console.log("スタンプを押すボタンタッチ");
-        // //injectしたいサービスを記述。ngも必要。
-        // var injector = angular.injector(['ng','stampRallyApp']);
-        // //injectorからサービスを取得
-        // var service = injector.get('get_json_service');
-        // service.all().then(function(res){
-        //     var jsonItem = res;
-        //     if(res.status==404){
-        //         console.log("読み込み失敗");
-        //     }else{
-        //         console.log("読み込み成功");
-        //     }
-        // });
-        // var fileName = page_val.course_id + '.json';
-        // window.resolveLocalFileSystemURL(page_val.img_URL, function(fileSystem) {
-        //     if(fileSystem.isFile){
-        //         fileSystem.getFile(fileName, {create: true}, function (fileEntry) {
-        //             fileEntry.file(function (file){
-        //                var img = readAsText(file);
-        //                console.log('files ファイル読み込み 成功');
-        //             }, function(error) {
-        //                 console.log('files ファイル読み込み エラー', error.code);
-        //               });
-        //         }, function(error) {
-        //             console.log('files ファイル取得 エラー', error.code);
-        //           });
-
-        //     }
-        // }, function(error) {
-        //     console.log('files ディレクトリ操作 エラー', error.code);
-        //   });
+        //スタンプ画像表示、アニメーション開始。
+        var stampName = "stamp" + page_val.course_id;
+        var stamp = localStorage.getItem(stampName);
+        stampImg.src=stamp;
+        stampImg.className = "animated bounceInDown";
+        stampImg.style.visibility="";
     }
+
+    //スタンプアニメーション終了時のイベント
+    stampImg.addEventListener("animationend", function () {
+        switch (stampImg.className) {
+            case "animated bounceInDown":
+                stampImg.className = "animated fadeOut";
+                break;
+            case "animated fadeOut":
+                //全てのアニメーションが終了したら画像を消す
+                stampImg.src="";
+                stampImg.className = "";
+                stampImg.style.visibility="hidden";
+                break;
+        }
+    });
 }]);
