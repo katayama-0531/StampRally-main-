@@ -1,4 +1,3 @@
-var spotFrameLoad = false;
 app.controller('spotCtr', ['$scope', 'page_val', function ($scope, page_val) {
     //近くのスポット画面のコントローラー
     var id = localStorage.getItem('ID');
@@ -12,8 +11,7 @@ app.controller('spotCtr', ['$scope', 'page_val', function ($scope, page_val) {
     //アクティブなタブの切り替え完了後の処理
     mainTab.on('postchange',function(e){
         if(event.index==2){
-            //checkPermission($filter);
-            spotFrameLoad=true;
+            
         }
     });
 
@@ -37,10 +35,15 @@ app.controller('spotCtr', ['$scope', 'page_val', function ($scope, page_val) {
     //iframe読み込み完了後の処理(iframe内で画面遷移した場合も呼ばれる)
     spotFrame.addEventListener('load',function() {
         console.log("spotFrame読み込み完了");
-        if(spotFrameLoad){
-            roadingModal.hide();
-            spotFrameLoad=false;
-        }
+        // iframeのwindowオブジェクトを取得
+        var ifrm = homeFrame.contentWindow;
+        // 外部サイトにメッセージを投げる
+        var postMessage =
+        {   "user":id,
+            "course_id":page_val.course_id
+        };
+        ifrm.postMessage(postMessage, "http://japan-izm.com/dat/kon/test/stamp/rally/list/index.php");
+        roadingModal.hide();
     });
 
     // メッセージ受信イベント

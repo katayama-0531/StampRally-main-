@@ -20,10 +20,10 @@ function($resource, $localStorage, page_val){
 
         //Angularjs 1.6以降はエラー処理を書かないとエラーになる
         return data.$promise.then(function() {
-          var stampName = "stamp" + page_val.course_id;
-          var headName = "head" + page_val.course_id;
-          localStorage.setItem(stampName, data[0]["img1"]);
-          localStorage.setItem(headName, data[1]["img2"]);
+          var stampName = "stamp" + page_val.rally_id;
+          var headName = "head" + page_val.rally_id;
+          localStorage.setItem(stampName, data[0]["stamp"]);
+          localStorage.setItem(headName, data[1]["head"]);
           
         }, function(reason){
           console.log(reason);
@@ -33,9 +33,6 @@ function($resource, $localStorage, page_val){
           saveFile.push(reason);
           return reason; // reasonを返す
         });
-    },
-    getURL: function(){
-      return page_val.img_list[0].img1;
     }
   };
 }]);

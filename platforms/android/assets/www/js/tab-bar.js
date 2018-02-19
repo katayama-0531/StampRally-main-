@@ -21,11 +21,12 @@ app.controller('tabCtr', ['$scope', '$http', 'page_val', 'get_img_service', func
     }
     this.compTouch=function(){
         console.log("応募ボタンタッチ");
+        navi.pushPage("html/entry.html");
     }
     this.stampTouch=function(){
         console.log("スタンプを押すボタンタッチ");
         //スタンプ画像表示、アニメーション開始。
-        var stampName = "stamp" + page_val.course_id;
+        var stampName = "stamp" + page_val.rally_id;
         var stamp = localStorage.getItem(stampName);
         stampImg.src=stamp;
         stampImg.className = "animated bounceInDown";

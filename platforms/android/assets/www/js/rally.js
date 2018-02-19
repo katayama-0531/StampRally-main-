@@ -12,9 +12,9 @@ app.controller('rallyCtr', ['$scope', 'page_val', 'get_img_service', function($s
     mainTab.on('postchange',function(event){
         if(event.index==1){
             page_val.header_color_code="WHITE";
-            page_val.header_title_img="logo_stamprally.png";
-            page_val.header_news_img="head_icon_news.png";
-            page_val.header_setting_img="head_icon_setting.png";
+            page_val.header_title_img="img_common/logo_stamprally.png";
+            page_val.header_news_img="img_common/head_icon_news.png";
+            page_val.header_setting_img="img_common/head_icon_setting.png";
         }
     });
 
@@ -22,9 +22,9 @@ app.controller('rallyCtr', ['$scope', 'page_val', 'get_img_service', function($s
     mainTab.on('reactive',function(event){
         if(event.index==1){
             page_val.header_color_code="WHITE";
-            page_val.header_title_img="logo_stamprally.png";
-            page_val.header_news_img="head_icon_news.png";
-            page_val.header_setting_img="head_icon_setting.png";
+            page_val.header_title_img="img_common/logo_stamprally.png";
+            page_val.header_news_img="img_common/head_icon_news.png";
+            page_val.header_setting_img="img_common/head_icon_setting.png";
         }
     });
     
