@@ -69,48 +69,58 @@
     <ons-page ng-controller="tabCtr as tab">
     <!--スタンプ画像-->
     <img id="stampImg" src="" style="position:absolute; z-index: 10000; bottom:25%; left:13%;visibility:hidden;">
-    <!--応募ボタン-->
-    <ons-button id="compBtn" modifier="quiet" style="display:block; width:25%; height:18%; position:absolute; bottom:0; left:38%; margin:auto; z-index:10000; padding:0; border:none; background:transparent;background: url(img_common/foot_icon_stamp_complete.png) no-repeat center bottom;
-    background-size:100%; visibility:hidden;" ng-click="tab.compTouch()"></ons-button>
-    <!--スタンプを押すボタン-->
-    <ons-button id="stampBtn" modifier="quiet" style="display:block; width:25%; height:18%; position:absolute; bottom:0; left:38%; margin:auto; z-index:10000; padding:0; border:none; background:transparent;background: url(img_common/navbar_icon_stamp_active.png) no-repeat center bottom;
-    background-size:100%; visibility:hidden;" ng-click="tab.stampTouch()"></ons-button>
-        <!--ツールバー-->
-        <ons-toolbar id="header" style="background-color:WHITE"　fixed-style>
-                <div class="toolbar__left toolbar--material__left" style="position: relative;">
-                        <img class="toolBarIcons" src="img_common/logo_jaf.png" width="100" height="38" alt="JAF" style="width:100%;height:auto;" ng-click="tab.iconTouch()">
-                </div>
-                <div class="toolbar__center toolbar--material__center"  style="position: relative;">
-                        <h2><img id="head_icon" class="toolBarIcons" src="img_common/logo_stamprally.png" width="281" height="66" alt="スタンプラリー" style="width:100%;height:auto;"></h2>
-                </div>
-                <div class="toolbar__right toolbar--material__right" style="position: relative;">
-                        <span class="newsBtn">
-                        <img id="head_news" src="img_common/head_icon_news.png" width="36" height="36" alt="" align="left"　style="width:50%;height:auto;" ng-click="tab.newsTouch()">
-                        </span>
-                        <span class="settingBtn">
-                        <img id="head_setting" src="img_common/head_icon_setting.png" width="36" height="36" alt="" align="right"　style="width:50%;height:auto;" ng-click="tab.settingTouch()">
-                        </span>
-                </div>
-        </ons-toolbar>
-        <!--タブバー-->
-        <ons-tabbar var="mainTab" modifier="autogrow">
-                <ons-tab page="html/home.html" active="true">
-                    <img src="img_common/navbar_icon_home.png" width="40" height="42" alt="">
-                </ons-tab>
-                <ons-tab page="html/rally.html">
-                    <img src="img_common/navbar_icon_note.png" width="40" height="42" alt="">
-                </ons-tab>
-                <ons-tab page="html/spot.html">
-                    <img src="img_common/navbar_icon_stamp.png" width="40" height="42" alt="">
-                </ons-tab>
-                <ons-tab page="html/coupon.html">
-                    <img src="img_common/navbar_icon_coupon.png" width="40" height="42" alt="">
-                </ons-tab>
-                <ons-tab page="html/star.html">
-                    <img src="img_common/navbar_icon_star.png" width="40" height="42" alt="">
-                </ons-tab>
-        </ons-tabbar>
-    </ons-page>
+    <!--ツールバー-->
+    <ons-toolbar id="header" style="background-color:WHITE"　fixed-style>
+            <div class="toolbar__left toolbar--material__left" style="position: relative;">
+                    <img class="toolBarIcons" src="img_common/logo_jaf.png" width="100" height="38" alt="JAF" style="width:100%;height:auto;" ng-click="tab.iconTouch()">
+            </div>
+            <div class="toolbar__center toolbar--material__center"  style="position: relative;">
+                    <h2><img id="head_icon" class="toolBarIcons" src="img_common/logo_stamprally.png" width="281" height="66" alt="スタンプラリー" style="width:100%;height:auto;"></h2>
+            </div>
+            <div class="toolbar__right toolbar--material__right" style="position: relative;">
+                    <span class="newsBtn">
+                    <img id="head_news" src="img_common/head_icon_news.png" width="36" height="36" alt="" align="left"　style="width:50%;height:auto;" ng-click="tab.newsTouch()">
+                    </span>
+                    <span class="settingBtn">
+                    <img id="head_setting" src="img_common/head_icon_menu.png" width="36" height="36" alt="" align="right"　style="width:50%;height:auto;" ng-click="tab.settingTouch()">
+                    </span>
+            </div>
+    </ons-toolbar>
+
+    <ons-splitter>
+        <ons-splitter-side id="menu" side="right" width="250px" collapse>
+            <ons-page>
+                <ons-list id="menuList" model="table">
+                    <ons-list-header style="background-color: #0071bc;color:#ffffff;">
+                        <ons-icon icon="fa-gear"></ons-icon>アプリ設定
+                    </ons-list-header>
+                    <ons-list-item modifier="tappable" class="list__item__line-height" ng-click="tab.info()">
+                        通知設定
+                    </ons-list-item>
+                    <ons-list-item modifier="tappable" class="list__item__line-height" ng-click="tab.accountOpen()">
+                        アカウント
+                    </ons-list-item>
+                    <ons-list-item modifier="tappable" class="list__item__line-height" ng-click="tab.howtoOpen()">
+                        アプリの使い方
+                    </ons-list-item>
+                    <ons-list-item modifier="tappable" class="list__item__line-height" ng-click="tab.contractOpen()">
+                        ご利用規約
+                    </ons-list-item>
+                    <ons-list-item modifier="tappable" class="list__item__line-height" ng-click="tab.contactOpen()">
+                        お問い合わせ
+                    </ons-list-item>
+                    <ons-list-header style="background-color: #0071bc;color:#ffffff;">
+                        <ons-icon icon="fa-map"></ons-icon>マップアプリと連携
+                    </ons-list-header>
+                    <ons-list-item id="mapapp" modifier="tappable" class="list__item__line-height" ng-click="tab.mapOpen()">
+                        マップアプリで開く
+                    </ons-list-item>
+                </ons-list>
+                <img src="img_common/logo_jaf.png" style="position:absolute; bottom:0;">
+            </ons-page>
+        </ons-splitter-side>
+        <ons-splitter-content id="content" page="html/tab.html"></ons-splitter-content>
+    </ons-splitter>
 </body>
 
 </html>

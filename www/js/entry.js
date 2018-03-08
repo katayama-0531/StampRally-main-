@@ -1,6 +1,7 @@
 app.controller('entryCtr' ,['$scope', 'page_val', function ($scope, page_val) {
     //応募画面のコントローラー
-    var id = localStorage.getItem('ID');
+    var id=localStorage.getItem('ID');
+    var page="select";
     //iframe読み込み完了後の処理
     entryFrame.addEventListener('load',function() {
         header.style.backgroundColor=page_val.header_color_code;
@@ -13,20 +14,46 @@ app.controller('entryCtr' ,['$scope', 'page_val', function ($scope, page_val) {
         var postMessage =
         {   "user":id,
             "course_id":page_val.course_id };
-        ifrm.postMessage(postMessage, "http://japan-izm.com/dat/kon/test/stamp/app_view/entry/index_inp.php");
+        var url="";
+        if(page=="select"){
+            url=page_val.url+"privilege/index.php";
+        }
+        if(page=="entry"){
+            url=page_val.url+"entry/index.php";
+            roadingModal.hide();
+        }
+        ifrm.postMessage(postMessage, url);
         //roadingModal.hide();
     });
 
     // メッセージ受信イベント
     window.addEventListener('message', function(event) {
         console.log("entryFrameメッセージ受信");
-        if(event.data["button"]=="top"){
-            //応募後は何も選択してない状態に戻す。
-            page_val.spot_id=0;
-            page_val.course_id=0;
-            page_val.rally_id=0;
-            mainTab.setActiveTab(0);
-            navi.popPage();
+        console.log(event.data);
+        switch (event.data["page"]){
+            case "select":
+                if(event.data["mode"]=="back"){
+                    navi.popPage();
+                    compBtn.show();
+                }
+                if(event.data["mode"]=="entry"){
+                    page="entry";
+                }
+                break;
+            case "entry":
+                if(event.data["mode"]=="top"){
+                    //応募後は何も選択してない状態に戻す。
+                    page_val.spot_id=0;
+                    page_val.course_id=0;
+                    page_val.rally_id=0;
+                    page_val.header_color_code=page_val.default_color_code;
+                    page_val.header_title_img=page_val.default_title_img;
+                    page_val.header_news_img=page_val.default_news_img;
+                    page_val.header_setting_img=page_val.default_setting_img;
+                    mainTab.setActiveTab(0);
+                    navi.popPage();
+                }
+                break;
         }
     }, false);
 }]);

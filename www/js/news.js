@@ -14,7 +14,7 @@ app.controller('newsCtr' ,['$scope', function ($scope) {
     //         var postMessage =
     //         {   "user":id,
     //             "course_id":page_val.course_id};
-    //         ifrm.postMessage(postMessage, "http://japan-izm.com/dat/kon/test/stamp/app_view/index.php");
+    //         ifrm.postMessage(postMessage, page_val.url+"index.php");
     //     }
     // });
 }]);

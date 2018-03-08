@@ -39,14 +39,6 @@
     "is_top_level": true,
     "variables": {}
   },
-  "phonegap-plugin-barcodescanner": {
-    "source": {
-      "type": "registry",
-      "id": "phonegap-plugin-barcodescanner@7.0.1"
-    },
-    "is_top_level": true,
-    "variables": {}
-  },
   "cordova-plugin-geolocation": {
     "source": {
       "type": "registry",
@@ -67,6 +59,14 @@
     "source": {
       "type": "registry",
       "id": "cordova-plugin-android-permissions"
+    },
+    "is_top_level": true,
+    "variables": {}
+  },
+  "cordova-plugin-inappbrowser": {
+    "source": {
+      "type": "registry",
+      "id": "cordova-plugin-inappbrowser@2.0.2"
     },
     "is_top_level": true,
     "variables": {}

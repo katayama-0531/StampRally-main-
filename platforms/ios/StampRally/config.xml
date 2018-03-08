@@ -32,9 +32,6 @@
     <feature name="Camera">
         <param name="ios-package" value="CDVCamera" />
     </feature>
-    <feature name="BarcodeScanner">
-        <param name="ios-package" value="CDVBarcodeScanner" />
-    </feature>
     <feature name="Geolocation">
         <param name="ios-package" value="CDVLocation" />
     </feature>
@@ -72,4 +69,7 @@
     <preference name="PaginationBreakingMode" value="page" />
     <preference name="PaginationMode" value="unpaginated" />
     <preference name="CameraUsesGeolocation" value="false" />
+    <feature name="InAppBrowser">
+        <param name="ios-package" value="CDVInAppBrowser" />
+    </feature>
 </widget>

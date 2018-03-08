@@ -22,9 +22,6 @@
     "cordova-plugin-camera": {
       "PACKAGE_NAME": "com.example.StampRally"
     },
-    "phonegap-plugin-barcodescanner": {
-      "PACKAGE_NAME": "com.example.StampRally"
-    },
     "cordova-plugin-geolocation": {
       "PACKAGE_NAME": "com.example.StampRally"
     },
@@ -32,6 +29,9 @@
       "PACKAGE_NAME": "com.example.StampRally"
     },
     "cordova-plugin-android-permissions": {
+      "PACKAGE_NAME": "com.example.StampRally"
+    },
+    "cordova-plugin-inappbrowser": {
       "PACKAGE_NAME": "com.example.StampRally"
     }
   },

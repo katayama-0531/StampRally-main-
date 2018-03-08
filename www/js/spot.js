@@ -1,56 +1,58 @@
 app.controller('spotCtr', ['$scope', 'page_val', function ($scope, page_val) {
     //近くのスポット画面のコントローラー
     var id = localStorage.getItem('ID');
+    var page="";
     //アクティブなタブが再度押された場合の処理
     mainTab.on('reactive',function(event){
         if(event.index==2){
-            
+            roadingModal.show();
+            page="";
         }
     });
 
     //アクティブなタブの切り替え完了後の処理
     mainTab.on('postchange',function(e){
         if(event.index==2){
-            
+            page="";
         }
     });
 
     //アクティブなタブの切り替え前の処理
     mainTab.on('postchange',function(event){
         if(event.index!=2){
-            if(compBtn.style.visibility==""){
-                compBtn.style.visibility="hidden";
+            if(compBtn.visible){
+                compBtn.hide();
             }
-            if(stampBtn.style.visibility==""){
-                stampBtn.style.visibility="hidden";
+            if(stampBtn.visible){
+                stampBtn.hide();
             }
         }
 
         if(event.index==2){
             roadingModal.show();
-            spotFrame.src="http://japan-izm.com/dat/kon/test/stamp/app_view/rally/list/index.php";
+            spotFrame.src=page_val.url+"nearby/index.php";
         }
     });
     
     //iframe読み込み完了後の処理(iframe内で画面遷移した場合も呼ばれる)
     spotFrame.addEventListener('load',function() {
         console.log("spotFrame読み込み完了");
-        // iframeのwindowオブジェクトを取得
-        var ifrm = homeFrame.contentWindow;
-        // 外部サイトにメッセージを投げる
-        var postMessage =
-        {   "user":id,
-            "course_id":page_val.course_id
+        roadingModal.show();
+        if(mainTab.getActiveTabIndex()==2 && page==""){
+            // iframeのwindowオブジェクトを取得
+            var ifrm = spotFrame.contentWindow;
+            // 外部サイトにメッセージを投げる
+            var postMessage =
+            {   "user":id,
+                "course_id":page_val.course_id,
+                "lat":page_val.lat,
+                "lng":page_val.lng,
+                "page":"spot"
         };
-        ifrm.postMessage(postMessage, "http://japan-izm.com/dat/kon/test/stamp/rally/list/index.php");
-        roadingModal.hide();
-    });
-
-    // メッセージ受信イベント
-    window.addEventListener('message', function(event) {
-        if(event.data["page"]=="coupon"){
-            page_val.spot_id = event.data["spot_id"];
-            mainTab.setActiveTab(3);
+            ifrm.postMessage(postMessage, page_val.url+"nearby/index.php");
+            page="spot";
+        }else{
+            roadingModal.hide();
         }
-    }, false);
+    });
 }]);

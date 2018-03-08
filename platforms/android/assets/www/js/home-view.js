@@ -1,5 +1,9 @@
 app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_service', function($scope, $http, $filter, page_val, get_img_service){
     roadingModal.show();
+    stampBtn.hide();
+    stampBtn.hidden=false;
+    compBtn.hide();
+    compBtn.hidden=false;
 
     var id = localStorage.getItem('ID');
     var url = "";
@@ -27,12 +31,15 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
         if(event.index==0){
             roadingModal.show();
             console.log("homeタブへ切り替え前");
-            homeFrame.src="http://japan-izm.com/dat/kon/test/stamp/app_view/index.php";
+            homeFrame.src=page_val.url+"index.php";
             page="";
-            page_val.header_color_code="WHITE";
-            page_val.header_title_img="img_common/logo_stamprally.png";
-            page_val.header_news_img="img_common/head_icon_news.png";
-            page_val.header_setting_img="img_common/head_icon_setting.png";
+            page_val.header_color_code=page_val.default_color_code;
+            page_val.header_title_img=page_val.default_title_img;
+            page_val.header_news_img=page_val.default_news_img;
+            page_val.header_setting_img=page_val.default_setting_img;
+            //スタンプが押せる画面ではないので非表示にする
+            stampBtn.hide();
+            compBtn.hide();
         }
     });
     
@@ -45,28 +52,31 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
 
     //アクティブなタブが再度押された場合の処理
     mainTab.on('reactive',function(event){
+        if(navi.pages.length >= 1){
+            navi.resetToPage("html/home.html");
+        }else{
+            homeFrame.src=page_val.url+"index.php";
+        }
         //各タブ内のURLを読み込み直す
-        homeFrame.src="http://japan-izm.com/dat/kon/test/stamp/app_view/index.php";
-        rallyFrame.src="http://japan-izm.com/dat/kon/test/stamp/app_view/index_list.php";
-        spotFrame.src="http://japan-izm.com/dat/kon/test/stamp/app_view/rally/list/index.php";
-        couponFrame.scr="http://japan-izm.com/dat/kon/test/stamp/app_view/coupon/index.php";
-        starFrame.src="http://japan-izm.com/dat/kon/test/stamp/app_view/star/index.php";
+        rallyFrame.src=page_val.url+"index_list.php";
+        spotFrame.src=page_val.url+"nearby/index.php";
+        couponFrame.scr=page_val.url+"coupon/index.php";
+        starFrame.src=page_val.url+"star/index.php";
         if(event.index==0){
-            console.log("homeタブが再度押された");
+            console.log("homeタブが再度押された");                                                                                                                                                                        
             roadingModal.show();
-            //homeタブ内で遷移してスタンプボタンを出していた場合は消す
-            if(compBtn.style.visibility==""){
-                compBtn.style.visibility="hidden";
-            }
-            if(stampBtn.style.visibility==""){
-                stampBtn.style.visibility="hidden";
-            }
 
-            if(page_val.rally_id==0){
-                page_val.header_color_code="WHITE";
-                page_val.header_title_img="img_common/logo_stamprally.png";
-                page_val.header_news_img="img_common/head_icon_news.png";
-                page_val.header_setting_img="img_common/head_icon_setting.png";
+            compBtn.hide();
+            stampBtn.hide();
+
+            if(page_val.rally_id!=0){
+                page_val.rally_id=0;
+                page_val.course_id=0;
+                page_val.spot_id=0;
+                page_val.header_color_code=page_val.default_color_code;
+                page_val.header_title_img=page_val.default_title_img;
+                page_val.header_news_img=page_val.default_news_img;
+                page_val.header_setting_img=page_val.default_setting_img;
                 page="";
             }
         }
@@ -75,6 +85,7 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
     //iframe読み込み完了後の処理
     homeFrame.addEventListener('load',function() {
         console.log("homeiframe読み込み完了");
+        roadingModal.show();
         //ヘッダーのアイコンもダウンロードしてくる
         if(header.style.backgroundColor!=page_val.header_color_code){
             header.style.backgroundColor=page_val.header_color_code;
@@ -89,74 +100,149 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
         {   "user":id,
             "course_id":page_val.course_id,
             "page":"home"};
-        if(page==""){
-            ifrm.postMessage(postMessage, "http://japan-izm.com/dat/kon/test/stamp/app_view/index.php");
-            page="rally";
-            roadingModal.hide();
-        }else if(page=="rally"){
-            roadingModal.show();
-            //位置情報取得(パーミッション周りはiOSとAndroidで異なる為処理を分ける)
-            if (device.platform == "Android") {
-                var permissions = cordova.plugins.permissions; 
-                //permission確認
-                permissions.hasPermission(permissions.ACCESS_FINE_LOCATION, function (status) {
-                    if ( status.hasPermission ) {
-                        console.log("位置情報使用許可済み");
-                        this.getGps($filter,$http,page_val);
-                    } else {
-                        console.warn("位置情報使用未許可");
-                        permissions.requestPermission(permissions.ACCESS_COARSE_LOCATION, permissionSuccess, permissionError);
-                        function permissionSuccess (status){
-                            if( !status.hasPermission ){
-                                permissionError();
-                            } else {
-                                this.getGps($filter,$http,page_val);
-                            }
-                        };
-                        function permissionError (){
-                            console.warn('許可されなかった...');
-                            stampPageReset();
-                            ons.notification.alert({ message: "位置情報へのアクセスが許可されなかったため、現在位置が取得できません。", title: "エラー", cancelable: true });
-                            roadingModal.hide();
-                        };
-                    }
-                });
-            }else{
-                this.getGps($filter,$http,page_val);
-            }
-            ifrm.postMessage(postMessage, "http://japan-izm.com/dat/kon/test/stamp/app_view/rally/index.php");
-        }else if(page=="list"){
-            // iframeのwindowオブジェクトを取得
-            var ifrm = homeFrame.contentWindow;
-            // 外部サイトにメッセージを投げる
-            var postMessage =
-            {   "user":id
-            };
-            ifrm.postMessage(postMessage, "http://japan-izm.com/dat/kon/test/stamp/app_view/rally/list/index.php");
-            page="";
-            roadingModal.hide();
-        }else if(page=="spot"){
-            // iframeのwindowオブジェクトを取得
-            var ifrm = homeFrame.contentWindow;
-            // 外部サイトにメッセージを投げる
-            var postMessage =
-            {   "user":id
-            };
-            ifrm.postMessage(postMessage, "http://japan-izm.com/dat/kon/test/stamp/app_view/rally/list/index.php");
-            page="";
-            roadingModal.hide();
+        switch(page){
+            case "":
+            case angular.isUndefined(page):
+                ifrm.postMessage(postMessage, page_val.url+"index.php");
+                roadingModal.hide();
+                break;
+            case "rally":
+                ifrm.postMessage(postMessage, page_val.url+"rally/index.php");
+                roadingModal.hide();
+                break;
+            case "stamp":
+                ifrm.postMessage(postMessage, page_val.url+"stamp/index.php");
+                break;
+            case "list":
+                ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
+                roadingModal.hide();
+                break;
+            case "spot":
+                ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
+                roadingModal.hide();
+                break;
+            case "map":
+                postMessage={
+                    "user":id,
+                    "course_id":page_val.course_id,
+                    "page":"home",
+                    "lat":page_val.lat,
+                    "lng":page_val.lng
+                }
+                ifrm.postMessage(postMessage, page_val.url+"rally/map/index.php");
+                roadingModal.hide();
+                break;
+            case "detail":
+                ifrm.postMessage(postMessage, page_val.url+"rally/detail.html");
+                roadingModal.hide();
+                break;
+            default:
+                var postMessage =
+                {   "user":id,
+                    "course_id":page_val.course_id,
+                    "page":"home",
+                    "mode":"stop"};
+                ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
+                roadingModal.hide();
+                break;
         }
-        
     });
 
     // メッセージ受信イベント
     window.addEventListener('message', function(event) {
         console.log("homeiframeメッセージ受信");
-        if(event.data["page"]=="list"){
-            mainTab.setActiveTab(1);
+        console.log(event.data);
+        roadingModal.show();
+        if($.type(event.data)=="string"){
+            roadingModal.hide();
+        }else{
+            page_val.rally_mode='';
+        }
+        
+        switch (event.data["page"]){
+            case "home":
+                page="rally";
+                break;
+            
+            case "list":
+                mainTab.setActiveTab(1);
+                roadingModal.hide();
+                break;
+            
+            case "stamp":
+                page_val.spot_id=event.data["spot_id"];
+                if(page_val.stamp_comp_flg==0){
+                    checkGps();
+                }
+                break;
+
+            case "coupon":
+                page_val.coupon="detail";
+                mainTab.setActiveTab(3);
+                break;
+            
+            case "rally":
+                page_val.spot_id=0;
+                page_val.rally_mode=event.data["mode"];
+                if(!angular.isUndefined(event.data["course_id"])){
+                    page_val.course_id=event.data["course_id"];
+                }
+                
+                if(event.data["stamp_type"]=="comp"){
+                    compBtn.show();
+                    stampBtn.hide();
+                    page_val.stamp_comp_flg=1;
+                    if(roadingModal.visible){
+                        roadingModal.hide();
+                    }
+                }else{
+                    compBtn.hide();
+                    page_val.stamp_comp_flg=0;
+                }
+                switch (event.data["mode"]){
+                    case "list":
+                        page="list";
+                        break;
+                    case "map":
+                        page="map";
+                        stampBtn.hide();
+                        if(event.data["stamp_type"]==""){
+                            roadingModal.hide();
+                        }
+                        break;
+                    case "course":
+                        page="rally";
+                        stampBtn.hide();
+                        break;
+                    case "spot":
+                        page="stamp";
+                        stampBtn.hide();
+                        break;
+                    case "stop":
+                        page="stop";
+                        break;
+                    case "privilege":
+                        stampBtn.hide();
+                        compBtn.hide();
+                        page="stop";
+                        break;
+                    case "detail":
+                        page="detail";
+                    break;
+                    default:
+                        page="rally";
+                        if(page_val.stamp_comp_flg==0){
+                            checkGps();
+                        }
+                        break;
+                }
+                if(event.data["spot_id"]){
+                    page_val.spot_id=event.data["spot_id"]
+                    stampBtn.hide();
+                }
+                break;
         }
         if(event.data["rally_id"] > 0){
-            roadingModal.show();
             page_val.rally_id=event.data["rally_id"];
             page_val.header_color_code=event.data["color_code"];
 
@@ -177,8 +263,8 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
                     if(angular.isDefined(res)){
                         //ダウンロード失敗
                         ons.notification.alert({ message: "ダウンロード中にエラーが発生しました。", title: "エラー", cancelable: true });
-                        homeFrame.src="http://japan-izm.com/dat/kon/test/stamp/app_view/index.php";
-                        rallyFrame.src="http://japan-izm.com/dat/kon/test/stamp/app_view/index_list.php";
+                        homeFrame.src=page_val.url+"index.php";
+                        rallyFrame.src=page_val.url+"index_list.php";
                         roadingModal.hide();
                     }else{
                         //ダウンロード成功
@@ -186,53 +272,30 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
                         page_val.header_title_img=localStorage.getItem("head" + page_val.rally_id);
                         head_icon.src=page_val.header_title_img;
                         page_val.header_news_img="img_common/head_icon_news_rally.png";
-                        page_val.header_setting_img="img_common/head_icon_setting_rally.png";
+                        page_val.header_setting_img="img_common/head_icon_menu.png";
                     }
                 });
             }else{
                 page_val.header_title_img=localStorage.getItem("head"+ page_val.rally_id);
                 head_icon.src=page_val.header_title_img;
                 page_val.header_news_img="img_common/head_icon_news_rally.png";
-                page_val.header_setting_img="img_common/head_icon_setting_rally.png";
+                page_val.header_setting_img="img_common/head_icon_menu.png";
             }
-        }
-        if(event.data["course_id"] > 0){
-            if(page_val.course_id==0){
-                roadingModal.show();
-            }else{
-                roadingModal.hide();
-            }
-            page_val.course_id=event.data["course_id"];
-            
-        }
-        if(event.data["stamp_type"]=="complete"){
-            compBtn.style.visibility="";
-            if(roadingModal.visible){
-                roadingModal.hide();
-            }
-        }else{
-            compBtn.style.visibility="hidden";
-        }
-        if(event.data["spot_id"]){
-            if(event.data["spot_id"]!=""){
-                stampBtn.style.visibility="hidden";
-                if(roadingModal.visible){
-                    roadingModal.hide();
-                }
-            }
-        }
-        if(event.data["mode"]){
-            if(event.data["mode"]!="course"){
-                page=event.data["mode"];
-            }
-            roadingModal.show();
         }
     }, false);
 
     //スタンプアニメーション終了時のイベント
     stampImg.addEventListener("animationend", function () {
+        roadingModal.show();
         switch (stampImg.className) {
+            case "animated bounceInDown":
+                stampImg.className = "animated fadeOut";
+                break;
             case "animated fadeOut":
+                //全てのアニメーションが終了したら画像を消す
+                stampImg.src="";
+                stampImg.className = "";
+                stampImg.style.visibility="hidden";
                 //Ajax通信でphpにアクセス
                 var url = "http://japan-izm.com/dat/kon/test/stamp/api/pressStamp.php",
                     config = {
@@ -241,27 +304,84 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
                 var data = page_val.near_spot_data[0];
                 data["course_id"]=page_val.course_id;
                 data["user_id"]=id;
+                data["lat"]=page_val.lat;
+                data["lng"]=page_val.lng;
+                data["alt"]=page_val.alt;
+                data["acc"]=page_val.acc;
                 var req = {
                     method: 'POST',
                     url: url,
                     data: data
                 };
                 $http(req).then(function onSuccess(data, status) {
-                    //jsondata = JSON.parse(data.data);
                     console.log("スタンプ押印情報通信成功");
                     console.log(data);
-                    //スタンプの状態を更新する為読み込み直す
-                    homeFrame.src="http://japan-izm.com/dat/kon/test/stamp/app_view/rally/index.php";
-                    page="rally";
-                    
+                    // iframeのwindowオブジェクトを取得
+                    var ifrm = homeFrame.contentWindow;
+                    // 外部サイトにメッセージを投げる
+                    var postMessage =
+                    {   "spot_id":Number(page_val.near_spot_data[0]["id"]),
+                        "course_id":page_val.course_id,
+                        "mode":data.data["result"]
+                    };
+                    //送信するデータを近くのスポット配列から消す
+                    page_val.near_spot_data.splice(0,1);
+                    ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
+                    if(page_val.near_spot_data.length < 1){
+                        //押せるスタンプが無いので非表示にする
+                        stampBtn.hide();
+                    }
+                    if(data.data["result"]=="comp"){
+                        //コンプリートしたので応募ボタンを表示
+                        compBtn.show();
+                    }else if(data.data["result"]=="true"){
+                        compBtn.hide();
+                    }
+                    roadingModal.hide();     
                 }, function onError(data, status) {
                     ons.notification.alert({ message: "エラーが発生しました。", title: "エラー", cancelable: true });
                     console.log("エラー："+data);
                     console.log("ステータス："+status);
                 });
                 break;
+
+            default:
+                roadingModal.hide();
+                break;
         }
     });
+
+    function checkGps(){
+        //位置情報取得(パーミッション周りはiOSとAndroidで異なる為処理を分ける)
+        if (device.platform == "Android") {
+            var permissions = cordova.plugins.permissions; 
+            //permission確認
+            permissions.hasPermission(permissions.ACCESS_FINE_LOCATION, function (status) {
+                if ( status.hasPermission ) {
+                    console.log("位置情報使用許可済み");
+                    this.getGps($filter,$http,page_val);
+                } else {
+                    console.warn("位置情報使用未許可");
+                    permissions.requestPermission(permissions.ACCESS_COARSE_LOCATION, permissionSuccess, permissionError);
+                    function permissionSuccess (status){
+                        if( !status.hasPermission ){
+                            permissionError();
+                        } else {
+                            this.getGps($filter,$http,page_val);
+                        }
+                    };
+                    function permissionError (){
+                        console.warn('許可されなかった...');
+                        stampPageReset();
+                        ons.notification.alert({ message: "位置情報へのアクセスが許可されなかったため、現在位置が取得できません。", title: "エラー", cancelable: true });
+                        roadingModal.hide();
+                    };
+                }
+            });
+        }else{
+            this.getGps($filter,$http,page_val);
+        }
+    }
 }]);
 
 function login(id, $http) {
@@ -306,25 +426,28 @@ function getGps($filter,$http,page_val) {
     var onGpsSuccess = function (position) {
         //この辺りで緯度、経度を送信する
         var id = localStorage.getItem('ID');
-        var n = 6; // 小数点第n位まで残す
-        //緯度
-        var latitude = Math.floor(position.coords.latitude * Math.pow(10, n)) / Math.pow(10, n);
-        //var latitude = 33.5872;
-        //経度
-        var longitude = Math.floor(position.coords.longitude * Math.pow(10, n)) / Math.pow(10, n);
-        //var longitude = 130.416;
+        // 小数点第n位まで残す
+        var n = 6;
+        page_val.lat = Math.floor(position.coords.latitude * Math.pow(10, n)) / Math.pow(10, n);
+        //緯度 TODO:テスト用
+        //page_val.lat = 33.5872;
+        page_val.lng = Math.floor(position.coords.longitude * Math.pow(10, n)) / Math.pow(10, n);
+        //経度　TODO:テスト用
+        //page_val.lng = 130.416;
         //高度
-        var altitude = Math.floor(position.coords.altitude * Math.pow(10, n)) / Math.pow(10, n);
+        page_val.alt = Math.floor(position.coords.altitude * Math.pow(10, n)) / Math.pow(10, n);
         //位置精度
-        var accuracy = Math.floor(position.coords.accuracy * Math.pow(10, n)) / Math.pow(10, n);
+        page_val.acc = Math.floor(position.coords.accuracy * Math.pow(10, n)) / Math.pow(10, n);
         var gpsData = {
             user_id: id,
             course_id: page_val.course_id,
-            lat: latitude,
-            lng: longitude,
-            alt: altitude,
-            acc: accuracy
+            spot_id: page_val.spot_id,
+            lat: page_val.lat,
+            lng: page_val.lng,
+            alt: page_val.alt,
+            acc: page_val.acc
         };
+        console.log(gpsData);
         var postData =$filter('json')(gpsData);
 
         stampSetting(postData, $http,page_val);
@@ -364,19 +487,18 @@ function stampSetting(postData, $http, page_val) {
     };
 
     $http(req).then(function onSuccess(data, status) {
-        //jsondata = JSON.parse(data.data);
-            console.log(data.data);
             if(data.data.length==0){
                 //近くにスポットは無い
                 console.log("近くに表示出来るスポットは無い");
-                stampBtn.style.visibility="hidden";
+                stampBtn.hide();
             }else{
                 //近くにスポットがある
                 console.log("近くに表示可能なスポットがある");
                 console.log(data.data);
                 page_val.near_spot_data=data.data;
-                stampBtn.style.visibility="";
+                stampBtn.show()
             }
+            page="";
             roadingModal.hide();
     }, function onError(data, status) {
         roadingModal.hide();

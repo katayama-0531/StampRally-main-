@@ -1,0 +1,31 @@
+<ons-page>
+<!--TODO:iOSは別に実装が必要?-->
+<!--スタンプを押すボタン-->
+<ons-fab id="stampBtn" position="bottom center" style="width:25%; height:18%; border:none; bottom:0; left:37%; margin:auto; 
+padding:0; background:transparent;background: url(img_common/navbar_icon_stamp_active.png) 22% 0% / 110% no-repeat; transform: translate3d(0px, 0px, 0px) scale(0);"
+ ng-click="tab.stampTouch()" hidden>
+</ons-fab>
+<!--応募ボタン-->
+<ons-fab id="compBtn" position="bottom center" style="width:25%; height:18%; border:none; bottom:0; left:37%; margin:auto; 
+padding:0; background:transparent;background: url(img_common/foot_icon_stamp_complete.png) 22% 0% / 110% no-repeat; transform: translate3d(0px, 0px, 0px) scale(0);"
+ ng-click="tab.compTouch()" hidden>
+</ons-fab>
+<!--タブバー-->
+<ons-tabbar var="mainTab" modifier="autogrow">
+    <ons-tab page="html/home.html" active="true">
+        <img src="img_common/navbar_icon_home.png" width="40" height="42" alt="">
+    </ons-tab>
+    <ons-tab page="html/rally.html">
+        <img src="img_common/navbar_icon_note.png" width="40" height="42" alt="">
+    </ons-tab>
+    <ons-tab page="html/spot.html">
+        <img src="img_common/navbar_icon_stamp.png" width="40" height="42" alt="">
+    </ons-tab>
+    <ons-tab page="html/coupon.html">
+        <img src="img_common/navbar_icon_coupon.png" width="40" height="42" alt="">
+    </ons-tab>
+    <ons-tab page="html/star.html">
+        <img src="img_common/navbar_icon_star.png" width="40" height="42" alt="">
+    </ons-tab>
+</ons-tabbar>
+</ons-page>

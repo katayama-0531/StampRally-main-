@@ -33,10 +33,6 @@
               "count": 1
             },
             {
-              "xml": "<feature name=\"BarcodeScanner\"><param name=\"android-package\" value=\"com.phonegap.plugins.barcodescanner.BarcodeScanner\" /></feature>",
-              "count": 1
-            },
-            {
               "xml": "<feature name=\"Geolocation\"><param name=\"android-package\" value=\"org.apache.cordova.geolocation.Geolocation\" /></feature>",
               "count": 1
             },
@@ -46,6 +42,10 @@
             },
             {
               "xml": "<feature name=\"Permissions\"><param name=\"android-package\" value=\"com.android.plugins.Permissions\" /></feature>",
+              "count": 1
+            },
+            {
+              "xml": "<feature name=\"InAppBrowser\"><param name=\"android-package\" value=\"org.apache.cordova.inappbrowser.InAppBrowser\" /></feature>",
               "count": 1
             }
           ]
@@ -77,30 +77,8 @@
               "count": 1
             }
           ],
-          "/manifest/application": [
-            {
-              "xml": "<activity android:clearTaskOnLaunch=\"true\" android:configChanges=\"orientation|keyboardHidden|screenSize\" android:exported=\"false\" android:name=\"com.google.zxing.client.android.CaptureActivity\" android:theme=\"@android:style/Theme.NoTitleBar.Fullscreen\" android:windowSoftInputMode=\"stateAlwaysHidden\" />",
-              "count": 1
-            },
-            {
-              "xml": "<activity android:label=\"Share\" android:name=\"com.google.zxing.client.android.encode.EncodeActivity\" />",
-              "count": 1
-            }
-          ],
-          "/manifest": [
-            {
-              "xml": "<uses-permission android:name=\"android.permission.CAMERA\" />",
-              "count": 1
-            },
-            {
-              "xml": "<uses-permission android:name=\"android.permission.FLASHLIGHT\" />",
-              "count": 1
-            },
-            {
-              "xml": "<uses-feature android:name=\"android.hardware.camera\" android:required=\"true\" />",
-              "count": 1
-            }
-          ]
+          "/manifest/application": [],
+          "/manifest": []
         }
       }
     }
@@ -121,9 +99,6 @@
     "cordova-plugin-camera": {
       "PACKAGE_NAME": "com.example.StampRally"
     },
-    "phonegap-plugin-barcodescanner": {
-      "PACKAGE_NAME": "com.example.StampRally"
-    },
     "cordova-plugin-geolocation": {
       "PACKAGE_NAME": "com.example.StampRally"
     },
@@ -131,6 +106,9 @@
       "PACKAGE_NAME": "com.example.StampRally"
     },
     "cordova-plugin-android-permissions": {
+      "PACKAGE_NAME": "com.example.StampRally"
+    },
+    "cordova-plugin-inappbrowser": {
       "PACKAGE_NAME": "com.example.StampRally"
     }
   },
@@ -374,14 +352,6 @@
       ]
     },
     {
-      "id": "phonegap-plugin-barcodescanner.BarcodeScanner",
-      "file": "plugins/phonegap-plugin-barcodescanner/www/barcodescanner.js",
-      "pluginId": "phonegap-plugin-barcodescanner",
-      "clobbers": [
-        "cordova.plugins.barcodeScanner"
-      ]
-    },
-    {
       "id": "cordova-plugin-geolocation.geolocation",
       "file": "plugins/cordova-plugin-geolocation/www/android/geolocation.js",
       "pluginId": "cordova-plugin-geolocation",
@@ -410,6 +380,15 @@
       "clobbers": [
         "cordova.plugins.permissions"
       ]
+    },
+    {
+      "id": "cordova-plugin-inappbrowser.inappbrowser",
+      "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
+      "pluginId": "cordova-plugin-inappbrowser",
+      "clobbers": [
+        "cordova.InAppBrowser.open",
+        "window.open"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -418,9 +397,9 @@
     "cordova-plugin-file": "5.0.0",
     "cordova-plugin-file-transfer": "1.7.0",
     "cordova-plugin-camera": "4.0.1",
-    "phonegap-plugin-barcodescanner": "7.0.1",
     "cordova-plugin-geolocation": "4.0.1",
     "cordova-plugin-device": "2.0.1",
-    "cordova-plugin-android-permissions": "1.0.0"
+    "cordova-plugin-android-permissions": "1.0.0",
+    "cordova-plugin-inappbrowser": "2.0.2"
   }
 }
