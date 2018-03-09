@@ -2,7 +2,7 @@ ons.bootstrap(['stampRallyApp']);
 var app = angular.module('stampRallyApp',['onsen', 'ngResource', 'ngStorage']);
 //画像表示の際に使用する共通変数
 app.constant('page_val', {
-  'url':'http://japan-izm.com/dat/kon/test/stamp/app_view/',
+  'url':'http://153.127.242.178/dat/kon/test/stamp/app_view/',
   'spot_id': 0,
   'course_id': 0,
   'rally_id': 0,
@@ -18,9 +18,9 @@ app.constant('page_val', {
   'header_news_img':'',
   'header_setting_img':'',
   'default_color_code':'WHITE',
-  'default_title_img':'img_common/logo_stamprally.png',
-  'default_news_img':'img_common/head_icon_news.png',
-  'default_setting_img':'img_common/head_icon_menu.png',
+  'default_title_img':'img_common/header/header-appname.png',
+  'default_news_img':'img_common/header/header-news.png',
+  'default_setting_img':'img_common/header/header-hamb-menu.png',
   'lat':0,
   'lng':0,
   'alt':0,

@@ -103,7 +103,8 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
         switch(page){
             case "":
             case angular.isUndefined(page):
-                ifrm.postMessage(postMessage, page_val.url+"index.php");
+                var url=page_val.url+"index.php";
+                ifrm.postMessage(postMessage, "http://153.127.242.178/dat/kon/test/stamp/app_view/index.php");
                 roadingModal.hide();
                 break;
             case "rally":
@@ -134,6 +135,10 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
                 break;
             case "detail":
                 ifrm.postMessage(postMessage, page_val.url+"rally/detail.html");
+                roadingModal.hide();
+                break;
+            case "list_detail":
+                ifrm.postMessage(postMessage, page_val.url+"rally/list/detail.html");
                 roadingModal.hide();
                 break;
             default:
@@ -229,6 +234,9 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
                     case "detail":
                         page="detail";
                     break;
+                    case "list_detail":
+                        page="list_detail";
+                    break;
                     default:
                         page="rally";
                         if(page_val.stamp_comp_flg==0){
@@ -241,6 +249,11 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
                     stampBtn.hide();
                 }
                 break;
+            case "near_spot":
+                mainTab.setActiveTab(2);
+                page_val.spot_id=event.data["spot_id"]
+                break;
+            
         }
         if(event.data["rally_id"] > 0){
             page_val.rally_id=event.data["rally_id"];
@@ -253,7 +266,7 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
             if(!stamp){
                 console.log("ダウンロード済みファイルが無い");
                 // 選択ファイルの読み込み
-                var readFilePath = encodeURI('http://japan-izm.com/dat/kon/test/stamp/img/' + page_val.rally_id + '/stamp' + page_val.rally_id + '.json');
+                var readFilePath = encodeURI('http://153.127.242.178/dat/kon/test/stamp/img/' + page_val.rally_id + '/stamp' + page_val.rally_id + '.json');
                 //injectしたいサービスを記述。ngも必要。
                 var injector = angular.injector(['ng','stampRallyApp']);
                 //injectorからサービスを取得
@@ -271,8 +284,8 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
                         console.log("ダウンロード成功");
                         page_val.header_title_img=localStorage.getItem("head" + page_val.rally_id);
                         head_icon.src=page_val.header_title_img;
-                        page_val.header_news_img="img_common/head_icon_news_rally.png";
-                        page_val.header_setting_img="img_common/head_icon_menu.png";
+                        page_val.header_news_img="img_common/header/header-news.png";
+                        page_val.header_setting_img="img_common/header/header-hamb-menu.png";
                     }
                 });
             }else{
@@ -297,7 +310,7 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
                 stampImg.className = "";
                 stampImg.style.visibility="hidden";
                 //Ajax通信でphpにアクセス
-                var url = "http://japan-izm.com/dat/kon/test/stamp/api/pressStamp.php",
+                var url = "http://153.127.242.178/dat/kon/test/stamp/api/pressStamp.php",
                     config = {
                         timeout: 5000
                     };
@@ -367,6 +380,7 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
                         if( !status.hasPermission ){
                             permissionError();
                         } else {
+                            console.log("位置情報使用許可した");
                             this.getGps($filter,$http,page_val);
                         }
                     };
@@ -393,7 +407,7 @@ function login(id, $http) {
         };
     }
     //Ajax通信でphpにアクセス
-    var url = "http://japan-izm.com/dat/kon/test/stamp/api/login.php",
+    var url = "http://153.127.242.178/dat/kon/test/stamp/api/login.php",
         config = {
             timeout: 5000
         };
@@ -470,12 +484,12 @@ function getGps($filter,$http,page_val) {
         roadingModal.hide();
     };
     //位置情報取得
-    navigator.geolocation.getCurrentPosition(onGpsSuccess, onGpsError);
+    navigator.geolocation.getCurrentPosition(onGpsSuccess, onGpsError,{timeout: 20000, enableHighAccuracy: true});
 }
 
 function stampSetting(postData, $http, page_val) {
     //Ajax通信でphpにアクセス
-    var url = "http://japan-izm.com/dat/kon/test/stamp/api/nearStampSpot.php",
+    var url = "http://153.127.242.178/dat/kon/test/stamp/api/nearStampSpot.php",
         config = {
             timeout: 5000
         };

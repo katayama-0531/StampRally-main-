@@ -230,6 +230,31 @@ module.exports = [
     ]
   },
   {
+    "id": "cordova-plugin-device.device",
+    "file": "plugins/cordova-plugin-device/www/device.js",
+    "pluginId": "cordova-plugin-device",
+    "clobbers": [
+      "device"
+    ]
+  },
+  {
+    "id": "cordova-plugin-android-permissions.Permissions",
+    "file": "plugins/cordova-plugin-android-permissions/www/permissions-dummy.js",
+    "pluginId": "cordova-plugin-android-permissions",
+    "clobbers": [
+      "cordova.plugins.permissions"
+    ]
+  },
+  {
+    "id": "cordova-plugin-inappbrowser.inappbrowser",
+    "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
+    "pluginId": "cordova-plugin-inappbrowser",
+    "clobbers": [
+      "cordova.InAppBrowser.open",
+      "window.open"
+    ]
+  },
+  {
     "id": "cordova-plugin-geolocation.Coordinates",
     "file": "plugins/cordova-plugin-geolocation/www/Coordinates.js",
     "pluginId": "cordova-plugin-geolocation",
@@ -260,31 +285,6 @@ module.exports = [
     "clobbers": [
       "navigator.geolocation"
     ]
-  },
-  {
-    "id": "cordova-plugin-device.device",
-    "file": "plugins/cordova-plugin-device/www/device.js",
-    "pluginId": "cordova-plugin-device",
-    "clobbers": [
-      "device"
-    ]
-  },
-  {
-    "id": "cordova-plugin-android-permissions.Permissions",
-    "file": "plugins/cordova-plugin-android-permissions/www/permissions-dummy.js",
-    "pluginId": "cordova-plugin-android-permissions",
-    "clobbers": [
-      "cordova.plugins.permissions"
-    ]
-  },
-  {
-    "id": "cordova-plugin-inappbrowser.inappbrowser",
-    "file": "plugins/cordova-plugin-inappbrowser/www/inappbrowser.js",
-    "pluginId": "cordova-plugin-inappbrowser",
-    "clobbers": [
-      "cordova.InAppBrowser.open",
-      "window.open"
-    ]
   }
 ];
 module.exports.metadata = 
@@ -295,10 +295,10 @@ module.exports.metadata =
   "cordova-plugin-file": "5.0.0",
   "cordova-plugin-file-transfer": "1.7.0",
   "cordova-plugin-camera": "4.0.1",
-  "cordova-plugin-geolocation": "4.0.1",
   "cordova-plugin-device": "2.0.1",
   "cordova-plugin-android-permissions": "1.0.0",
-  "cordova-plugin-inappbrowser": "2.0.2"
+  "cordova-plugin-inappbrowser": "2.0.2",
+  "cordova-plugin-geolocation": "4.0.1"
 };
 // BOTTOM OF METADATA
 });

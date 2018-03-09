@@ -21,7 +21,7 @@ app.controller('couponCtr', ['$scope', 'page_val', '$timeout', function($scope, 
             // }
             // iframeのwindowオブジェクトを取得
             var ifrm = couponFrame.contentWindow;
-            ifrm.postMessage(spotId, "http://japan-izm.com/dat/kon/test/stamp/app_view/coupon/index.php");
+            ifrm.postMessage(spotId, "http://153.127.242.178/dat/kon/test/stamp/app_view/coupon/index.php");
         }
     });
 
@@ -43,7 +43,7 @@ app.controller('couponCtr', ['$scope', 'page_val', '$timeout', function($scope, 
             // }
             // iframeのwindowオブジェクトを取得
             var ifrm = couponFrame.contentWindow;
-            ifrm.postMessage(spotId, "http://japan-izm.com/dat/kon/test/stamp/app_view/coupon/index.php");
+            ifrm.postMessage(spotId, "http://153.127.242.178/dat/kon/test/stamp/app_view/coupon/index.php");
         }
     });
 }]);

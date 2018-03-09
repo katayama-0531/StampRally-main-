@@ -27,7 +27,7 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
     //アクティブなタブの切り替え前の処理
     mainTab.on('postchange',function(event){
         if(event.index==0){
-            homeFrame.src="http://japan-izm.com/dat/kon/test/stamp/app_view/index.php";
+            homeFrame.src="http://153.127.242.178/dat/kon/test/stamp/app_view/index.php";
             page="";
         }
     });
@@ -45,7 +45,7 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
     //アクティブなタブが再度押された場合の処理
     mainTab.on('reactive',function(event){
         if(event.index==0){
-            homeFrame.src="http://japan-izm.com/dat/kon/test/stamp/app_view/index.php";
+            homeFrame.src="http://153.127.242.178/dat/kon/test/stamp/app_view/index.php";
             page_val.header_color_code="WHITE";
             page_val.header_title_img="logo_stamprally.png";
             page_val.header_news_img="head_icon_news.png";
@@ -67,7 +67,7 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
         // 外部サイトにメッセージを投げる
         var postMessage =id;
         if(page==""){
-            ifrm.postMessage(postMessage, "http://japan-izm.com/dat/kon/test/stamp/app_view/index.php");
+            ifrm.postMessage(postMessage, "http://153.127.242.178/dat/kon/test/stamp/app_view/index.php");
             page="rally";
             roadingModal.hide();
         }else{
@@ -100,7 +100,7 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
             }else{
                 getGps($filter);
             }
-            ifrm.postMessage(postMessage, "http://japan-izm.com/dat/kon/test/stamp/app_view/rally/index.php");
+            ifrm.postMessage(postMessage, "http://153.127.242.178/dat/kon/test/stamp/app_view/rally/index.php");
         }
         
     });
@@ -116,7 +116,7 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
             console.log("カラーコード"+page_val.header_color_code);
 
             // 選択ファイルの読み込み
-            var filePath = encodeURI('http://japan-izm.com/dat/kon/test/stamp/img/' + event.data["course_id"] + '/stamp' + event.data["course_id"] + '.json');
+            var filePath = encodeURI('http://153.127.242.178/dat/kon/test/stamp/img/' + event.data["course_id"] + '/stamp' + event.data["course_id"] + '.json');
             //injectしたいサービスを記述。ngも必要。
             var injector = angular.injector(['ng','stampRallyApp']);
             //injectorからサービスを取得
@@ -125,8 +125,8 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
                 ///ダウンロード失敗
                 if(res["name"] === "Error"){
                     ons.notification.alert({ message: "ダウンロード中にエラーが発生しました。", title: "エラー", cancelable: true });
-                    homeFrame.src="http://japan-izm.com/dat/kon/test/stamp/app_view/index.php";
-                    rallyFrame.src="http://japan-izm.com/dat/kon/test/stamp/app_view/index_list.php";
+                    homeFrame.src="http://153.127.242.178/dat/kon/test/stamp/app_view/index.php";
+                    rallyFrame.src="http://153.127.242.178/dat/kon/test/stamp/app_view/index_list.php";
                 }else{
                     page_val.header_title_img="tit_chikugositikoku.png";
                     page_val.header_news_img="head_icon_news_rally.png";
@@ -162,7 +162,7 @@ function login(id, $http) {
         };
     }
     //Ajax通信でphpにアクセス
-    var url = "http://japan-izm.com/dat/kon/test/stamp/api/login.php",
+    var url = "http://153.127.242.178/dat/kon/test/stamp/api/login.php",
         config = {
             timeout: 5000
         };
@@ -217,7 +217,7 @@ function getGps($filter) {
         // 外部サイトにメッセージを投げる
         var postMessage =$filter('json')(gpsData);
         console.log(postMessage);
-        ifrm.postMessage(postMessage, "http://japan-izm.com/dat/kon/test/stamp/app_view/rally/index.php");
+        ifrm.postMessage(postMessage, "http://153.127.242.178/dat/kon/test/stamp/app_view/rally/index.php");
         roadingModal.hide();
     };
 

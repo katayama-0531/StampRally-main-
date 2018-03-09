@@ -44,7 +44,7 @@ app.controller('spotCtr', ['$scope', 'page_val', function ($scope, page_val) {
             // 外部サイトにメッセージを投げる
             var postMessage =
             {   "user":id,
-                "course_id":page_val.course_id,
+                "spot_id":page_val.spot_id,
                 "lat":page_val.lat,
                 "lng":page_val.lng,
                 "page":"spot"

@@ -38,7 +38,7 @@ function login(id, $http) {
         };
     }
     //Ajax通信でphpにアクセス
-    var url = "http://japan-izm.com/dat/kon/test/stamp/api/login.php",
+    var url = "http://153.127.242.178/dat/kon/test/stamp/api/login.php",
         config = {
             timeout: 5000
         };

@@ -31,10 +31,10 @@
       "cordova-plugin-dialogs": {},
       "cordova-plugin-file": {},
       "cordova-plugin-camera": {},
-      "cordova-plugin-geolocation": {},
       "cordova-plugin-device": {},
       "cordova-plugin-android-permissions": {},
-      "cordova-plugin-inappbrowser": {}
+      "cordova-plugin-inappbrowser": {},
+      "cordova-plugin-geolocation": {}
     },
     "platforms": [
       "android",

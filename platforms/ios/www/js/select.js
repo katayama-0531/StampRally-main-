@@ -32,7 +32,7 @@ app.controller('select', ['$scope','img_num', 'get_img_service', '$localStorage'
         }else{
             console.log("デフォルトデータなし");
             // 選択ファイルの読み込み
-            var filePath = encodeURI('http://japan-izm.com/dat/kon/test/stamp/img/' + img_num.num + '/stamp' + img_num.num + '.json');
+            var filePath = encodeURI('http://153.127.242.178/dat/kon/test/stamp/img/' + img_num.num + '/stamp' + img_num.num + '.json');
 
             //injectしたいサービスを記述。ngも必要。
             var injector = angular.injector(['ng','app']);
