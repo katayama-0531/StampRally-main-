@@ -30,7 +30,7 @@ app.controller('tabCtr', ['$scope', '$http', 'page_val', 'get_img_service', func
     }
     
     menu.addEventListener('preopen',function(event){
-        if(page_val.rally_mode=="map"){
+        if(page_val.rally_mode=="map_visible" || page_val.rally_mode=="spot_touch"){
             mapapp.modifier="tappble";
             mapapp.click="tab.mapOpen()";
             mapapp.style="background-color: #ffffff;"
@@ -41,14 +41,24 @@ app.controller('tabCtr', ['$scope', '$http', 'page_val', 'get_img_service', func
     });
 
     this.mapOpen=function(){
-        if(page_val.rally_mode=="map"){
-            var position=page_val.near_spot_data[0]["map_lat"]+","+page_val.near_spot_data[0]["map_lng"];
+        if(page_val.rally_mode=="map_visible" || page_val.rally_mode=="spot_touch"){
+            if(page_val.near_spot_data[0]){
+                var position=page_val.near_spot_data[0]["map_lat"]+","+page_val.near_spot_data[0]["map_lng"];
+            }
             var url="";
             //iOS,Androidでそれぞれ地図アプリを開く
             if (device.platform=="Android") {
-                url="http://maps.google.com?q="+position;
+                if(position==null||position=="undefined"){
+                    url="http://maps.google.com";
+                }else{
+                    url="http://maps.google.com?q="+position;
+                }
             }else{
-                url="maps:q="+position;
+                if(position==null||position=="undefined"){
+                    url="maps:q=";
+                }else{
+                    url="maps:q="+position;
+                }
             }
             if(url!=""){
                 window.open(url, "_system");

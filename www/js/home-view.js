@@ -131,7 +131,6 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
                     "lng":page_val.lng
                 }
                 ifrm.postMessage(postMessage, page_val.url+"rally/map/index.php");
-                roadingModal.hide();
                 break;
             case "detail":
                 ifrm.postMessage(postMessage, page_val.url+"rally/detail.html");
@@ -163,7 +162,6 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
         }else{
             page_val.rally_mode='';
         }
-        
         switch (event.data["page"]){
             case "home":
                 page="rally";
@@ -207,13 +205,22 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
                 switch (event.data["mode"]){
                     case "list":
                         page="list";
+                        if(mainTab.getActiveTabIndex()==2){
+                            var ifrm = homeFrame.contentWindow;
+                            // // 外部サイトにメッセージを投げる
+                            // var postMessage =
+                            // {   "user":id,
+                            //     "course_id":page_val.course_id,
+                            //     "page":"home"};
+                            // ifrm.postMessage(postMessage, page_val.url+"nearby/index.php");
+                            roadingModal.hide();
+                        }
                         break;
                     case "map":
                         page="map";
-                        stampBtn.hide();
-                        if(event.data["stamp_type"]==""){
-                            roadingModal.hide();
-                        }
+                        break;
+                    case "map_visible":
+                        roadingModal.hide();
                         break;
                     case "course":
                         page="rally";
@@ -236,6 +243,15 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
                     break;
                     case "list_detail":
                         page="list_detail";
+                    break;
+                    case "spot_touch":
+                        var positionArray = event.data["position"].split(",");
+                        var position ={
+                            "map_lat":positionArray[0].slice(1),
+                            "map_lng":positionArray[1].slice(0,-1)
+                        };
+                        page_val.near_spot_data[0]=position ;
+                        roadingModal.hide();
                     break;
                     default:
                         page="rally";
@@ -291,8 +307,8 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
             }else{
                 page_val.header_title_img=localStorage.getItem("head"+ page_val.rally_id);
                 head_icon.src=page_val.header_title_img;
-                page_val.header_news_img="img_common/head_icon_news_rally.png";
-                page_val.header_setting_img="img_common/head_icon_menu.png";
+                page_val.header_news_img="img_common/header/header-news.png";
+                page_val.header_setting_img="img_common/header/header-hamb-menu.png";
             }
         }
     }, false);
