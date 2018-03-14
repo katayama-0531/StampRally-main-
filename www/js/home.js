@@ -3,6 +3,7 @@ var app = angular.module('stampRallyApp',['onsen', 'ngResource', 'ngStorage']);
 //画像表示の際に使用する共通変数
 app.constant('page_val', {
   'url':'http://153.127.242.178/dat/kon/test/stamp/app_view/',
+  //'url':'http://jafstamprally.com/',
   'spot_id': 0,
   'course_id': 0,
   'rally_id': 0,
