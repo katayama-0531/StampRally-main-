@@ -65,25 +65,39 @@ app.controller('rallyCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_s
         head_news.src=page_val.header_news_img;
         head_setting.src=page_val.header_setting_img;
         console.log("rallyFrame読み込み完了");
-        if(page_val.rally_mode!="stop" || page_val.rally_mode!="detail"){
-            // iframeのwindowオブジェクトを取得
-            var rallyifrm = rallyFrame.contentWindow;
+        // iframeのwindowオブジェクトを取得
+        var rallyifrm = rallyFrame.contentWindow;
+        if(page_val.rally_mode!="stop" && page_val.rally_mode!="detail"){
             // 外部サイトにメッセージを投げる
             var postMessage =
             {   "user":id,
                 "course_id":page_val.course_id,
                 "page":"rally"};
-                var url="";
             if(mainTab.getActiveTabIndex()==1){
                 if(page==""){
-                    url=page_val.url+"index_list.php";
+                    rallyifrm.postMessage(postMessage, page_val.url+"index_list.php");
                     page="rally";
                 }else{
-                    url=page_val.url+"rally/index.php";
+                    if(page_val.rally_mode=="map"){
+                        rallyifrm.postMessage(postMessage, page_val.url+"rally/map/index.php");
+                    }else{
+                        rallyifrm.postMessage(postMessage, page_val.url+"rally/index.php");
+                    }
                 }
             }
-            if(url!=""){
-                rallyifrm.postMessage(postMessage, url);
+        }else if(page_val.rally_mode=="stop"){
+            // 外部サイトにメッセージを投げる
+            var postMessage =
+            {   "user":id,
+                "course_id":page_val.course_id,
+                "mode":"stop"};
+            if(mainTab.getActiveTabIndex()==1){
+                if(page==""){
+                    rallyifrm.postMessage(postMessage, page_val.url+"index_list.php");
+                    page="rally";
+                }else{
+                    rallyifrm.postMessage(postMessage, page_val.url+"rally/index.php");
+                }
             }
         }
         roadingModal.hide();

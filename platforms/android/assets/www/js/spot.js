@@ -44,6 +44,8 @@ app.controller('spotCtr', ['$scope', 'page_val', function ($scope, page_val) {
             // 外部サイトにメッセージを投げる
             var postMessage =
             {   "user":id,
+                "rally_id":page_val.rally_id,
+                "course_id":page_val.course_id,
                 "spot_id":page_val.spot_id,
                 "lat":page_val.lat,
                 "lng":page_val.lng,
@@ -55,6 +57,8 @@ app.controller('spotCtr', ['$scope', 'page_val', function ($scope, page_val) {
                     if(page=="spot"){
                         var postMessage =
                         {   "user":id,
+                            "rally_id":page_val.rally_id,
+                            "course_id":page_val.course_id,
                             "spot_id":page_val.spot_id,
                             "lat":page_val.lat,
                             "lng":page_val.lng,
@@ -95,6 +99,7 @@ app.controller('spotCtr', ['$scope', 'page_val', function ($scope, page_val) {
                 case "map":
                     postMessage={
                         "user":id,
+                        "rally_id":page_val.rally_id,
                         "course_id":page_val.course_id,
                         "page":"home",
                         "lat":page_val.lat,
@@ -105,6 +110,8 @@ app.controller('spotCtr', ['$scope', 'page_val', function ($scope, page_val) {
                 case "detail":
                     postMessage =
                             {   "user":id,
+                                "rally_id":page_val.rally_id,
+                                "course_id":page_val.course_id,
                                 "spot_id":page_val.spot_id,
                                 "page":"stop"
                             };
@@ -114,6 +121,8 @@ app.controller('spotCtr', ['$scope', 'page_val', function ($scope, page_val) {
                 case "list_detail":
                     postMessage =
                         {   "user":id,
+                            "rally_id":page_val.rally_id,
+                            "course_id":page_val.course_id,
                             "spot_id":page_val.spot_id,
                             "page":"stop"
                         };
@@ -123,6 +132,7 @@ app.controller('spotCtr', ['$scope', 'page_val', function ($scope, page_val) {
                 default:
                     var postMessage =
                     {   "user":id,
+                        "rally_id":page_val.rally_id,
                         "course_id":page_val.course_id,
                         "page":"home",
                         "mode":"stop"};

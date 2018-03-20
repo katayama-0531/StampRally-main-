@@ -4,6 +4,7 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
     stampBtn.hidden=false;
     compBtn.hide();
     compBtn.hidden=false;
+    stringCount=0;
 
     var id = localStorage.getItem('ID');
     var url = "";
@@ -99,12 +100,12 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
         var postMessage =
         {   "user":id,
             "course_id":page_val.course_id,
+            "rally_id":page_val.rally_id,
             "page":"home"};
         switch(page){
             case "":
             case angular.isUndefined(page):
-                var url=page_val.url+"index.php";
-                ifrm.postMessage(postMessage, "http://153.127.242.178/dat/kon/test/stamp/app_view/index.php");
+                ifrm.postMessage(postMessage, page_val.url+"index.html");
                 roadingModal.hide();
                 break;
             case "rally":
@@ -126,6 +127,7 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
                 postMessage={
                     "user":id,
                     "course_id":page_val.course_id,
+                    "rally_id":page_val.rally_id,
                     "page":"home",
                     "lat":page_val.lat,
                     "lng":page_val.lng
@@ -144,6 +146,7 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
                 var postMessage =
                 {   "user":id,
                     "course_id":page_val.course_id,
+                    "rally_id":page_val.rally_id,
                     "page":"home",
                     "mode":"stop"};
                 ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
@@ -159,9 +162,16 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
             console.log(event.data);
             roadingModal.show();
             if($.type(event.data)=="string"){
-                roadingModal.hide();
+                if(stringCount==0){
+                    stringCount++;
+                }else{
+                    roadingModal.hide();
+                }
             }else{
                 page_val.rally_mode='';
+            }
+            if(!angular.isUndefined(event.data["rally_id"])){
+                page_val.rally_id=event.data["rally_id"];
             }
             switch (event.data["page"]){
                 case "home":
@@ -262,6 +272,11 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
                     mainTab.setActiveTab(2);
                     page_val.spot_id=event.data["spot_id"]
                     break;
+                case "maintenance":
+                    page_val.maintenance=1;
+                    mainTab.hide();
+                    roadingModal.hide();
+                    break;
                 
             }
             if(event.data["rally_id"] > 0){
@@ -275,7 +290,7 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
                 if(!stamp){
                     console.log("ダウンロード済みファイルが無い");
                     // 選択ファイルの読み込み
-                    var readFilePath = encodeURI('http://153.127.242.178/dat/kon/test/stamp/img/' + page_val.rally_id + '/stamp' + page_val.rally_id + '.json');
+                    var readFilePath = encodeURI(page_val.root_url+'img/' + page_val.rally_id + '/stamp' + page_val.rally_id + '.json');
                     //injectしたいサービスを記述。ngも必要。
                     var injector = angular.injector(['ng','stampRallyApp']);
                     //injectorからサービスを取得
@@ -304,6 +319,11 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
                     page_val.header_setting_img="img_common/header/header-hamb-menu.png";
                 }
             }
+        }else{
+            if(event.data["page"]=="maintenance"){
+                page_val.maintenance=1;
+                mainTab.hide();
+            }
         }
     }, false);
 
@@ -320,7 +340,7 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
                 stampImg.className = "";
                 stampImg.style.visibility="hidden";
                 //Ajax通信でphpにアクセス
-                var url = "http://153.127.242.178/dat/kon/test/stamp/api/pressStamp.php",
+                var url = page_val.root_url+"api/pressStamp.php",
                     config = {
                         timeout: 5000
                     };
@@ -417,7 +437,8 @@ function login(id, $http) {
         };
     }
     //Ajax通信でphpにアクセス
-    var url = "http://153.127.242.178/dat/kon/test/stamp/api/login.php",
+    // var url = "http://153.127.242.178/dat/kon/test/stamp/api/login.php",
+    var url = "http://jafstamprally.com/api/login.php",
         config = {
             timeout: 5000
         };
@@ -454,10 +475,10 @@ function getGps($filter,$http,page_val) {
         var n = 6;
         page_val.lat = Math.floor(position.coords.latitude * Math.pow(10, n)) / Math.pow(10, n);
         //緯度 TODO:テスト用
-        //page_val.lat = 33.5872;
+        // page_val.lat = 33.1832;
         page_val.lng = Math.floor(position.coords.longitude * Math.pow(10, n)) / Math.pow(10, n);
         //経度　TODO:テスト用
-        //page_val.lng = 130.416;
+        // page_val.lng = 130.503;
         //高度
         page_val.alt = Math.floor(position.coords.altitude * Math.pow(10, n)) / Math.pow(10, n);
         //位置精度
@@ -499,7 +520,7 @@ function getGps($filter,$http,page_val) {
 
 function stampSetting(postData, $http, page_val) {
     //Ajax通信でphpにアクセス
-    var url = "http://153.127.242.178/dat/kon/test/stamp/api/nearStampSpot.php",
+    var url = page_val.root_url+"api/nearStampSpot.php",
         config = {
             timeout: 5000
         };

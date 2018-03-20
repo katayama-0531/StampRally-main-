@@ -20,7 +20,7 @@ app.controller('couponCtr', ['$scope','$http', '$filter', 'page_val', '$timeout'
             if(page_val.coupon=="detail"){
                 var postMessage={
                     "user_id":id,
-                    "spot_id":page_val.spot_id,
+                    "coupon_id":page_val.coupon_id,
                     "page":"detail"
                 }
                 // iframeのwindowオブジェクトを取得
@@ -30,12 +30,12 @@ app.controller('couponCtr', ['$scope','$http', '$filter', 'page_val', '$timeout'
             }else{
                 var postMessage={
                     "user_id":id,
-                    "spot_id":page_val.spot_id,
+                    "coupon_id":page_val.coupon_id,
                     "page":""
                 }
                 // iframeのwindowオブジェクトを取得
                 var ifrm = couponFrame.contentWindow;
-                ifrm.postMessage(postMessage, page_val.url+"coupon/index.php");
+                ifrm.postMessage(postMessage, page_val.url+"coupon/index.html");
             }
         }
     });
@@ -58,8 +58,8 @@ app.controller('couponCtr', ['$scope','$http', '$filter', 'page_val', '$timeout'
             page="";
         }else{
             var postMessage={
-                "user_id":id,
-                "spot_id":page_val.spot_id,
+                "user_id":localStorage.getItem('ID'),
+                "coupon_id":page_val.coupon_id,
                 "page":""
             }
             // iframeのwindowオブジェクトを取得
@@ -74,7 +74,11 @@ app.controller('couponCtr', ['$scope','$http', '$filter', 'page_val', '$timeout'
             console.log("couponFrameメッセージ受信");
             console.log(event.data);
             page_val.coupon=event.data["mode"];
-            page_val.spot_id=event.data["spot_id"];
+            page_val.coupon_id=event.data["coupon_id"];
+            if(event.data["page"]=="maintenance"){
+                page_val.maintenance=1;
+                mainTab.hide();
+            }
         }
     });
 
@@ -116,26 +120,26 @@ function getCouponGps($filter,$http,page_val) {
     //位置情報取得
     var onGpsSuccess = function (position) {
         //この辺りで緯度、経度を送信する
-        var id = localStorage.getItem('ID');
         // 小数点第n位まで残す
         var n = 6;
         page_val.lat = Math.floor(position.coords.latitude * Math.pow(10, n)) / Math.pow(10, n);
         //緯度 TODO:テスト用
-        //page_val.lat = 33.5872;
+        // page_val.lat = 33.1584;
         page_val.lng = Math.floor(position.coords.longitude * Math.pow(10, n)) / Math.pow(10, n);
         //経度　TODO:テスト用
-        //page_val.lng = 130.416;
+        // page_val.lng = 130.395;
         //高度
         page_val.alt = Math.floor(position.coords.altitude * Math.pow(10, n)) / Math.pow(10, n);
         //位置精度
         page_val.acc = Math.floor(position.coords.accuracy * Math.pow(10, n)) / Math.pow(10, n);
         var postMessage={
             "user_id":localStorage.getItem('ID'),
-            "spot_id":page_val.spot_id,
+            "coupon_id":page_val.coupon_id,
             "lat":page_val.lat,
             "lng":page_val.lng,
             "page":"detail"
         }
+        console.log(postMessage);
         // iframeのwindowオブジェクトを取得
         var ifrm = couponFrame.contentWindow;
         ifrm.postMessage(postMessage, page_val.url+"coupon/index.php");

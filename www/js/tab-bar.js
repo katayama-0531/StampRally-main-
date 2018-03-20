@@ -1,7 +1,10 @@
 app.controller('tabCtr', ['$scope', '$http', 'page_val', 'get_img_service', function ($scope, $http, page_val, get_img_service) {
-    //タブバー、ヘッダーメニューの　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　コントローラー
+    //タブバー、ヘッダーメニューのボタン制御
+    //ハンバーガーメニュー　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　コントローラー
     this.settingTouch=function(){
-        menu.toggle();
+        if(page_val.maintenance==0){
+            menu.toggle();
+        }
     }
 
     this.info=function(){
@@ -73,19 +76,25 @@ app.controller('tabCtr', ['$scope', '$http', 'page_val', 'get_img_service', func
         // if(navi.pages[navi.pages.length-1]["id"] == 'newsPage'){
         //     navi.resetToPage("html/home.html");
         // }else{
-            menu.close();
-            compBtn.hide();
-            stampBtn.hide();
-            navi.pushPage("html/news.html");
-            roadingModal.show();
+            if(page_val.maintenance==0){
+                menu.close();
+                compBtn.hide();
+                stampBtn.hide();
+                navi.pushPage("html/news.html");
+                roadingModal.show();
+            }
+            
         // }
     }
     this.iconTouch=function(){
-        menu.close();
-        mainTab.setActiveTab(0);
-        if(navi.pages.length >= 2){
-            navi.resetToPage("html/home.html");
+        if(page_val.maintenance==0){
+            menu.close();
+            mainTab.setActiveTab(0);
+            if(navi.pages.length >= 2){
+                navi.resetToPage("html/home.html");
+            }
         }
+        
     }
     this.compTouch=function(){
         console.log("応募ボタンタッチ");
