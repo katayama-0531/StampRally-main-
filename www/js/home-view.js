@@ -85,73 +85,75 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
 
     //iframe読み込み完了後の処理
     homeFrame.addEventListener('load',function() {
-        console.log("homeiframe読み込み完了");
-        roadingModal.show();
-        //ヘッダーのアイコンもダウンロードしてくる
-        if(header.style.backgroundColor!=page_val.header_color_code){
-            header.style.backgroundColor=page_val.header_color_code;
-            head_icon.src=page_val.header_title_img;
-            head_news.src=page_val.header_news_img;
-            head_setting.src=page_val.header_setting_img;
-        }
-        // iframeのwindowオブジェクトを取得
-        var ifrm = homeFrame.contentWindow;
-        // 外部サイトにメッセージを投げる
-        var postMessage =
-        {   "user":id,
-            "course_id":page_val.course_id,
-            "rally_id":page_val.rally_id,
-            "page":"home"};
-        switch(page){
-            case "":
-            case angular.isUndefined(page):
-                ifrm.postMessage(postMessage, page_val.url+"index.html");
-                roadingModal.hide();
-                break;
-            case "rally":
-                ifrm.postMessage(postMessage, page_val.url+"rally/index.php");
-                roadingModal.hide();
-                break;
-            case "stamp":
-                ifrm.postMessage(postMessage, page_val.url+"stamp/index.php");
-                break;
-            case "list":
-                ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
-                roadingModal.hide();
-                break;
-            case "spot":
-                ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
-                roadingModal.hide();
-                break;
-            case "map":
-                postMessage={
-                    "user":id,
-                    "course_id":page_val.course_id,
-                    "rally_id":page_val.rally_id,
-                    "page":"home",
-                    "lat":page_val.lat,
-                    "lng":page_val.lng
-                }
-                ifrm.postMessage(postMessage, page_val.url+"rally/map/index.php");
-                break;
-            case "detail":
-                ifrm.postMessage(postMessage, page_val.url+"rally/detail.html");
-                roadingModal.hide();
-                break;
-                case "list_detail":
-                ifrm.postMessage(postMessage, page_val.url+"rally/list/detail.html");
-                roadingModal.hide();
-                break;
-            default:
-                var postMessage =
-                {   "user":id,
-                    "course_id":page_val.course_id,
-                    "rally_id":page_val.rally_id,
-                    "page":"home",
-                    "mode":"stop"};
-                ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
-                roadingModal.hide();
-                break;
+        if(mainTab.getActiveTabIndex()==0 || mainTab.getActiveTabIndex()==1){
+            console.log("homeiframe読み込み完了");
+            roadingModal.show();
+            //ヘッダーのアイコンもダウンロードしてくる
+            if(header.style.backgroundColor!=page_val.header_color_code){
+                header.style.backgroundColor=page_val.header_color_code;
+                head_icon.src=page_val.header_title_img;
+                head_news.src=page_val.header_news_img;
+                head_setting.src=page_val.header_setting_img;
+            }
+            // iframeのwindowオブジェクトを取得
+            var ifrm = homeFrame.contentWindow;
+            // 外部サイトにメッセージを投げる
+            var postMessage =
+            {   "user":id,
+                "course_id":page_val.course_id,
+                "rally_id":page_val.rally_id,
+                "page":"home"};
+            switch(page){
+                case "":
+                case angular.isUndefined(page):
+                    ifrm.postMessage(postMessage, page_val.url+"index.html");
+                    roadingModal.hide();
+                    break;
+                case "rally":
+                    ifrm.postMessage(postMessage, page_val.url+"rally/index.php");
+                    roadingModal.hide();
+                    break;
+                case "stamp":
+                    ifrm.postMessage(postMessage, page_val.url+"stamp/index.php");
+                    break;
+                case "list":
+                    ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
+                    roadingModal.hide();
+                    break;
+                case "spot":
+                    ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
+                    roadingModal.hide();
+                    break;
+                case "map":
+                    postMessage={
+                        "user":id,
+                        "course_id":page_val.course_id,
+                        "rally_id":page_val.rally_id,
+                        "page":"home",
+                        "lat":page_val.lat,
+                        "lng":page_val.lng
+                    }
+                    ifrm.postMessage(postMessage, page_val.url+"rally/map/index.php");
+                    break;
+                case "detail":
+                    ifrm.postMessage(postMessage, page_val.url+"rally/detail.html");
+                    roadingModal.hide();
+                    break;
+                    case "list_detail":
+                    ifrm.postMessage(postMessage, page_val.url+"rally/list/detail.html");
+                    roadingModal.hide();
+                    break;
+                default:
+                    var postMessage =
+                    {   "user":id,
+                        "course_id":page_val.course_id,
+                        "rally_id":page_val.rally_id,
+                        "page":"home",
+                        "mode":"stop"};
+                    ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
+                    roadingModal.hide();
+                    break;
+            }
         }
     });
 
@@ -319,11 +321,95 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
                     page_val.header_setting_img="img_common/header/header-hamb-menu.png";
                 }
             }
-        }else{
-            if(event.data["page"]=="maintenance"){
-                page_val.maintenance=1;
-                mainTab.hide();
+        } else if(mainTab.getActiveTabIndex()==2){
+            //近くのスポットタブメッセージ受信
+            console.log("spotframeメッセージ受信");
+            console.log(event.data);
+            roadingModal.show();
+            switch (event.data["page"]){
+                case "near":
+                    page_val.rally_mode=event.data["mode"];
+                    if(event.data["mode"]=="stop"){
+                        roadingModal.hide();
+                    }
+                    break;
+                    case "rally":
+                    page_val.spot_id=0;
+                    page_val.rally_mode=event.data["mode"];
+                    if(!angular.isUndefined(event.data["course_id"])){
+                        page_val.course_id=event.data["course_id"];
+                    }
+                    
+                    if(event.data["stamp_type"]=="comp"){
+                        compBtn.show();
+                        stampBtn.hide();
+                        page_val.stamp_comp_flg=1;
+                        if(roadingModal.visible){
+                            roadingModal.hide();
+                        }
+                    }else{
+                        compBtn.hide();
+                        page_val.stamp_comp_flg=0;
+                    }
+                    switch (event.data["mode"]){
+                        case "list":
+                            page="list";
+                            break;
+                        case "map":
+                            page="map";
+                            break;
+                        case "map_visible":
+                            roadingModal.hide();
+                            break;
+                        case "course":
+                            page="rally";
+                            stampBtn.hide();
+                            break;
+                        case "spot":
+                            page="stamp";
+                            stampBtn.hide();
+                            break;
+                        case "stop":
+                            page="stop";
+                            page_val.rally_mode="stop";
+                            break;
+                        case "privilege":
+                            stampBtn.hide();
+                            compBtn.hide();
+                            page="stop";
+                            break;
+                        case "detail":
+                            page="detail";
+                        break;
+                        case "list_detail":
+                            page="list_detail";
+                        break;
+                        case "spot_touch":
+                            var positionArray = event.data["position"].split(",");
+                            var position ={
+                                "map_lat":positionArray[0].slice(1),
+                                "map_lng":positionArray[1].slice(0,-1)
+                            };
+                            page_val.near_spot_data[0]=position ;
+                            roadingModal.hide();
+                        break;
+                        default:
+                            page="rally";
+                            if(page_val.stamp_comp_flg==0){
+                                checkGps();
+                            }
+                            break;
+                    }
+                    if(event.data["spot_id"]){
+                        page_val.spot_id=event.data["spot_id"]
+                        stampBtn.hide();
+                    }
+                    break;
             }
+        }
+        if(event.data["page"]=="maintenance"){
+            page_val.maintenance=1;
+            mainTab.hide();
         }
     }, false);
 

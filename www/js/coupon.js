@@ -17,26 +17,32 @@ app.controller('couponCtr', ['$scope','$http', '$filter', 'page_val', '$timeout'
         if(event.index==3){
             console.log("couponタブへ切り替え完了");
             // 外部サイトにメッセージを投げる
-            if(page_val.coupon=="detail"){
+            switch (page_val.coupon){
+                case "":
                 var postMessage={
-                    "user_id":id,
+                    "user":id,
+                    "page":"list"
+                }
+                break;
+                case "list":
+                var postMessage={
+                    "user":id,
+                    "page":""
+                }
+                break;
+                case "detail":
+                var postMessage={
+                    "user":id,
                     "coupon_id":page_val.coupon_id,
                     "page":"detail"
                 }
-                // iframeのwindowオブジェクトを取得
-                var ifrm = couponFrame.contentWindow;
-                ifrm.postMessage(postMessage, page_val.url+"coupon/index.php");
-                page_val.coupon="";
-            }else{
-                var postMessage={
-                    "user_id":id,
-                    "coupon_id":page_val.coupon_id,
-                    "page":""
-                }
-                // iframeのwindowオブジェクトを取得
-                var ifrm = couponFrame.contentWindow;
-                ifrm.postMessage(postMessage, page_val.url+"coupon/index.html");
+                break;
+
             }
+            // iframeのwindowオブジェクトを取得
+            var ifrm = couponFrame.contentWindow;
+            ifrm.postMessage(postMessage, page_val.url+"coupon/index.html");
+            page_val.coupon="page_val.coupon";
         }
     });
 
@@ -124,10 +130,10 @@ function getCouponGps($filter,$http,page_val) {
         var n = 6;
         page_val.lat = Math.floor(position.coords.latitude * Math.pow(10, n)) / Math.pow(10, n);
         //緯度 TODO:テスト用
-        // page_val.lat = 33.1584;
+        // page_val.lat = 33.1781;
         page_val.lng = Math.floor(position.coords.longitude * Math.pow(10, n)) / Math.pow(10, n);
         //経度　TODO:テスト用
-        // page_val.lng = 130.395;
+        // page_val.lng = 130.42;
         //高度
         page_val.alt = Math.floor(position.coords.altitude * Math.pow(10, n)) / Math.pow(10, n);
         //位置精度
