@@ -67,8 +67,9 @@ app.controller('rallyCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_s
         console.log("rallyFrame読み込み完了");
         // iframeのwindowオブジェクトを取得
         var rallyifrm = rallyFrame.contentWindow;
-        if(page_val.rally_mode!="stop" && page_val.rally_mode!="detail"){
-            // 外部サイトにメッセージを投げる
+        // if(page_val.rally_mode!="stop" && page_val.rally_mode!="detail"){
+        if(page_val.rally_mode!="stop"){
+                // 外部サイトにメッセージを投げる
             var postMessage =
             {   "user":id,
                 "course_id":page_val.course_id,
@@ -85,7 +86,8 @@ app.controller('rallyCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_s
                     }
                 }
             }
-        }else if(page_val.rally_mode=="stop"){
+        //}else if(page_val.rally_mode=="stop"){
+        }else{
             // 外部サイトにメッセージを投げる
             var postMessage =
             {   "user":id,

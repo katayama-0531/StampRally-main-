@@ -175,6 +175,10 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
             if(!angular.isUndefined(event.data["rally_id"])){
                 page_val.rally_id=event.data["rally_id"];
             }
+            if(!angular.isUndefined(event.data["course_id"])){
+                page_val.course_id=event.data["course_id"];
+            }
+            page_val.pages=event.data["page"];
             switch (event.data["page"]){
                 case "home":
                     page="rally";
@@ -245,6 +249,7 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
                             break;
                         case "detail":
                             page="detail";
+                            page_val.coupon_id=0;
                         break;
                         case "list_detail":
                             page="list_detail";
@@ -523,8 +528,8 @@ function login(id, $http) {
         };
     }
     //Ajax通信でphpにアクセス
-    var url = "http://153.127.242.178/dat/kon/test/stamp/api/login.php",
-    // var url = "http://jafstamprally.com/api/login.php",
+    // var url = "http://153.127.242.178/dat/kon/test/stamp/api/login.php",
+    var url = "http://jafstamprally.com/api/login.php",
         config = {
             timeout: 5000
         };

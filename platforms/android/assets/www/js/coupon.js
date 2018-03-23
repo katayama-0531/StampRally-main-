@@ -34,6 +34,7 @@ app.controller('couponCtr', ['$scope','$http', '$filter', 'page_val', '$timeout'
                 var postMessage={
                     "user":id,
                     "coupon_id":page_val.coupon_id,
+                    "spot_id":page_val.spot_id,
                     "page":"detail"
                 }
                 break;
@@ -42,7 +43,6 @@ app.controller('couponCtr', ['$scope','$http', '$filter', 'page_val', '$timeout'
             // iframeのwindowオブジェクトを取得
             var ifrm = couponFrame.contentWindow;
             ifrm.postMessage(postMessage, page_val.url+"coupon/index.html");
-            page_val.coupon="page_val.coupon";
         }
     });
 
@@ -50,8 +50,14 @@ app.controller('couponCtr', ['$scope','$http', '$filter', 'page_val', '$timeout'
     mainTab.on('reactive',function(event){
         if(event.index==3){
             console.log("couponタブが再び押された");
-            couponFrame.scr=page_val.url+"coupon/index.php";
-            page="";
+            roadingModal.show();
+            var postMessage={
+                "user":localStorage.getItem('ID'),
+                "page":"list"
+            }
+            // iframeのwindowオブジェクトを取得
+            var ifrm = couponFrame.contentWindow;
+            ifrm.postMessage(postMessage, page_val.url+"coupon/index.php");
         }
     });
 
@@ -61,10 +67,9 @@ app.controller('couponCtr', ['$scope','$http', '$filter', 'page_val', '$timeout'
         if(page_val.coupon=="detail"){
             roadingModal.show();
             checkCouponGps();
-            page="";
         }else{
             var postMessage={
-                "user_id":localStorage.getItem('ID'),
+                "user":localStorage.getItem('ID'),
                 "coupon_id":page_val.coupon_id,
                 "page":""
             }
@@ -141,6 +146,8 @@ function getCouponGps($filter,$http,page_val) {
         var postMessage={
             "user_id":localStorage.getItem('ID'),
             "coupon_id":page_val.coupon_id,
+            "course_id":page_val.course_id,
+            "spot_id":page_val.spot_id,
             "lat":page_val.lat,
             "lng":page_val.lng,
             "page":"detail"

@@ -9,26 +9,31 @@ app.controller('tabCtr', ['$scope', '$http', 'page_val', 'get_img_service', func
 
     this.info=function(){
         menu.close();
+        mainTab.setActiveTab(0);
         navi.resetToPage("html/info.html");
     }
 
     this.accountOpen=function(){
         menu.close();
+        mainTab.setActiveTab(0);
         navi.pushPage("html/account.html");
     }
     
     this.howtoOpen=function(){
         menu.close();
+        mainTab.setActiveTab(0);
         navi.pushPage("html/howto.html");
     }
     
     this.contractOpen=function(){
         menu.close();
+        mainTab.setActiveTab(0);
         navi.pushPage("html/contract.html");
     }
     
     this.contactOpen=function(){
         menu.close();
+        mainTab.setActiveTab(0);
         navi.pushPage("html/contact.html");
     }
     
