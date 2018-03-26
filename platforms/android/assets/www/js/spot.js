@@ -52,7 +52,11 @@ app.controller('spotCtr', ['$scope','$http', '$filter', 'page_val', '$timeout', 
             };
             switch(page_val.rally_mode){
                 case "":
-                    checkSpotGps();
+                    if(page_val.nearSpot!=page_val.spot_id){
+                        checkSpotGps();
+                    }else{
+                        roadingModal.hide();
+                    }
                     break;
                 case "spot":
                     var postMessage =

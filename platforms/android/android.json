@@ -110,6 +110,9 @@
     },
     "cordova-plugin-geolocation": {
       "PACKAGE_NAME": "com.example.StampRally"
+    },
+    "cordova-plugin-wkwebview-engine": {
+      "PACKAGE_NAME": "com.jafstamprally"
     }
   },
   "dependent_plugins": {},
@@ -400,6 +403,7 @@
     "cordova-plugin-device": "2.0.1",
     "cordova-plugin-android-permissions": "1.0.0",
     "cordova-plugin-inappbrowser": "2.0.2",
-    "cordova-plugin-geolocation": "4.0.1"
+    "cordova-plugin-geolocation": "4.0.1",
+    "cordova-plugin-wkwebview-engine": "1.1.4"
   }
 }

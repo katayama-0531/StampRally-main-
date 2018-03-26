@@ -1,0 +1,14 @@
+@charset "utf-8";
+/* ------------------------------------------------------------------------------
+お知らせ
+------------------------------------------------------------------------------ */
+.pageHeader {
+display: -webkit-flex;
+display: -moz-flex;
+display: -ms-flex;
+display: -o-flex;
+display: flex;
+}
+.pageHeader h3 {
+
+}

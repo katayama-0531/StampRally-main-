@@ -277,7 +277,8 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
                     break;
                 case "near_spot":
                     mainTab.setActiveTab(2);
-                    page_val.spot_id=event.data["spot_id"]
+                    page_val.nearSpot=event.data["spot_id"];
+                    page_val.spot_id=event.data["spot_id"];
                     break;
                 case "maintenance":
                     page_val.maintenance=1;
@@ -338,7 +339,7 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
                         roadingModal.hide();
                     }
                     break;
-                    case "rally":
+                case "rally":
                     page_val.spot_id=0;
                     page_val.rally_mode=event.data["mode"];
                     if(!angular.isUndefined(event.data["course_id"])){
@@ -528,8 +529,8 @@ function login(id, $http) {
         };
     }
     //Ajax通信でphpにアクセス
-    // var url = "http://153.127.242.178/dat/kon/test/stamp/api/login.php",
-    var url = "http://jafstamprally.com/api/login.php",
+    var url = "http://153.127.242.178/dat/kon/test/stamp/api/login.php",
+    // var url = "http://jafstamprally.com/api/login.php",
         config = {
             timeout: 5000
         };

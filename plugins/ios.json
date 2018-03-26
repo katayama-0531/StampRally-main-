@@ -33,6 +33,9 @@
     },
     "cordova-plugin-geolocation": {
       "PACKAGE_NAME": "com.example.StampRally"
+    },
+    "cordova-plugin-wkwebview-engine": {
+      "PACKAGE_NAME": "com.jafstamprally"
     }
   },
   "dependent_plugins": {}

@@ -4,6 +4,7 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
     stampBtn.hidden=false;
     compBtn.hide();
     compBtn.hidden=false;
+    stringCount=0;
 
     var id = localStorage.getItem('ID');
     var url = "";
@@ -84,71 +85,75 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
 
     //iframe読み込み完了後の処理
     homeFrame.addEventListener('load',function() {
-        console.log("homeiframe読み込み完了");
-        roadingModal.show();
-        //ヘッダーのアイコンもダウンロードしてくる
-        if(header.style.backgroundColor!=page_val.header_color_code){
-            header.style.backgroundColor=page_val.header_color_code;
-            head_icon.src=page_val.header_title_img;
-            head_news.src=page_val.header_news_img;
-            head_setting.src=page_val.header_setting_img;
-        }
-        // iframeのwindowオブジェクトを取得
-        var ifrm = homeFrame.contentWindow;
-        // 外部サイトにメッセージを投げる
-        var postMessage =
-        {   "user":id,
-            "course_id":page_val.course_id,
-            "page":"home"};
-        switch(page){
-            case "":
-            case angular.isUndefined(page):
-                var url=page_val.url+"index.php";
-                ifrm.postMessage(postMessage, "http://153.127.242.178/dat/kon/test/stamp/app_view/index.php");
-                roadingModal.hide();
-                break;
-            case "rally":
-                ifrm.postMessage(postMessage, page_val.url+"rally/index.php");
-                roadingModal.hide();
-                break;
-            case "stamp":
-                ifrm.postMessage(postMessage, page_val.url+"stamp/index.php");
-                break;
-            case "list":
-                ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
-                roadingModal.hide();
-                break;
-            case "spot":
-                ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
-                roadingModal.hide();
-                break;
-            case "map":
-                postMessage={
-                    "user":id,
-                    "course_id":page_val.course_id,
-                    "page":"home",
-                    "lat":page_val.lat,
-                    "lng":page_val.lng
-                }
-                ifrm.postMessage(postMessage, page_val.url+"rally/map/index.php");
-                break;
-            case "detail":
-                ifrm.postMessage(postMessage, page_val.url+"rally/detail.html");
-                roadingModal.hide();
-                break;
-                case "list_detail":
-                ifrm.postMessage(postMessage, page_val.url+"rally/list/detail.html");
-                roadingModal.hide();
-                break;
-            default:
-                var postMessage =
-                {   "user":id,
-                    "course_id":page_val.course_id,
-                    "page":"home",
-                    "mode":"stop"};
-                ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
-                roadingModal.hide();
-                break;
+        if(mainTab.getActiveTabIndex()==0 || mainTab.getActiveTabIndex()==1){
+            console.log("homeiframe読み込み完了");
+            roadingModal.show();
+            //ヘッダーのアイコンもダウンロードしてくる
+            if(header.style.backgroundColor!=page_val.header_color_code){
+                header.style.backgroundColor=page_val.header_color_code;
+                head_icon.src=page_val.header_title_img;
+                head_news.src=page_val.header_news_img;
+                head_setting.src=page_val.header_setting_img;
+            }
+            // iframeのwindowオブジェクトを取得
+            var ifrm = homeFrame.contentWindow;
+            // 外部サイトにメッセージを投げる
+            var postMessage =
+            {   "user":id,
+                "course_id":page_val.course_id,
+                "rally_id":page_val.rally_id,
+                "page":"home"};
+            switch(page){
+                case "":
+                case angular.isUndefined(page):
+                    ifrm.postMessage(postMessage, page_val.url+"index.html");
+                    roadingModal.hide();
+                    break;
+                case "rally":
+                    ifrm.postMessage(postMessage, page_val.url+"rally/index.php");
+                    roadingModal.hide();
+                    break;
+                case "stamp":
+                    ifrm.postMessage(postMessage, page_val.url+"stamp/index.php");
+                    break;
+                case "list":
+                    ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
+                    roadingModal.hide();
+                    break;
+                case "spot":
+                    ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
+                    roadingModal.hide();
+                    break;
+                case "map":
+                    postMessage={
+                        "user":id,
+                        "course_id":page_val.course_id,
+                        "rally_id":page_val.rally_id,
+                        "page":"home",
+                        "lat":page_val.lat,
+                        "lng":page_val.lng
+                    }
+                    ifrm.postMessage(postMessage, page_val.url+"rally/map/index.php");
+                    break;
+                case "detail":
+                    ifrm.postMessage(postMessage, page_val.url+"rally/detail.html");
+                    roadingModal.hide();
+                    break;
+                    case "list_detail":
+                    ifrm.postMessage(postMessage, page_val.url+"rally/list/detail.html");
+                    roadingModal.hide();
+                    break;
+                default:
+                    var postMessage =
+                    {   "user":id,
+                        "course_id":page_val.course_id,
+                        "rally_id":page_val.rally_id,
+                        "page":"home",
+                        "mode":"stop"};
+                    ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
+                    roadingModal.hide();
+                    break;
+            }
         }
     });
 
@@ -159,10 +164,21 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
             console.log(event.data);
             roadingModal.show();
             if($.type(event.data)=="string"){
-                roadingModal.hide();
+                if(stringCount==0){
+                    stringCount++;
+                }else{
+                    roadingModal.hide();
+                }
             }else{
                 page_val.rally_mode='';
             }
+            if(!angular.isUndefined(event.data["rally_id"])){
+                page_val.rally_id=event.data["rally_id"];
+            }
+            if(!angular.isUndefined(event.data["course_id"])){
+                page_val.course_id=event.data["course_id"];
+            }
+            page_val.pages=event.data["page"];
             switch (event.data["page"]){
                 case "home":
                     page="rally";
@@ -186,6 +202,143 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
                     mainTab.setActiveTab(3);
                     break;
                 
+                case "rally":
+                    page_val.spot_id=0;
+                    page_val.rally_mode=event.data["mode"];
+                    if(!angular.isUndefined(event.data["course_id"])){
+                        page_val.course_id=event.data["course_id"];
+                    }
+                    
+                    if(event.data["stamp_type"]=="comp"){
+                        compBtn.show();
+                        stampBtn.hide();
+                        page_val.stamp_comp_flg=1;
+                        if(roadingModal.visible){
+                            roadingModal.hide();
+                        }
+                    }else{
+                        compBtn.hide();
+                        page_val.stamp_comp_flg=0;
+                    }
+                    switch (event.data["mode"]){
+                        case "list":
+                            page="list";
+                            break;
+                        case "map":
+                            page="map";
+                            break;
+                        case "map_visible":
+                            roadingModal.hide();
+                            break;
+                        case "course":
+                            page="rally";
+                            stampBtn.hide();
+                            break;
+                        case "spot":
+                            page="stamp";
+                            stampBtn.hide();
+                            break;
+                        case "stop":
+                            page="stop";
+                            page_val.rally_mode="stop";
+                            break;
+                        case "privilege":
+                            stampBtn.hide();
+                            compBtn.hide();
+                            page="stop";
+                            break;
+                        case "detail":
+                            page="detail";
+                            page_val.coupon_id=0;
+                        break;
+                        case "list_detail":
+                            page="list_detail";
+                        break;
+                        case "spot_touch":
+                            var positionArray = event.data["position"].split(",");
+                            var position ={
+                                "map_lat":positionArray[0].slice(1),
+                                "map_lng":positionArray[1].slice(0,-1)
+                            };
+                            page_val.near_spot_data[0]=position ;
+                            roadingModal.hide();
+                        break;
+                        default:
+                            page="rally";
+                            if(page_val.stamp_comp_flg==0){
+                                checkGps();
+                            }
+                            break;
+                    }
+                    if(event.data["spot_id"]){
+                        page_val.spot_id=event.data["spot_id"]
+                        stampBtn.hide();
+                    }
+                    break;
+                case "near_spot":
+                    mainTab.setActiveTab(2);
+                    page_val.nearSpot=event.data["spot_id"];
+                    page_val.spot_id=event.data["spot_id"];
+                    break;
+                case "maintenance":
+                    page_val.maintenance=1;
+                    mainTab.hide();
+                    roadingModal.hide();
+                    break;
+                
+            }
+            if(event.data["rally_id"] > 0){
+                page_val.rally_id=event.data["rally_id"];
+                page_val.header_color_code=event.data["color_code"];
+
+                var stampName = "stamp" + page_val.rally_id;
+                var headName = "head" + page_val.rally_id;
+                var stamp = localStorage.getItem(stampName);
+                var head = localStorage.getItem(headName);
+                if(!stamp){
+                    console.log("ダウンロード済みファイルが無い");
+                    // 選択ファイルの読み込み
+                    var readFilePath = encodeURI(page_val.root_url+'img/' + page_val.rally_id + '/stamp' + page_val.rally_id + '.json');
+                    //injectしたいサービスを記述。ngも必要。
+                    var injector = angular.injector(['ng','stampRallyApp']);
+                    //injectorからサービスを取得
+                    var service = injector.get('get_img_service');
+                    service.leadAndSet(readFilePath).then(function(res){
+                        //ダウンロード失敗
+                        if(angular.isDefined(res)){
+                            //ダウンロード失敗
+                            ons.notification.alert({ message: "ダウンロード中にエラーが発生しました。", title: "エラー", cancelable: true });
+                            homeFrame.src=page_val.url+"index.php";
+                            rallyFrame.src=page_val.url+"index_list.php";
+                            roadingModal.hide();
+                        }else{
+                            //ダウンロード成功
+                            console.log("ダウンロード成功");
+                            page_val.header_title_img=localStorage.getItem("head" + page_val.rally_id);
+                            head_icon.src=page_val.header_title_img;
+                            page_val.header_news_img="img_common/header/header-news.png";
+                            page_val.header_setting_img="img_common/header/header-hamb-menu.png";
+                        }
+                    });
+                }else{
+                    page_val.header_title_img=localStorage.getItem("head"+ page_val.rally_id);
+                    head_icon.src=page_val.header_title_img;
+                    page_val.header_news_img="img_common/header/header-news.png";
+                    page_val.header_setting_img="img_common/header/header-hamb-menu.png";
+                }
+            }
+        } else if(mainTab.getActiveTabIndex()==2){
+            //近くのスポットタブメッセージ受信
+            console.log("spotframeメッセージ受信");
+            console.log(event.data);
+            roadingModal.show();
+            switch (event.data["page"]){
+                case "near":
+                    page_val.rally_mode=event.data["mode"];
+                    if(event.data["mode"]=="stop"){
+                        roadingModal.hide();
+                    }
+                    break;
                 case "rally":
                     page_val.spot_id=0;
                     page_val.rally_mode=event.data["mode"];
@@ -258,52 +411,11 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
                         stampBtn.hide();
                     }
                     break;
-                case "near_spot":
-                    mainTab.setActiveTab(2);
-                    page_val.spot_id=event.data["spot_id"]
-                    break;
-                
             }
-            if(event.data["rally_id"] > 0){
-                page_val.rally_id=event.data["rally_id"];
-                page_val.header_color_code=event.data["color_code"];
-
-                var stampName = "stamp" + page_val.rally_id;
-                var headName = "head" + page_val.rally_id;
-                var stamp = localStorage.getItem(stampName);
-                var head = localStorage.getItem(headName);
-                if(!stamp){
-                    console.log("ダウンロード済みファイルが無い");
-                    // 選択ファイルの読み込み
-                    var readFilePath = encodeURI('http://153.127.242.178/dat/kon/test/stamp/img/' + page_val.rally_id + '/stamp' + page_val.rally_id + '.json');
-                    //injectしたいサービスを記述。ngも必要。
-                    var injector = angular.injector(['ng','stampRallyApp']);
-                    //injectorからサービスを取得
-                    var service = injector.get('get_img_service');
-                    service.leadAndSet(readFilePath).then(function(res){
-                        //ダウンロード失敗
-                        if(angular.isDefined(res)){
-                            //ダウンロード失敗
-                            ons.notification.alert({ message: "ダウンロード中にエラーが発生しました。", title: "エラー", cancelable: true });
-                            homeFrame.src=page_val.url+"index.php";
-                            rallyFrame.src=page_val.url+"index_list.php";
-                            roadingModal.hide();
-                        }else{
-                            //ダウンロード成功
-                            console.log("ダウンロード成功");
-                            page_val.header_title_img=localStorage.getItem("head" + page_val.rally_id);
-                            head_icon.src=page_val.header_title_img;
-                            page_val.header_news_img="img_common/header/header-news.png";
-                            page_val.header_setting_img="img_common/header/header-hamb-menu.png";
-                        }
-                    });
-                }else{
-                    page_val.header_title_img=localStorage.getItem("head"+ page_val.rally_id);
-                    head_icon.src=page_val.header_title_img;
-                    page_val.header_news_img="img_common/header/header-news.png";
-                    page_val.header_setting_img="img_common/header/header-hamb-menu.png";
-                }
-            }
+        }
+        if(event.data["page"]=="maintenance"){
+            page_val.maintenance=1;
+            mainTab.hide();
         }
     }, false);
 
@@ -320,7 +432,7 @@ app.controller('homeCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_se
                 stampImg.className = "";
                 stampImg.style.visibility="hidden";
                 //Ajax通信でphpにアクセス
-                var url = "http://153.127.242.178/dat/kon/test/stamp/api/pressStamp.php",
+                var url = page_val.root_url+"api/pressStamp.php",
                     config = {
                         timeout: 5000
                     };
@@ -418,6 +530,7 @@ function login(id, $http) {
     }
     //Ajax通信でphpにアクセス
     var url = "http://153.127.242.178/dat/kon/test/stamp/api/login.php",
+    // var url = "http://jafstamprally.com/api/login.php",
         config = {
             timeout: 5000
         };
@@ -454,10 +567,10 @@ function getGps($filter,$http,page_val) {
         var n = 6;
         page_val.lat = Math.floor(position.coords.latitude * Math.pow(10, n)) / Math.pow(10, n);
         //緯度 TODO:テスト用
-        //page_val.lat = 33.5872;
+        // page_val.lat = 33.1832;
         page_val.lng = Math.floor(position.coords.longitude * Math.pow(10, n)) / Math.pow(10, n);
         //経度　TODO:テスト用
-        //page_val.lng = 130.416;
+        // page_val.lng = 130.503;
         //高度
         page_val.alt = Math.floor(position.coords.altitude * Math.pow(10, n)) / Math.pow(10, n);
         //位置精度
@@ -499,7 +612,7 @@ function getGps($filter,$http,page_val) {
 
 function stampSetting(postData, $http, page_val) {
     //Ajax通信でphpにアクセス
-    var url = "http://153.127.242.178/dat/kon/test/stamp/api/nearStampSpot.php",
+    var url = page_val.root_url+"api/nearStampSpot.php",
         config = {
             timeout: 5000
         };

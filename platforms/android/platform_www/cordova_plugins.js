@@ -288,7 +288,8 @@ module.exports.metadata =
   "cordova-plugin-device": "2.0.1",
   "cordova-plugin-android-permissions": "1.0.0",
   "cordova-plugin-inappbrowser": "2.0.2",
-  "cordova-plugin-geolocation": "4.0.1"
+  "cordova-plugin-geolocation": "4.0.1",
+  "cordova-plugin-wkwebview-engine": "1.1.4"
 };
 // BOTTOM OF METADATA
 });

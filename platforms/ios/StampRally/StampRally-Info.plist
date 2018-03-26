@@ -13,7 +13,7 @@
     <key>CFBundleIcons~ipad</key>
     <dict/>
     <key>CFBundleIdentifier</key>
-    <string>com.example.StampRally</string>
+    <string>com.jafstamprally</string>
     <key>CFBundleInfoDictionaryVersion</key>
     <string>6.0</string>
     <key>CFBundleName</key>
@@ -21,11 +21,11 @@
     <key>CFBundlePackageType</key>
     <string>APPL</string>
     <key>CFBundleShortVersionString</key>
-    <string>1.0.0</string>
+    <string>1.0.8</string>
     <key>CFBundleSignature</key>
     <string>????</string>
     <key>CFBundleVersion</key>
-    <string>1.0.0</string>
+    <string>1.0.8</string>
     <key>LSRequiresIPhoneOS</key>
     <true/>
     <key>NSMainNibFile</key>
@@ -48,6 +48,19 @@
     <dict>
       <key>NSAllowsArbitraryLoads</key>
       <true/>
+      <key>NSExceptionDomains</key>
+      <dict>
+        <key>153.127.242.178</key>
+        <dict>
+          <key>NSExceptionAllowsInsecureHTTPLoads</key>
+          <true/>
+        </dict>
+        <key>jafstamprally.com</key>
+        <dict>
+          <key>NSExceptionAllowsInsecureHTTPLoads</key>
+          <true/>
+        </dict>
+      </dict>
     </dict>
     <key>NSCameraUsageDescription</key>
     <string/>
