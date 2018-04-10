@@ -7,19 +7,7 @@
     "files": {}
   },
   "installed_plugins": {
-    "cordova-plugin-whitelist": {
-      "PACKAGE_NAME": "com.example.StampRally"
-    },
     "cordova-plugin-dialogs": {
-      "PACKAGE_NAME": "com.example.StampRally"
-    },
-    "cordova-plugin-file": {
-      "PACKAGE_NAME": "com.example.StampRally"
-    },
-    "cordova-plugin-file-transfer": {
-      "PACKAGE_NAME": "com.example.StampRally"
-    },
-    "cordova-plugin-camera": {
       "PACKAGE_NAME": "com.example.StampRally"
     },
     "cordova-plugin-device": {
@@ -31,12 +19,22 @@
     "cordova-plugin-inappbrowser": {
       "PACKAGE_NAME": "com.example.StampRally"
     },
-    "cordova-plugin-geolocation": {
-      "PACKAGE_NAME": "com.example.StampRally"
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "com.jafstamprally"
     },
-    "cordova-plugin-wkwebview-engine": {
+    "cordova-plugin-geolocation": {
+      "PACKAGE_NAME": "com.japan_izm.stamprally"
+    },
+    "cordova-plugin-file-transfer": {
+      "PACKAGE_NAME": "com.jafstamprally"
+    },
+    "cordova-plugin-app-version": {
       "PACKAGE_NAME": "com.jafstamprally"
     }
   },
-  "dependent_plugins": {}
+  "dependent_plugins": {
+    "cordova-plugin-file": {
+      "PACKAGE_NAME": "com.jafstamprally"
+    }
+  }
 }

@@ -1,4 +1,4 @@
-app.controller('newsCtr' ,['$scope', function ($scope) {
+app.controller('newsCtr' ,[function () {
     //ニュース画面のコントローラー
     navi.on('postpush',function(event){
         if(event.enterPage=='newsPage'){

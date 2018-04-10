@@ -1,3 +1,3 @@
-app.controller('howtoCtr', ['$scope', function($scope){
+app.controller('howtoCtr', [function(){
     
 }]);

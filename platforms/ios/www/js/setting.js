@@ -1,4 +1,4 @@
-app.controller('settingCtr', ['$scope', function($scope) {
+app.controller('settingCtr', [function() {
     this.back=function(){
         navi.resetToPage("html/home.html");
     }

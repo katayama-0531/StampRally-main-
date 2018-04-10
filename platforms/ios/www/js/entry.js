@@ -1,15 +1,24 @@
-app.controller('entryCtr' ,['$scope', 'page_val', function ($scope, page_val) {
+app.controller('entryCtr' ,['page_val', function (page_val) {
     //応募画面のコントローラー
     var id=localStorage.getItem('ID');
     var page="select";
+
+    if(device.platform == "iOS"){
+        document.getElementById('entryFrame').addEventListener('load',entryLoad);
+    }
     //iframe読み込み完了後の処理
-    entryFrame.addEventListener('load',function() {
+    entryFrame.addEventListener('load',entryLoad);
+    //iframe読み込み完了後の処理
+    function entryLoad () {
         header.style.backgroundColor=page_val.header_color_code;
         head_icon.src=page_val.header_title_img;
         head_news.src=page_val.header_news_img;
         head_setting.src=page_val.header_setting_img;
         // iframeのwindowオブジェクトを取得
         var ifrm = entryFrame.contentWindow;
+        if(!ifrm){
+            ifrm=document.getElementById('entryFrame').contentWindow;
+        }
         // 外部サイトにメッセージを投げる
         var postMessage =
         {   "user":id,
@@ -23,8 +32,8 @@ app.controller('entryCtr' ,['$scope', 'page_val', function ($scope, page_val) {
             roadingModal.hide();
         }
         ifrm.postMessage(postMessage, url);
-        //roadingModal.hide();
-    });
+        roadingModal.hide();
+    }
 
     // メッセージ受信イベント
     window.addEventListener('message', function(event) {
@@ -34,7 +43,7 @@ app.controller('entryCtr' ,['$scope', 'page_val', function ($scope, page_val) {
             case "select":
                 if(event.data["mode"]=="back"){
                     navi.popPage();
-                    compBtn.show();
+                    compBtn.style.visibility="";
                 }
                 if(event.data["mode"]=="entry"){
                     page="entry";
@@ -52,6 +61,9 @@ app.controller('entryCtr' ,['$scope', 'page_val', function ($scope, page_val) {
                     page_val.header_setting_img=page_val.default_setting_img;
                     mainTab.setActiveTab(0);
                     navi.popPage();
+                }
+                if(event.data["mode"]=="privilege"){
+                    page=="select"
                 }
                 break;
         }

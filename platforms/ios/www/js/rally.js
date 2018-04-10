@@ -1,4 +1,4 @@
-app.controller('rallyCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_service', function($scope, $http, $filter, page_val, get_img_service) {
+app.controller('rallyCtr', ['page_val', function(page_val) {
     //ラリー帳画面のコントローラー
     var id = localStorage.getItem('ID');
     var page = "";
@@ -12,10 +12,13 @@ app.controller('rallyCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_s
         if(event.index==1){
             rallyFrame.src=page_val.url+"index_list.php";
             //スタンプが押せる画面ではないので非表示にする
-            stampBtn.hide();
-            compBtn.hide();
+            stampBtn.style.visibility="hidden";
+            compBtn.style.visibility="hidden";
             // iframeのwindowオブジェクトを取得
             var rallyifrm = rallyFrame.contentWindow;
+            if(!rallyifrm){
+                rallyifrm=document.getElementById('rallyFrame').contentWindow;
+            }
             // 外部サイトにメッセージを投げる
             var postMessage =
             {   "user":id,
@@ -53,8 +56,8 @@ app.controller('rallyCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_s
             page_val.header_news_img=page_val.default_news_img;
             page_val.header_setting_img=page_val.default_setting_img;
             //スタンプが押せる画面ではないので非表示にする
-            stampBtn.hide();
-            compBtn.hide();
+            stampBtn.style.visibility="hidden";
+            compBtn.style.visibility="hidden";
         }
     });
     
@@ -67,6 +70,9 @@ app.controller('rallyCtr', ['$scope', '$http', '$filter', 'page_val', 'get_img_s
         console.log("rallyFrame読み込み完了");
         // iframeのwindowオブジェクトを取得
         var rallyifrm = rallyFrame.contentWindow;
+        if(!rallyifrm){
+            rallyifrm=document.getElementById('rallyFrame').contentWindow;
+        }
         // if(page_val.rally_mode!="stop" && page_val.rally_mode!="detail"){
         if(page_val.rally_mode!="stop"){
                 // 外部サイトにメッセージを投げる

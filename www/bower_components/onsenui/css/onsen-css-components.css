@@ -2135,8 +2135,8 @@ h4, h5, h6 {
   margin: 0;
   padding: 0;
   height: 49px;
-  background-color: #fafafa;
-  border-top: 1px solid #ccc;
+  background-color: #0071BC;
+  border-top: 1px solid rgba(215, 215, 215, 1);
   width: 100%;
 }
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi), (min-resolution: 2dppx) {

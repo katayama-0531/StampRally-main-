@@ -9,32 +9,31 @@ app.controller('tabCtr', ['$scope', '$http', 'page_val', 'get_img_service', func
 
     this.info=function(){
         menu.close();
-        mainTab.setActiveTab(0);
         navi.resetToPage("html/info.html");
+        mainTab.setActiveTab(0);
     }
 
     this.accountOpen=function(){
         menu.close();
-        mainTab.setActiveTab(0);
         navi.pushPage("html/account.html");
+        mainTab.setActiveTab(0);
     }
     
     this.howtoOpen=function(){
         menu.close();
-        mainTab.setActiveTab(0);
         navi.pushPage("html/howto.html");
+        mainTab.setActiveTab(0);
     }
     
     this.contractOpen=function(){
         menu.close();
-        mainTab.setActiveTab(0);
         navi.pushPage("html/contract.html");
+        mainTab.setActiveTab(0);
     }
     
     this.contactOpen=function(){
+        window.open('mailto:jafstamprally@gmail.com?subject=スタンプラリーについてのお問い合わせ', '_blank', 'location=yes');
         menu.close();
-        mainTab.setActiveTab(0);
-        navi.pushPage("html/contact.html");
     }
     
     menu.addEventListener('preopen',function(event){
@@ -65,7 +64,7 @@ app.controller('tabCtr', ['$scope', '$http', 'page_val', 'get_img_service', func
                 if(position==null||position=="undefined"){
                     url="maps:q=";
                 }else{
-                    url="maps:q="+position;
+                    url="https://maps.apple.com./?ll="+position;
                 }
             }
             if(url!=""){
@@ -77,19 +76,14 @@ app.controller('tabCtr', ['$scope', '$http', 'page_val', 'get_img_service', func
     }
 
     this.newsTouch=function(){
-        //mainTab.setActiveTab(0);
-        // if(navi.pages[navi.pages.length-1]["id"] == 'newsPage'){
-        //     navi.resetToPage("html/home.html");
-        // }else{
-            if(page_val.maintenance==0){
-                menu.close();
-                compBtn.hide();
-                stampBtn.hide();
-                navi.pushPage("html/news.html");
-                roadingModal.show();
-            }
-            
-        // }
+        if(page_val.maintenance==0){
+            menu.close();
+            compBtn.style.visibility="hidden";
+            stampBtn.style.visibility="hidden";
+            navi.pushPage("html/news.html");
+            roadingModal.show();
+            mainTab.setActiveTab(0);
+        }            
     }
     this.iconTouch=function(){
         if(page_val.maintenance==0){
@@ -103,7 +97,7 @@ app.controller('tabCtr', ['$scope', '$http', 'page_val', 'get_img_service', func
     }
     this.compTouch=function(){
         console.log("応募ボタンタッチ");
-        compBtn.hide();
+        compBtn.style.visibility="hidden";
         navi.pushPage("html/entry.html");
     }
     this.stampTouch=function(){
@@ -113,6 +107,6 @@ app.controller('tabCtr', ['$scope', '$http', 'page_val', 'get_img_service', func
         var stamp = localStorage.getItem(stampName);
         stampImg.src=stamp;
         stampImg.className = "animated bounceInDown";
-        stampImg.style.visibility="";
+        stampImg.style.visibility="visible";
     }
 }]);

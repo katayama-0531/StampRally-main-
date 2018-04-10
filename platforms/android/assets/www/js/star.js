@@ -1,7 +1,39 @@
-app.controller('starCtr', ['$scope','$filter','$http','page_val', function($scope,$filter,$http,page_val) {
+app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service', 'get_http_service', function($timeout, $q, page_val, get_permission_service, get_http_service) {
     //お気に入り画面のコントローラー
     var id = localStorage.getItem('ID');
     var page = "";
+
+    //サービスを使うための準備
+    //injectしたいサービスを記述。ngも必要。
+    var injector = angular.injector(['ng','stampRallyApp']);
+    //injectorからサービスを取得
+    var permission = injector.get('get_permission_service');
+    var httpService = injector.get('get_http_service');
+
+
+    var permissionCheck= function() {
+        var deferred = $q.defer();
+        $timeout(function() {
+            permission.getPermission(deferred);
+        }, 0)
+        return deferred.promise;
+    }
+
+    var gpsCheck = function(id) {
+        var deferred = $q.defer();
+        $timeout(function() {
+            permission.getGps(deferred, id);
+        }, 0)
+        return deferred.promise;
+    }
+
+    var nearSpot= function(data) {
+        var deferred = $q.defer();
+        $timeout(function() {
+            httpService.getNearSpot(deferred, data);
+        }, 0)
+        return deferred.promise;
+    }
 
     //アクティブなタブの切り替え前の処理
     mainTab.on('postchange',function(event){
@@ -9,6 +41,9 @@ app.controller('starCtr', ['$scope','$filter','$http','page_val', function($scop
             starFrame.src=page_val.url+"star/index.php";
             // iframeのwindowオブジェクトを取得
             var ifrm = starFrame.contentWindow;
+            if(!ifrm){
+                ifrm=document.getElementById('starFrame').contentWindow;
+            }
             // 外部サイトにメッセージを投げる
             var postMessage =id;
             ifrm.postMessage(postMessage, page_val.url+"star/index.php");
@@ -33,6 +68,9 @@ app.controller('starCtr', ['$scope','$filter','$http','page_val', function($scop
         console.log("starFrame読み込み完了");
         // iframeのwindowオブジェクトを取得
         var ifrm = starFrame.contentWindow;
+        if(!ifrm){
+            ifrm=document.getElementById('starFrame').contentWindow;
+        }
         // // 外部サイトにメッセージを投げる
         // var postMessage =id;
         // ifrm.postMessage(postMessage, page_val.url+"star/index.php");
@@ -76,11 +114,11 @@ app.controller('starCtr', ['$scope','$filter','$http','page_val', function($scop
                     ifrm.postMessage(postMessage, page_val.url+"rally/map/index.php");
                     break;
                 case "detail":
-                    ifrm.postMessage(postMessage, page_val.url+"rally/detail.html");
+                    ifrm.postMessage(postMessage, page_val.url+"detail/index.php");
                     roadingModal.hide();
                     break;
                 case "list_detail":
-                    ifrm.postMessage(postMessage, page_val.url+"rally/list/detail.html");
+                    ifrm.postMessage(postMessage, page_val.url+"detail/index.php");
                     roadingModal.hide();
                     break;
                 default:
@@ -121,7 +159,7 @@ app.controller('starCtr', ['$scope','$filter','$http','page_val', function($scop
                 case "stamp":
                     page_val.spot_id=event.data["spot_id"];
                     if(page_val.stamp_comp_flg==0){
-                        checkStampGps();
+                        sPermissionAndGps();
                     }
                     break;
 
@@ -139,14 +177,14 @@ app.controller('starCtr', ['$scope','$filter','$http','page_val', function($scop
                     }
                     
                     if(event.data["stamp_type"]=="comp"){
-                        compBtn.show();
-                        stampBtn.hide();
+                        compBtn.style.visibility="visible";
+                        stampBtn.style.visibility="hidden";
                         page_val.stamp_comp_flg=1;
                         if(roadingModal.visible){
                             roadingModal.hide();
                         }
                     }else{
-                        compBtn.hide();
+                        compBtn.style.visibility="hidden";
                         page_val.stamp_comp_flg=0;
                     }
                     switch (event.data["mode"]){
@@ -162,19 +200,19 @@ app.controller('starCtr', ['$scope','$filter','$http','page_val', function($scop
                             break;
                         case "course":
                             page="rally";
-                            stampBtn.hide();
+                            stampBtn.style.visibility="hidden";
                             break;
                         case "spot":
                             page="stamp";
-                            stampBtn.hide();
+                            stampBtn.style.visibility="hidden";
                             break;
                         case "stop":
                             page="stop";
                             page_val.rally_mode="stop";
                             break;
                         case "privilege":
-                            stampBtn.hide();
-                            compBtn.hide();
+                            stampBtn.style.visibility="hidden";
+                            compBtn.style.visibility="hidden";
                             page="stop";
                             break;
                         case "detail":
@@ -197,13 +235,13 @@ app.controller('starCtr', ['$scope','$filter','$http','page_val', function($scop
                         default:
                             page="rally";
                             if(page_val.stamp_comp_flg==0){
-                                checkStampGps();
+                                sPermissionAndGps();
                             }
                             break;
                     }
                     if(event.data["spot_id"]){
                         page_val.spot_id=event.data["spot_id"]
-                        stampBtn.hide();
+                        stampBtn.style.visibility="hidden";
                     }
                     break;
                 case "near_spot":
@@ -219,123 +257,74 @@ app.controller('starCtr', ['$scope','$filter','$http','page_val', function($scop
             }
         }
     }, false);
-    function checkStampGps(){
-        //位置情報取得(パーミッション周りはiOSとAndroidで異なる為処理を分ける)
-        if (device.platform == "Android") {
-            var permissions = cordova.plugins.permissions; 
-            //permission確認
-            permissions.hasPermission(permissions.ACCESS_FINE_LOCATION, function (status) {
-                if ( status.hasPermission ) {
-                    console.log("位置情報使用許可済み");
-                    this.getStapGps($filter,$http,page_val);
-                } else {
-                    console.warn("位置情報使用未許可");
-                    permissions.requestPermission(permissions.ACCESS_COARSE_LOCATION, permissionSuccess, permissionError);
-                    function permissionSuccess (status){
-                        if( !status.hasPermission ){
-                            permissionError();
-                        } else {
-                            console.log("位置情報使用許可した");
-                            this.getStapGps($filter,$http,page_val);
-                        }
-                    };
-                    function permissionError (){
-                        console.warn('許可されなかった...');
-                        stampPageReset();
-                        ons.notification.alert({ message: "位置情報へのアクセスが許可されなかったため、現在位置が取得できません。", title: "エラー", cancelable: true });
-                        roadingModal.hide();
-                    };
-                }
+
+    function sPermissionAndGps() {
+        if (device.platform == "iOS") {
+            gpsCheck(id).then(
+                function (msg) {
+                    console.log('SuccessGps:' + msg);
+                    sNearSpotSearch(msg);
+                },
+                // 失敗時　（deferred.reject）
+                function (msg) {
+                    // エラーコードに合わせたエラー内容をアラート表示
+                    setTimeout(function() {
+                        ons.notification.alert({ message: errorMessage[message.code], title: "エラー", cancelable: true });
+                        }, 0);
+                    roadingModal.hide();
             });
-        }else{
-            this.getStapGps($filter,$http,page_val);
+        }
+        if (device.platform == "Android") {
+            permissionCheck().then(// 成功時　（deferred.resolve）
+                function (msg) {
+                    console.log('Success:' + msg);
+                    gpsCheck(id).then(
+                        function (msg) {
+                        console.log('SuccessGps:' + msg);
+                        sNearSpotSearch(msg);
+                        },
+                        // 失敗時　（deferred.reject）
+                        function (msg) {
+                            // エラーコードに合わせたエラー内容をアラート表示
+                            setTimeout(function() {
+                                ons.notification.alert({ message: errorMessage[message.code], title: "エラー", cancelable: true });
+                                }, 0);
+                            roadingModal.hide();
+                        },
+                        // notify呼び出し時
+                        function (msg) {
+                            console.log('Notification:' + msg);
+                    });
+                },
+                // 失敗時　（deferred.reject）
+                function (msg) {
+                    ons.notification.alert({ message: "位置情報へのアクセスが許可されなかったため、現在位置が取得できません。", title: "エラー", cancelable: true });
+                    roadingModal.hide();
+                },
+                // notify呼び出し時
+                function (msg) {
+                    console.log('Notification:' + msg);
+                });
         }
     }
+
+    function sNearSpotSearch (data){
+        nearSpot(data).then(
+            function (res) {
+                if (res.length==0) {
+                    stampBtn.style.visibility="hidden";
+                } else {
+                    stampBtn.style.visibility="visible";
+                }
+                page="";
+                roadingModal.hide();
+            },
+            // 失敗時　（deferred.reject）
+            function (res,status) {
+                roadingModal.hide();
+                setTimeout(function() {
+                    ons.notification.alert({ message: "周辺情報検索中にエラーが発生しました。", title: "エラー", cancelable: true });
+                }, 0);
+        });
+    }
 }]);
-
-function getStapGps($filter,$http,page_val) {
-    //位置情報取得
-    var onGpsSuccess = function (position) {
-        //この辺りで緯度、経度を送信する
-        var id = localStorage.getItem('ID');
-        // 小数点第n位まで残す
-        var n = 6;
-        page_val.lat = Math.floor(position.coords.latitude * Math.pow(10, n)) / Math.pow(10, n);
-        //緯度 TODO:テスト用
-        //page_val.lat = 33.5872;
-        page_val.lng = Math.floor(position.coords.longitude * Math.pow(10, n)) / Math.pow(10, n);
-        //経度　TODO:テスト用
-        //page_val.lng = 130.416;
-        //高度
-        page_val.alt = Math.floor(position.coords.altitude * Math.pow(10, n)) / Math.pow(10, n);
-        //位置精度
-        page_val.acc = Math.floor(position.coords.accuracy * Math.pow(10, n)) / Math.pow(10, n);
-        var gpsData = {
-            user_id: id,
-            course_id: page_val.course_id,
-            spot_id: page_val.spot_id,
-            lat: page_val.lat,
-            lng: page_val.lng,
-            alt: page_val.alt,
-            acc: page_val.acc
-        };
-        console.log(gpsData);
-        var postData =$filter('json')(gpsData);
-
-        starStampSetting(postData, $http,page_val);
-    };
-
-    var onGpsError = function (message) {
-        //iOSでalterを使用すると問題が発生する可能性がある為、問題回避の為setTimeoutを使用する。
-     
-   setTimeout(function () {
-            // エラーコードのメッセージを定義
-            var errorMessage = {
-                0: "原因不明のエラーが発生しました。",
-                1: "位置情報の取得が許可されませんでした。",
-                2: "電波状況などで位置情報が取得できませんでした。",
-                3: "位置情報の取得に時間がかかり過ぎてタイムアウトしました。",
-            };
-            // エラーコードに合わせたエラー内容をアラート表示
-            ons.notification.alert({ message: errorMessage[message.code], title: "エラー", cancelable: true });
-        }, 0);
-        roadingModal.hide();
-    };
-    //位置情報取得
-    navigator.geolocation.getCurrentPosition(onGpsSuccess, onGpsError,{timeout: 20000, enableHighAccuracy: true});
-}
-
-function starStampSetting(postData, $http, page_val) {
-    //Ajax通信でphpにアクセス
-    var url = page_val.root_url+"api/nearStampSpot.php",
-        config = {
-            timeout: 5000
-        };
-    
-    var req = {
-        method: 'POST',
-        url: url,
-        data: postData
-    };
-
-    $http(req).then(function onSuccess(data, status) {
-            if(data.data.length==0){
-                //近くにスポットは無い
-                console.log("近くに表示出来るスポットは無い");
-                stampBtn.hide();
-            }else{
-                //近くにスポットがある
-                console.log("近くに表示可能なスポットがある");
-                console.log(data.data);
-                page_val.near_spot_data=data.data;
-                stampBtn.show()
-            }
-            page="";
-            roadingModal.hide();
-    }, function onError(data, status) {
-        roadingModal.hide();
-        ons.notification.alert({ message: "ログイン中にエラーが発生しました。", title: "エラー", cancelable: true });
-        console.log("エラー："+data.data);
-        console.log("ステータス："+status);
-    });
-}

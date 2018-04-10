@@ -1,13 +1,58 @@
-app.controller('couponCtr', ['$scope','$http', '$filter', 'page_val', '$timeout', function($scope,$http, $filter, page_val, $timeout) {
+app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_service', 'get_http_service', function($timeout, $q, page_val, get_permission_service, get_http_service) {
 
     //クーポン画面のコントローラー
     var id = localStorage.getItem('ID');
     var spotId = 0;
+    var page="";
+
+    //サービスを使うための準備
+    //injectしたいサービスを記述。ngも必要。
+    var injector = angular.injector(['ng','stampRallyApp']);
+    //injectorからサービスを取得
+    var permission = injector.get('get_permission_service');
+    var httpService = injector.get('get_http_service');
+
+
+    var permissionCheck= function() {
+        var deferred = $q.defer();
+        $timeout(function() {
+            permission.getPermission(deferred);
+        }, 0)
+        return deferred.promise;
+    }
+
+    var gpsCheck = function(id) {
+        var deferred = $q.defer();
+        $timeout(function() {
+            permission.getGps(deferred, id);
+        }, 0)
+        return deferred.promise;
+    }
+
+    var nearSpot= function(data) {
+        var deferred = $q.defer();
+        $timeout(function() {
+            httpService.getNearSpot(deferred, data);
+        }, 0)
+        return deferred.promise;
+    }
+
+    var nearCoupon= function(data) {
+        var deferred = $q.defer();
+        $timeout(function() {
+            httpService.getNearCoupon(deferred, data);
+        }, 0)
+        return deferred.promise;
+    }
 
     //アクティブなタブの切り替え前の処理
     mainTab.on('postchange',function(event){
         if(event.index==3){
             console.log("couponタブへ切り替え前");
+            compBtn.style.visibility="hidden";
+            stampBtn.style.visibility="hidden";
+            page="";
+            page_val.coupon="";
             couponFrame.scr=page_val.url+"coupon/index.php";
         }
     });
@@ -16,33 +61,7 @@ app.controller('couponCtr', ['$scope','$http', '$filter', 'page_val', '$timeout'
     mainTab.on('postchange',function(e){
         if(event.index==3){
             console.log("couponタブへ切り替え完了");
-            // 外部サイトにメッセージを投げる
-            switch (page_val.coupon){
-                case "":
-                var postMessage={
-                    "user":id,
-                    "page":"list"
-                }
-                break;
-                case "list":
-                var postMessage={
-                    "user":id,
-                    "page":""
-                }
-                break;
-                case "detail":
-                var postMessage={
-                    "user":id,
-                    "coupon_id":page_val.coupon_id,
-                    "spot_id":page_val.spot_id,
-                    "page":"detail"
-                }
-                break;
-
-            }
-            // iframeのwindowオブジェクトを取得
-            var ifrm = couponFrame.contentWindow;
-            ifrm.postMessage(postMessage, page_val.url+"coupon/index.html");
+            couponLoad();
         }
     });
 
@@ -51,33 +70,91 @@ app.controller('couponCtr', ['$scope','$http', '$filter', 'page_val', '$timeout'
         if(event.index==3){
             console.log("couponタブが再び押された");
             roadingModal.show();
-            var postMessage={
-                "user":localStorage.getItem('ID'),
-                "page":"list"
-            }
-            // iframeのwindowオブジェクトを取得
-            var ifrm = couponFrame.contentWindow;
-            ifrm.postMessage(postMessage, page_val.url+"coupon/index.php");
+            page="";
+            page_val.coupon="";
         }
     });
 
-    couponFrame.addEventListener('load',function() {
+    function couponLoad(){
         console.log("couponFrame読み込み完了");
-        // 外部サイトにメッセージを投げる
-        if(page_val.coupon=="detail"){
-            roadingModal.show();
-            checkCouponGps();
-        }else{
-            var postMessage={
-                "user":localStorage.getItem('ID'),
-                "coupon_id":page_val.coupon_id,
-                "page":""
-            }
-            // iframeのwindowオブジェクトを取得
-            var ifrm = couponFrame.contentWindow;
-            ifrm.postMessage(postMessage, page_val.url+"coupon/index.php");
+        // iframeのwindowオブジェクトを取得
+        var ifrm = couponFrame.contentWindow;
+        if(!ifrm){
+            ifrm=document.getElementById('couponFrame').contentWindow;
         }
-    });
+        // 外部サイトにメッセージを投げる
+        var postMessage =
+        {   "user":id,
+            "course_id":page_val.course_id,
+            "rally_id":page_val.rally_id,
+            "page":"home"};
+
+        // 外部サイトにメッセージを投げる
+        switch(page){
+            case "":
+            case angular.isUndefined(page):
+                if(page_val.coupon=="detail"){
+                    roadingModal.show();
+                    couponPermissionAndGps();
+                }else {
+                    postMessage={
+                        "user":localStorage.getItem('ID'),
+                        "coupon_id":page_val.coupon_id,
+                        "page":""
+                    }
+                    ifrm.postMessage(postMessage, page_val.url+"coupon/index.php");
+                }
+                break;
+            case "rally":
+                ifrm.postMessage(postMessage, page_val.url+"rally/index.php");
+                roadingModal.hide();
+                break;
+            case "stamp":
+                ifrm.postMessage(postMessage, page_val.url+"stamp/index.php");
+                break;
+            case "list":
+                ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
+                roadingModal.hide();
+                break;
+            case "spot":
+                ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
+                roadingModal.hide();
+                break;
+            case "map":
+                postMessage={
+                    "user":id,
+                    "course_id":page_val.course_id,
+                    "rally_id":page_val.rally_id,
+                    "page":"home",
+                    "lat":page_val.lat,
+                    "lng":page_val.lng
+                }
+                ifrm.postMessage(postMessage, page_val.url+"rally/map/index.php");
+                break;
+            case "detail":
+                ifrm.postMessage(postMessage, page_val.url+"detail/index.php");
+                roadingModal.hide();
+                break;
+            case "list_detail":
+                ifrm.postMessage(postMessage, page_val.url+"detail/index.php");
+                roadingModal.hide();
+                break;
+            case "stop":
+                ifrm.postMessage(postMessage, page_val.url+"detail/index.php");
+                roadingModal.hide();
+                break;
+            default:
+                var postMessage =
+                {   "user":id,
+                    "course_id":page_val.course_id,
+                    "rally_id":page_val.rally_id,
+                    "page":"home",
+                    "mode":"stop"};
+                ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
+                roadingModal.hide();
+                break;
+        }
+    }
 
     // メッセージ受信イベント
     window.addEventListener('message', function(event) {
@@ -90,92 +167,212 @@ app.controller('couponCtr', ['$scope','$http', '$filter', 'page_val', '$timeout'
                 page_val.maintenance=1;
                 mainTab.hide();
             }
+            switch (event.data["page"]){
+                case "coupon":
+                    if(event.data["mode"]=="detail"){
+                        couponLoad();
+                    }else{
+                        roadingModal.hide();
+                    }
+                    break;
+                case "near":
+                    roadingModal.hide();
+                    break;
+                case "rally":
+                    page_val.spot_id=0;
+                    page_val.rally_mode=event.data["mode"];
+                    if(!angular.isUndefined(event.data["course_id"])){
+                        page_val.course_id=event.data["course_id"];
+                    }
+                    
+                    if(event.data["stamp_type"]=="comp"){
+                        compBtn.style.visibility="visible";
+                        stampBtn.style.visibility="hidden";
+                        page_val.stamp_comp_flg=1;
+                        if(roadingModal.visible){
+                            roadingModal.hide();
+                        }
+                    }else{
+                        compBtn.style.visibility="hidden";
+                        page_val.stamp_comp_flg=0;
+                    }
+                    switch (event.data["mode"]){
+                        case "list":
+                            page="list";
+                            break;
+                        case "map":
+                            page="map";
+                            break;
+                        case "map_visible":
+                            roadingModal.hide();
+                            break;
+                        case "course":
+                            page="rally";
+                            stampBtn.style.visibility="hidden";
+                            break;
+                        case "spot":
+                            page="stamp";
+                            stampBtn.style.visibility="hidden";
+                            break;
+                        case "stop":
+                            page="stop";
+                            page_val.rally_mode="stop";
+                            break;
+                        case "privilege":
+                            stampBtn.style.visibility="hidden";
+                            compBtn.style.visibility="hidden";
+                            page="stop";
+                            break;
+                        case "detail":
+                            if(page_val.rally_id != event.data["rally_id"]){
+                                page_val.rally_id=event.data["rally_id"]
+                            }
+                            page="detail";
+                        break;
+                        case "list_detail":
+                            page="list_detail";
+                        break;
+                        case "spot_touch":
+                            var positionArray = event.data["position"].split(",");
+                            var position ={
+                                "map_lat":positionArray[0].slice(1),
+                                "map_lng":positionArray[1].slice(0,-1)
+                            };
+                            page_val.near_spot_data[0]=position ;
+                            roadingModal.hide();
+                        break;
+                        default:
+                            page="rally";
+                            if(page_val.stamp_comp_flg==0){
+                                if(page_val.stamp_comp_flg==0){
+                                    couponPermissionAndGps();
+                                }
+                            }
+                            break;
+                    }
+                    if(event.data["spot_id"]){
+                        page_val.spot_id=event.data["spot_id"]
+                        stampBtn.style.visibility="hidden";
+                    }
+                    break;
+            }
         }
     });
 
-    function checkCouponGps(){
-        //位置情報取得(パーミッション周りはiOSとAndroidで異なる為処理を分ける)
-        if (device.platform == "Android") {
-            var permissions = cordova.plugins.permissions; 
-            //permission確認
-            permissions.hasPermission(permissions.ACCESS_FINE_LOCATION, function (status) {
-                if ( status.hasPermission ) {
-                    console.log("位置情報使用許可済み");
-                    this.getCouponGps($filter,$http,page_val);
-                } else {
-                    console.warn("位置情報使用未許可");
-                    permissions.requestPermission(permissions.ACCESS_COARSE_LOCATION, permissionSuccess, permissionError);
-                    function permissionSuccess (status){
-                        if( !status.hasPermission ){
-                            permissionError();
-                        } else {
-                            console.log("位置情報使用許可した");
-                            this.getCouponGps($filter,$http,page_val);
-                        }
-                    };
-                    function permissionError (){
-                        console.warn('許可されなかった...');
-                        stampPageReset();
-                        ons.notification.alert({ message: "位置情報へのアクセスが許可されなかったため、現在位置が取得できません。", title: "エラー", cancelable: true });
-                        roadingModal.hide();
-                    };
+    function couponPermissionAndGps() {
+        if (device.platform == "iOS") {
+            gpsCheck(id).then(
+                function (msg) {
+                console.log('SuccessGps:' + msg);
+                if(page_val.coupon=="detail"){
+                    couponSearch(msg);
+                }else{
+                    cNearSpotSearch(msg);
                 }
+            },
+            // 失敗時　（deferred.reject）
+            function (msg) {
+                // エラーコードに合わせたエラー内容をアラート表示
+                setTimeout(function() {
+                    ons.notification.alert({ message: errorMessage[message.code], title: "エラー", cancelable: true });
+                    }, 0);
+                roadingModal.hide();
             });
-        }else{
-            this.getCouponGps($filter,$http,page_val);
         }
+        if (device.platform == "Android") {
+            permissionCheck().then(// 成功時　（deferred.resolve）
+                function (msg) {
+                    console.log('Success:' + msg);
+                    gpsCheck(id).then(
+                        function (msg) {
+                        console.log('SuccessGps:' + msg);
+                        if(page_val.coupon=="detail"){
+                            couponSearch(msg);
+                        }else{
+                            cNearSpotSearch(msg);
+                        }
+                    },
+                    // 失敗時　（deferred.reject）
+                    function (msg) {
+                        // エラーコードに合わせたエラー内容をアラート表示
+                        setTimeout(function() {
+                            ons.notification.alert({ message: errorMessage[message.code], title: "エラー", cancelable: true });
+                            }, 0);
+                        roadingModal.hide();
+                    },
+                    // notify呼び出し時
+                    function (msg) {
+                        console.log('Notification:' + msg);
+                    });
+                },
+                // 失敗時　（deferred.reject）
+                function (msg) {
+                    ons.notification.alert({ message: "位置情報へのアクセスが許可されなかったため、現在位置が取得できません。", title: "エラー", cancelable: true });
+                roadingModal.hide();
+                },
+                // notify呼び出し時
+                function (msg) {
+                    console.log('Notification:' + msg);
+                });
+        }
+    }
+    
+    function cNearSpotSearch (data){
+        nearSpot(data).then(
+            function (res) {
+                if (res.length==0) {
+                    stampBtn.style.visibility="hidden";
+                } else {
+                    stampBtn.style.visibility="visible";
+                }
+                page="";
+                roadingModal.hide();
+            },
+            // 失敗時　（deferred.reject）
+            function (res,status) {
+                roadingModal.hide();
+                setTimeout(function() {
+                    ons.notification.alert({ message: "周辺情報検索中にエラーが発生しました。", title: "エラー", cancelable: true });
+                }, 0);
+        });
+    }
+
+    function couponSearch (data){
+        nearCoupon(data).then(
+            function (res) {
+                var postMessage="";
+                if (res.length>=1) {
+                    var postMessage={
+                        "user":id,
+                        "coupon_id":page_val.coupon_id,
+                        "spot_id":page_val.spot_id,
+                        "coupon":"true",
+                        "page":"detail"
+                    }
+                }else{
+                    var postMessage={
+                        "user":id,
+                        "coupon_id":page_val.coupon_id,
+                        "spot_id":page_val.spot_id,
+                        "coupon":"false",
+                        "page":"detail"
+                    }
+
+                }
+                // iframeのwindowオブジェクトを取得
+                var ifrm = couponFrame.contentWindow;
+                if(!ifrm){
+                    ifrm=document.getElementById('couponFrame').contentWindow;
+                }
+                ifrm.postMessage(postMessage, page_val.url+"coupon/index.php");
+            },
+            // 失敗時　（deferred.reject）
+            function (res,status) {
+                roadingModal.hide();
+                setTimeout(function() {
+                    ons.notification.alert({ message: "周辺情報検索中にエラーが発生しました。", title: "エラー", cancelable: true });
+                }, 0);
+        });
     }
 }]);
 
-function getCouponGps($filter,$http,page_val) {
-    //位置情報取得
-    var onGpsSuccess = function (position) {
-        //この辺りで緯度、経度を送信する
-        // 小数点第n位まで残す
-        var n = 6;
-        page_val.lat = Math.floor(position.coords.latitude * Math.pow(10, n)) / Math.pow(10, n);
-        //緯度 TODO:テスト用
-        // page_val.lat = 33.1781;
-        page_val.lng = Math.floor(position.coords.longitude * Math.pow(10, n)) / Math.pow(10, n);
-        //経度　TODO:テスト用
-        // page_val.lng = 130.42;
-        //高度
-        page_val.alt = Math.floor(position.coords.altitude * Math.pow(10, n)) / Math.pow(10, n);
-        //位置精度
-        page_val.acc = Math.floor(position.coords.accuracy * Math.pow(10, n)) / Math.pow(10, n);
-        var postMessage={
-            "user_id":localStorage.getItem('ID'),
-            "coupon_id":page_val.coupon_id,
-            "course_id":page_val.course_id,
-            "spot_id":page_val.spot_id,
-            "lat":page_val.lat,
-            "lng":page_val.lng,
-            "page":"detail"
-        }
-        console.log(postMessage);
-        // iframeのwindowオブジェクトを取得
-        var ifrm = couponFrame.contentWindow;
-        ifrm.postMessage(postMessage, page_val.url+"coupon/index.php");
-        page_val.coupon="";
-        roadingModal.hide();
-    };
-
-    var onGpsError = function (message) {
-        //iOSでalterを使用すると問題が発生する可能性がある為、問題回避の為setTimeoutを使用する。
-     
-   setTimeout(function () {
-            // エラーコードのメッセージを定義
-            var errorMessage = {
-                0: "原因不明のエラーが発生しました。",
-                1: "位置情報の取得が許可されませんでした。",
-                2: "電波状況などで位置情報が取得できませんでした。",
-                3: "位置情報の取得に時間がかかり過ぎてタイムアウトしました。",
-            };
-            // エラーコードに合わせたエラー内容をアラート表示
-            ons.notification.alert({ message: errorMessage[message.code], title: "エラー", cancelable: true });
-        }, 0);
-        roadingModal.hide();
-    };
-    //位置情報取得
-    navigator.geolocation.getCurrentPosition(onGpsSuccess, onGpsError,{timeout: 20000, enableHighAccuracy: true});
-}

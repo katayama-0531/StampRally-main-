@@ -4,8 +4,7 @@
 <head ng-app="stampRallyApp">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <meta http-equiv="Content-Security-Policy" content="default-src * https://codepush.azurewebsites.net 'self' data: gap://ready file: https://ssl.gstatic.com 'unsafe-eval'; style-src * 'self' 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'; media-src *">
-    
+    <meta http-equiv="Content-Security-Policy" content="default-src * 'self' gap: * file: data:; connect-src *; child-src * gap://ready; style-src 'self' 'unsafe-inline'; script-src 'self' https://maps.googleapis.com/* https://www.online-carelplus.com/stamp/* 'unsafe-eval' 'unsafe-inline' *;">
     <script src="bower_components/angular/angular.js"></script>
     <script src="bower_components/onsenui/js/onsenui.js"></script>
     <script src="bower_components/onsenui/js/angular-onsenui.js"></script>
@@ -30,8 +29,8 @@
     <script src="js/util/jquery.ui.touch-punch.min.js" type="text/javascript" charset="utf-8" async></script>
 
     <!-- ホーム画面のスクリプト-->
-    <script src="js/home.js"></script>
-    <script src="js/home-view.js"></script>
+    <script src="./js/home.js"></script>
+    <script src="./js/home-view.js"></script>
     <!--ラリー帳のスクリプト-->
     <script src="js/rally.js"></script>
     <!-- 近くのスポットのスクリプト-->
@@ -52,6 +51,8 @@
     <script src="js/howto.js"></script>
     <!-- サービス-->
     <script src="js/service/get-img-service.js"></script>
+    <script src="js/service/get-permission-service.js"></script>
+    <script src="js/service/get-http-service.js"></script>
 </head>
 
 <body>
@@ -84,7 +85,18 @@
                 </span>
         </div>
     </ons-toolbar>
-
+    <!--スタンプを押すボタン-->
+    <div id="stampBtn" style="position:absolute; bottom: 0; right:39%; z-index:10000; width: 90px;
+    height: 90px; visibility:hidden;"　ng-click="tab.stampTouch()">
+    <img src="img_common/navbar_icon_stamp_active.png" alt="" 
+        style="width:auto; height:auto; max-width:105%; max-height:105%;">
+    </div>
+    <!--応募ボタン-->
+    <div id="compBtn" style="position:absolute; bottom: 0; right:39%; z-index:10000; width: 90px;
+    height: 90px; visibility:hidden;" ng-click="tab.compTouch()">
+    <img src="img_common/foot_icon_stamp_complete.png" alt="" 
+        style="width:auto; height:auto; max-width:105%; max-height:105%;">
+    </div>
     <ons-splitter>
         <ons-splitter-side id="menu" side="right" width="250px" collapse>
             <ons-page>
@@ -117,8 +129,28 @@
                 <img src="img_common/logo_jaf.png" style="position:absolute; bottom:0;">
             </ons-page>
         </ons-splitter-side>
-        <ons-splitter-content page="html/tab.html"></ons-splitter-content>
+        <ons-splitter-content>
+            <!--タブバー-->
+            <ons-tabbar var="mainTab" modifier="autogrow">
+                <ons-tab page="html/home.html" active="true">
+                    <img src="img_common/navbar_icon_home.png" width="auto" height="42" alt="">
+                </ons-tab>
+                <ons-tab page="html/rally.html">
+                    <img src="img_common/navbar_icon_note.png" width="auto" height="42" alt="">
+                </ons-tab>
+                <ons-tab page="html/spot.html">
+                    <img src="img_common/navbar_icon_stamp.png" width="auto" height="42" alt="">
+                </ons-tab>
+                <ons-tab page="html/coupon.html">
+                    <img src="img_common/navbar_icon_coupon.png" width="auto" height="42" alt="">
+                </ons-tab>
+                <ons-tab page="html/star.html">
+                    <img src="img_common/navbar_icon_star.png" width="auto" height="42" alt="">
+                </ons-tab>
+            </ons-tabbar>
+        </ons-splitter-content>
     </ons-splitter>
+    </ons-page>
 </body>
 
 </html>
