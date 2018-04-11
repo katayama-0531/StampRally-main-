@@ -1,5 +1,5 @@
-app.controller('homeCtr', ['$route','$interval', '$timeout', '$q', 'page_val', 'get_img_service', 'get_permission_service', 'get_http_service', 
-function($route, $interval, $timeout, $q, page_val, get_img_service, get_permission_service, get_http_service){
+app.controller('homeCtr', ['$interval', '$timeout', '$q', 'page_val', 'get_img_service', 'get_permission_service', 'get_http_service', 
+function($interval, $timeout, $q, page_val, get_img_service, get_permission_service, get_http_service){
     
     roadingModal.show();
     stringCount=0;  
@@ -106,32 +106,31 @@ function($route, $interval, $timeout, $q, page_val, get_img_service, get_permiss
 
     //アクティブなタブが再度押された場合の処理
     mainTab.on('reactive',function(event){
-        $route.reload();
-        // if(navi.pages.length >= 1){
-        //     navi.resetToPage("html/home.html");
-        // }else{
-        //     homeFrame.src=page_val.url+"index.php";
-        // }
-        // //各タブ内のURLを読み込み直す
-        // rallyFrame.src=page_val.url+"index_list.php";
-        // spotFrame.src=page_val.url+"nearby/index.php";
-        // couponFrame.scr=page_val.url+"coupon/index.php";
-        // starFrame.src=page_val.url+"star/index.php";
-        // if(event.index==0){
-        //     console.log("homeタブが再度押された");                                                                                                                                                                        
-        //     roadingModal.show();
+        if(navi.pages.length >= 1){
+            navi.resetToPage("html/home.html");
+        }else{
+            homeFrame.src=page_val.url+"index.php";
+        }
+        //各タブ内のURLを読み込み直す
+        rallyFrame.src=page_val.url+"index_list.php";
+        spotFrame.src=page_val.url+"nearby/index.php";
+        couponFrame.scr=page_val.url+"coupon/index.php";
+        starFrame.src=page_val.url+"star/index.php";
+        if(event.index==0){
+            console.log("homeタブが再度押された");                                                                                                                                                                        
+            roadingModal.show();
 
-        //     if(page_val.rally_id!=0){
-        //         page_val.rally_id=0;
-        //         page_val.course_id=0;
-        //         page_val.spot_id=0;
-        //         page_val.header_color_code=page_val.default_color_code;
-        //         page_val.header_title_img=page_val.default_title_img;
-        //         page_val.header_news_img=page_val.default_news_img;
-        //         page_val.header_setting_img=page_val.default_setting_img;
-        //         page="";
-        //     }
-        // }
+            if(page_val.rally_id!=0){
+                page_val.rally_id=0;
+                page_val.course_id=0;
+                page_val.spot_id=0;
+                page_val.header_color_code=page_val.default_color_code;
+                page_val.header_title_img=page_val.default_title_img;
+                page_val.header_news_img=page_val.default_news_img;
+                page_val.header_setting_img=page_val.default_setting_img;
+                page="";
+            }
+        }
     });
 
     if(device.platform == "iOS"){
@@ -235,10 +234,19 @@ function($route, $interval, $timeout, $q, page_val, get_img_service, get_permiss
                 page_val.rally_mode='';
             }
             if(!angular.isUndefined(event.data["rally_id"])){
-                page_val.rally_id=event.data["rally_id"];
+                if(event.data["rally_id"]!=0){
+                    page_val.rally_id=event.data["rally_id"];
+                }
             }
             if(!angular.isUndefined(event.data["course_id"])){
-                page_val.course_id=event.data["course_id"];
+                if(event.data["course_id"]!=0){
+                    page_val.course_id=event.data["course_id"];
+                }
+            }
+            if(!angular.isUndefined(event.data["spot_id"])){
+                if(event.data["spot_id"]!=0){
+                    page_val.spot_id=event.data["spot_id"];
+                }
             }
             page_val.pages=event.data["page"];
             switch (event.data["page"]){
@@ -281,8 +289,17 @@ function($route, $interval, $timeout, $q, page_val, get_img_service, get_permiss
                 case "rally":
                     page_val.spot_id=0;
                     page_val.rally_mode=event.data["mode"];
+                    page="";
                     if(!angular.isUndefined(event.data["course_id"])){
-                        page_val.course_id=event.data["course_id"];
+                        if(event.data["course_id"]!=0){
+                            page_val.course_id=event.data["course_id"];
+                        }
+                    }
+
+                    if(!angular.isUndefined(event.data["spot_id"])){
+                        if(event.data["spot_id"]!=0){
+                            page_val.spot_id=event.data["spot_id"];
+                        }
                     }
                     
                     if(event.data["stamp_type"]=="comp"){
@@ -301,6 +318,7 @@ function($route, $interval, $timeout, $q, page_val, get_img_service, get_permiss
                             page="list";
                             break;
                         case "map":
+                            roadingModal.show();
                             page="map";
                             break;
                         case "map_visible":
@@ -426,7 +444,15 @@ function($route, $interval, $timeout, $q, page_val, get_img_service, get_permiss
                     page_val.spot_id=0;
                     page_val.rally_mode=event.data["mode"];
                     if(!angular.isUndefined(event.data["course_id"])){
-                        page_val.course_id=event.data["course_id"];
+                        if(event.data["course_id"]!=0){
+                            page_val.course_id=event.data["course_id"];
+                        }
+                    }
+
+                    if(!angular.isUndefined(event.data["spot_id"])){
+                        if(event.data["spot_id"]!=0){
+                            page_val.spot_id=event.data["spot_id"];
+                        }
                     }
                     
                     if(event.data["stamp_type"]=="comp"){
@@ -445,6 +471,7 @@ function($route, $interval, $timeout, $q, page_val, get_img_service, get_permiss
                             page="list";
                             break;
                         case "map":
+                            roadingModal.show();
                             page="map";
                             break;
                         case "map_visible":
@@ -569,6 +596,7 @@ function($route, $interval, $timeout, $q, page_val, get_img_service, get_permiss
         }
     });
 
+    //パーミッション確認
     function permissionAndGps() {
         if (device.platform == "iOS") {
             gpsCheck(id).then(
@@ -619,6 +647,7 @@ function($route, $interval, $timeout, $q, page_val, get_img_service, get_permiss
         }
     }
 
+    //位置情報取得
     function nearSpotSearch (data){
         nearSpot(data).then(
             function (res) {

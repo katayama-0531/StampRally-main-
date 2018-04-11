@@ -134,12 +134,18 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                     roadingModal.hide();
                     break;
                 case "map":
-                    if(page_val.stamp_comp_flg==0){
-                        spotPermissionAndGps();
+                    var postMessage={
+                        "user":id,
+                        "course_id":page_val.course_id,
+                        "rally_id":page_val.rally_id,
+                        "page":"home",
+                        "lat":page_val.lat,
+                        "lng":page_val.lng
                     }
+                    ifrm.postMessage(postMessage, page_val.url+"rally/map/index.php");
                     break;
                 case "detail":
-                    postMessage =
+                    var postMessage =
                             {   "user":id,
                                 "rally_id":page_val.rally_id,
                                 "course_id":page_val.course_id,
@@ -150,7 +156,7 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                     roadingModal.hide();
                     break;
                 case "list_detail":
-                    postMessage =
+                    var postMessage =
                         {   "user":id,
                             "rally_id":page_val.rally_id,
                             "course_id":page_val.course_id,
@@ -186,6 +192,14 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                 }
                 switch(page_val.rally_mode){
                     case "map":
+                        postMessage={
+                            "user":id,
+                            "course_id":page_val.course_id,
+                            "rally_id":page_val.rally_id,
+                            "page":"home",
+                            "lat":page_val.lat,
+                            "lng":page_val.lng
+                        }
                         ifrm.postMessage(msg, page_val.url+"rally/map/index.php");
                     break;
                     default:
@@ -210,6 +224,27 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                     gpsCheck(id).then(
                         function (msg) {
                         console.log('SuccessGps:' + msg);
+                        // iframeのwindowオブジェクトを取得
+                        var ifrm = spotFrame.contentWindow;
+                        if(!ifrm){
+                            ifrm=document.getElementById('spotFrame').contentWindow;
+                        }
+                        switch(page_val.rally_mode){
+                            case "map":
+                                postMessage={
+                                    "user":id,
+                                    "course_id":page_val.course_id,
+                                    "rally_id":page_val.rally_id,
+                                    "page":"home",
+                                    "lat":page_val.lat,
+                                    "lng":page_val.lng
+                                }
+                                ifrm.postMessage(msg, page_val.url+"rally/map/index.php");
+                            break;
+                            default:
+                                ifrm.postMessage(msg, page_val.url+"nearby/index.php");
+                                break;
+                        }
                         spotNearSpotSearch(msg);
                     },
                     // 失敗時　（deferred.reject）

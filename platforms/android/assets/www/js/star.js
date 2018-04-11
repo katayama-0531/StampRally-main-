@@ -175,6 +175,12 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                     if(!angular.isUndefined(event.data["course_id"])){
                         page_val.course_id=event.data["course_id"];
                     }
+
+                    if(!angular.isUndefined(event.data["spot_id"])){
+                        if(event.data["spot_id"]!=0){
+                            page_val.spot_id=event.data["spot_id"];
+                        }
+                    }
                     
                     if(event.data["stamp_type"]=="comp"){
                         compBtn.style.visibility="visible";

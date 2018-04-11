@@ -10,9 +10,6 @@
     "cordova-plugin-dialogs": {
       "PACKAGE_NAME": "com.example.StampRally"
     },
-    "cordova-plugin-device": {
-      "PACKAGE_NAME": "com.example.StampRally"
-    },
     "cordova-plugin-android-permissions": {
       "PACKAGE_NAME": "com.example.StampRally"
     },
@@ -30,6 +27,12 @@
     },
     "cordova-plugin-app-version": {
       "PACKAGE_NAME": "com.jafstamprally"
+    },
+    "com.borismus.webintent": {
+      "PACKAGE_NAME": "com.japan_izm.stamprallykyusyu"
+    },
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "com.japan_izm.stamprallykyusyu"
     }
   },
   "dependent_plugins": {

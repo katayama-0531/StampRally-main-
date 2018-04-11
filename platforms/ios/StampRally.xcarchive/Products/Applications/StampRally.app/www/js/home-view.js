@@ -1,5 +1,5 @@
-app.controller('homeCtr', ['$route','$interval', '$timeout', '$q', 'page_val', 'get_img_service', 'get_permission_service', 'get_http_service', 
-function($route, $interval, $timeout, $q, page_val, get_img_service, get_permission_service, get_http_service){
+app.controller('homeCtr', ['$interval', '$timeout', '$q', 'page_val', 'get_img_service', 'get_permission_service', 'get_http_service', 
+function($interval, $timeout, $q, page_val, get_img_service, get_permission_service, get_http_service){
     
     roadingModal.show();
     stringCount=0;  
@@ -234,10 +234,14 @@ function($route, $interval, $timeout, $q, page_val, get_img_service, get_permiss
                 page_val.rally_mode='';
             }
             if(!angular.isUndefined(event.data["rally_id"])){
-                page_val.rally_id=event.data["rally_id"];
+                if(event.data["rally_id"]!=0){
+                    page_val.rally_id=event.data["rally_id"];
+                }
             }
             if(!angular.isUndefined(event.data["course_id"])){
-                page_val.course_id=event.data["course_id"];
+                if(event.data["course_id"]!=0){
+                    page_val.course_id=event.data["course_id"];
+                }
             }
             page_val.pages=event.data["page"];
             switch (event.data["page"]){
@@ -280,8 +284,11 @@ function($route, $interval, $timeout, $q, page_val, get_img_service, get_permiss
                 case "rally":
                     page_val.spot_id=0;
                     page_val.rally_mode=event.data["mode"];
+                    page="";
                     if(!angular.isUndefined(event.data["course_id"])){
-                        page_val.course_id=event.data["course_id"];
+                        if(event.data["course_id"]!=0){
+                            page_val.course_id=event.data["course_id"];
+                        }
                     }
                     
                     if(event.data["stamp_type"]=="comp"){
@@ -300,6 +307,7 @@ function($route, $interval, $timeout, $q, page_val, get_img_service, get_permiss
                             page="list";
                             break;
                         case "map":
+                            roadingModal.show();
                             page="map";
                             break;
                         case "map_visible":
@@ -425,7 +433,9 @@ function($route, $interval, $timeout, $q, page_val, get_img_service, get_permiss
                     page_val.spot_id=0;
                     page_val.rally_mode=event.data["mode"];
                     if(!angular.isUndefined(event.data["course_id"])){
-                        page_val.course_id=event.data["course_id"];
+                        if(event.data["course_id"]!=0){
+                            page_val.course_id=event.data["course_id"];
+                        }
                     }
                     
                     if(event.data["stamp_type"]=="comp"){
@@ -444,6 +454,7 @@ function($route, $interval, $timeout, $q, page_val, get_img_service, get_permiss
                             page="list";
                             break;
                         case "map":
+                            roadingModal.show();
                             page="map";
                             break;
                         case "map_visible":
@@ -568,6 +579,7 @@ function($route, $interval, $timeout, $q, page_val, get_img_service, get_permiss
         }
     });
 
+    //パーミッション確認
     function permissionAndGps() {
         if (device.platform == "iOS") {
             gpsCheck(id).then(
@@ -618,6 +630,7 @@ function($route, $interval, $timeout, $q, page_val, get_img_service, get_permiss
         }
     }
 
+    //位置情報取得
     function nearSpotSearch (data){
         nearSpot(data).then(
             function (res) {

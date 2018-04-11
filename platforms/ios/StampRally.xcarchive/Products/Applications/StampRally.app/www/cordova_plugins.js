@@ -9,14 +9,6 @@ module.exports = [
     ]
   },
   {
-    "id": "cordova-plugin-device.device",
-    "file": "plugins/cordova-plugin-device/www/device.js",
-    "pluginId": "cordova-plugin-device",
-    "clobbers": [
-      "device"
-    ]
-  },
-  {
     "id": "cordova-plugin-dialogs.notification",
     "file": "plugins/cordova-plugin-dialogs/www/notification.js",
     "pluginId": "cordova-plugin-dialogs",
@@ -261,20 +253,37 @@ module.exports = [
     "clobbers": [
       "cordova.getAppVersion"
     ]
+  },
+  {
+    "id": "com.borismus.webintent.WebIntent",
+    "file": "plugins/com.borismus.webintent/www/webintent.js",
+    "pluginId": "com.borismus.webintent",
+    "clobbers": [
+      "WebIntent"
+    ]
+  },
+  {
+    "id": "cordova-plugin-device.device",
+    "file": "plugins/cordova-plugin-device/www/device.js",
+    "pluginId": "cordova-plugin-device",
+    "clobbers": [
+      "device"
+    ]
   }
 ];
 module.exports.metadata = 
 // TOP OF METADATA
 {
   "cordova-plugin-android-permissions": "1.0.0",
-  "cordova-plugin-device": "2.0.1",
   "cordova-plugin-dialogs": "1.3.4",
   "cordova-plugin-geolocation": "4.0.1",
   "cordova-plugin-inappbrowser": "2.0.2",
   "cordova-plugin-whitelist": "1.3.3",
   "cordova-plugin-file": "6.0.1",
   "cordova-plugin-file-transfer": "1.7.1",
-  "cordova-plugin-app-version": "0.1.9"
+  "cordova-plugin-app-version": "0.1.9",
+  "com.borismus.webintent": "1.1.0",
+  "cordova-plugin-device": "2.0.1"
 };
 // BOTTOM OF METADATA
 });

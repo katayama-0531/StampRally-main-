@@ -73,8 +73,8 @@ angular.module('stampRallyApp').factory('get_http_service', ['$http', 'page_val'
             };
         }
         //Ajax通信でphpにアクセス
-        // var url = "https://www.online-carelplus.com/stamp/api/login.php",
-        var url = "https://jafstamprally.com/api/login.php",
+        var url = "https://www.online-carelplus.com/stamp/api/login.php",
+        // var url = "https://jafstamprally.com/api/login.php",
         config = {
                 timeout: 30
             };

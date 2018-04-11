@@ -32,7 +32,19 @@ app.controller('tabCtr', ['$scope', '$http', 'page_val', 'get_img_service', func
     }
     
     this.contactOpen=function(){
-        window.open('mailto:jafstamprally@gmail.com?subject=スタンプラリーについてのお問い合わせ', '_blank', 'location=yes');
+        if(device.platform == "Android"){
+            window.plugins.webintent.startActivity (
+                {
+                    action: window.plugins.webintent.ACTION_VIEW,
+                    url: 'mailto:jafstamprally@gmail.com?subject=スタンプラリーについてのお問い合わせ'
+                },
+                function () {},
+                function () {alert ('Failed to open URL via Android Intent');}
+            );
+        }
+        if(device.platform == "iOS"){
+            window.open('mailto:jafstamprally@gmail.com?subject=スタンプラリーについてのお問い合わせ', '_blank', 'location=yes');
+        }
         menu.close();
     }
     

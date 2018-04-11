@@ -54,6 +54,9 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
             page="";
             page_val.coupon="";
             couponFrame.scr=page_val.url+"coupon/index.php";
+            if(device.platform == "iOS"){
+                document.getElementById('couponFrame').addEventListener('load',couponLoad);
+            }
         }
     });
 
@@ -61,7 +64,9 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
     mainTab.on('postchange',function(e){
         if(event.index==3){
             console.log("couponタブへ切り替え完了");
-            couponLoad();
+            if(device.platform == "iOS"){
+                couponLoad();
+            }
         }
     });
 
@@ -72,8 +77,12 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
             roadingModal.show();
             page="";
             page_val.coupon="";
+            couponFrame.scr=page_val.url+"coupon/index.php";
         }
     });
+
+    //iframe読み込み完了後の処理
+    couponFrame.addEventListener('load',couponLoad);
 
     function couponLoad(){
         console.log("couponFrame読み込み完了");
@@ -117,6 +126,12 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                 roadingModal.hide();
                 break;
             case "spot":
+                postMessage =
+                    {   "user":id,
+                        "course_id":page_val.course_id,
+                        "rally_id":page_val.rally_id,
+                        "page":"home",
+                        "mode":"stop"};
                 ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
                 roadingModal.hide();
                 break;
@@ -140,11 +155,17 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                 roadingModal.hide();
                 break;
             case "stop":
-                ifrm.postMessage(postMessage, page_val.url+"detail/index.php");
+                postMessage =
+                {   "user":id,
+                    "course_id":page_val.course_id,
+                    "rally_id":page_val.rally_id,
+                    "page":"home",
+                    "mode":"stop"};
+                ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
                 roadingModal.hide();
                 break;
             default:
-                var postMessage =
+                postMessage =
                 {   "user":id,
                     "course_id":page_val.course_id,
                     "rally_id":page_val.rally_id,
@@ -162,7 +183,12 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
             console.log("couponFrameメッセージ受信");
             console.log(event.data);
             page_val.coupon=event.data["mode"];
-            page_val.coupon_id=event.data["coupon_id"];
+            if(event.data["coupon_id"]!=0 || event.data["coupon_id"] == ""){
+                page_val.coupon_id=event.data["coupon_id"];
+            }
+            if(event.data["rally_id"]!=0 || event.data["rally_id"] == ""){
+                page_val.rally_id=event.data["rally_id"];
+            }
             if(event.data["page"]=="maintenance"){
                 page_val.maintenance=1;
                 mainTab.hide();
@@ -171,9 +197,29 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                 case "coupon":
                     if(event.data["mode"]=="detail"){
                         couponLoad();
-                    }else{
+                    }else if(event.data["mode"]=="detail_disp_end"){
                         roadingModal.hide();
-                    }
+                    }else if(event.data["mode"]=="back"){
+                        if(device.platform == "iOS"){
+                            couponLoad();
+                        }
+                        roadingModal.hide();
+                    }else if(event.data["mode"]=="list"){
+                        var postMessage={
+                            "user":id,
+                            "rally_id":page_val.rally_id,
+                            "coupon_id":page_val.coupon_id,
+                            "spot_id":page_val.spot_id,
+                            "coupon":"false",
+                            "mode":"coupon"
+                        }
+                        // iframeのwindowオブジェクトを取得
+                        var ifrm = couponFrame.contentWindow;
+                        if(!ifrm){
+                            ifrm=document.getElementById('couponFrame').contentWindow;
+                        }
+                        ifrm.postMessage(postMessage, page_val.url+"coupon/index.php");
+                        }
                     break;
                 case "near":
                     roadingModal.hide();
@@ -183,6 +229,12 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                     page_val.rally_mode=event.data["mode"];
                     if(!angular.isUndefined(event.data["course_id"])){
                         page_val.course_id=event.data["course_id"];
+                    }
+
+                    if(!angular.isUndefined(event.data["spot_id"])){
+                        if(event.data["spot_id"]!=0){
+                            page_val.spot_id=event.data["spot_id"];
+                        }
                     }
                     
                     if(event.data["stamp_type"]=="comp"){
@@ -201,6 +253,7 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                             page="list";
                             break;
                         case "map":
+                            roadingModal.show();
                             page="map";
                             break;
                         case "map_visible":
@@ -296,7 +349,7 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                     function (msg) {
                         // エラーコードに合わせたエラー内容をアラート表示
                         setTimeout(function() {
-                            ons.notification.alert({ message: errorMessage[message.code], title: "エラー", cancelable: true });
+                            ons.notification.alert({ message: "位置情報取得中にエラーが発生しました。コード："+message.code, title: "エラー", cancelable: true });
                             }, 0);
                         roadingModal.hide();
                     },
