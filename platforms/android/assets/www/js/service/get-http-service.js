@@ -35,19 +35,15 @@ angular.module('stampRallyApp').factory('get_http_service', ['$http', 'page_val'
                     console.log("version情報");
                     console.log(version);
                     var message = "";
-                    var url = "";
-                    if (storeVersion!=version){
-                        var message = "新しいバージョンが公開されています。更新を行ってください。";
+                    var url = ""
+                    if (storeVersion > version){
+                        message = "新しいバージョンが公開されています。更新を行ってください。";
                         if (device.platform == "iOS"){
-                            alert(message);
                             //TODO:アプリ公開後に確認
-                            //var url = "https://itunes.apple.com/jp/app/jaf-スタンプラリー-九州/id1367402543?l=ja&ls=1&mt=8";
-                            //window.open(url,"_system");
+                            //url = 'id1367402543'
                         }
-                        if (device.platform == "Android"){
-                            alert(message);
-                            var url = "https://play.google.com/store/apps/details?id=com.jafstamprally";
-                            //window.open(url,"_system");
+                            if (device.platform == "Android"){
+                                url = 'com.jafstamprally'
                         }
                     }
                     deferred.resolve(message, url); 

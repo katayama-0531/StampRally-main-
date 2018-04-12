@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		0207DA581B56EA530066E2B4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0207DA571B56EA530066E2B4 /* Images.xcassets */; };
 		149A97E1000D438F99746FF4 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F35813C30CF4C9995E7074D /* AudioToolbox.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -27,6 +26,7 @@
 		A8F7F8B346FA440C81362161 /* CDVLocalFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = D47FB2DDDC8C44C78AD3D213 /* CDVLocalFilesystem.m */; };
 		D03094876DB14B6DB41575F2 /* CDVNotification.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5709420DB9F24A18B2FBC007 /* CDVNotification.bundle */; };
 		F7486367B01341FF8860CB46 /* CDVInAppBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 71E6143AC0EA480EBB137307 /* CDVInAppBrowser.m */; };
+		759032780CF94D37971AAC40 /* CDVMarket.m in Sources */ = {isa = PBXBuildFile; fileRef = C1210DC2291C407788838EC8 /* CDVMarket.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +96,8 @@
 		F7DB1F8A98BC4A17BEB34BEF /* CDVFile.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVFile.h; path = "cordova-plugin-file/CDVFile.h"; sourceTree = "<group>"; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = StampRally/config.xml; sourceTree = "<group>"; };
 		FA6A8F3CDBA24A45AA6549E9 /* CDVLocation.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVLocation.h; path = "cordova-plugin-geolocation/CDVLocation.h"; sourceTree = "<group>"; };
+		C1210DC2291C407788838EC8 /* CDVMarket.m */ = {isa = PBXFileReference; name = "CDVMarket.m"; path = "cordova-plugin-market/CDVMarket.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
+		F09D4D512E154CD6BE4352EE /* CDVMarket.h */ = {isa = PBXFileReference; name = "CDVMarket.h"; path = "cordova-plugin-market/CDVMarket.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -225,6 +227,8 @@
 				EBDB7E639A1C48058F1D4184 /* AppVersion.h */,
 				BD066A07F2BF46E2A6495EB2 /* CDVDevice.m */,
 				431EB835FBF347FDBB03360F /* CDVDevice.h */,
+				C1210DC2291C407788838EC8 /* CDVMarket.m */,
+				F09D4D512E154CD6BE4352EE /* CDVMarket.h */,
 			);
 			name = Plugins;
 			path = StampRally/Plugins;
@@ -363,6 +367,7 @@
 				97480E995D0C49AABDC6C5E6 /* CDVFileTransfer.m in Sources */,
 				75095FD472AD4F57A1FE165D /* AppVersion.m in Sources */,
 				2645AA57C32C426CA478060F /* CDVDevice.m in Sources */,
+				759032780CF94D37971AAC40 /* CDVMarket.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

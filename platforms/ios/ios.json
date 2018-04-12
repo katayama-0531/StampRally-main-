@@ -35,6 +35,10 @@
             {
               "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
               "count": 1
+            },
+            {
+              "xml": "<feature name=\"Market\"><param name=\"ios-package\" value=\"CDVMarket\" /></feature>",
+              "count": 1
             }
           ]
         }
@@ -70,6 +74,9 @@
       "PACKAGE_NAME": "com.japan-izm.stamprallykyusyu"
     },
     "cordova-plugin-device": {
+      "PACKAGE_NAME": "com.japan-izm.stamprallykyusyu"
+    },
+    "cordova-plugin-market": {
       "PACKAGE_NAME": "com.japan-izm.stamprallykyusyu"
     }
   },
@@ -344,6 +351,14 @@
       "clobbers": [
         "device"
       ]
+    },
+    {
+      "id": "cordova-plugin-market.Market",
+      "file": "plugins/cordova-plugin-market/www/market.js",
+      "pluginId": "cordova-plugin-market",
+      "clobbers": [
+        "cordova.plugins.market"
+      ]
     }
   ],
   "plugin_metadata": {
@@ -356,6 +371,7 @@
     "cordova-plugin-file-transfer": "1.7.1",
     "cordova-plugin-app-version": "0.1.9",
     "com.borismus.webintent": "1.1.0",
-    "cordova-plugin-device": "2.0.1"
+    "cordova-plugin-device": "2.0.1",
+    "cordova-plugin-market": "1.2.0"
   }
 }

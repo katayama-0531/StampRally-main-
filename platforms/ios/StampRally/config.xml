@@ -114,4 +114,7 @@
     <preference name="PaginationBreakingMode" value="page" />
     <preference name="PaginationMode" value="unpaginated" />
     <preference name="Orientation" value="portrait" />
+    <feature name="Market">
+        <param name="ios-package" value="CDVMarket" />
+    </feature>
 </widget>

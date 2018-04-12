@@ -259,6 +259,14 @@ module.exports = [
     "clobbers": [
       "device"
     ]
+  },
+  {
+    "id": "cordova-plugin-market.Market",
+    "file": "plugins/cordova-plugin-market/www/market.js",
+    "pluginId": "cordova-plugin-market",
+    "clobbers": [
+      "cordova.plugins.market"
+    ]
   }
 ];
 module.exports.metadata = 
@@ -273,7 +281,8 @@ module.exports.metadata =
   "cordova-plugin-file-transfer": "1.7.1",
   "cordova-plugin-app-version": "0.1.9",
   "com.borismus.webintent": "1.1.0",
-  "cordova-plugin-device": "2.0.1"
+  "cordova-plugin-device": "2.0.1",
+  "cordova-plugin-market": "1.2.0"
 };
 // BOTTOM OF METADATA
 });

@@ -33,6 +33,9 @@
     },
     "cordova-plugin-device": {
       "PACKAGE_NAME": "com.japan_izm.stamprallykyusyu"
+    },
+    "cordova-plugin-market": {
+      "PACKAGE_NAME": "com.japan_izm.stamprallykyusyu"
     }
   },
   "dependent_plugins": {

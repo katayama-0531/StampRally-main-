@@ -3,7 +3,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
     
     roadingModal.show();
     stringCount=0;  
-    // localStorage.setItem('ID','95');
+    localStorage.setItem('ID','95');
     var id = localStorage.getItem('ID');
     var url = "";
     var page = "";
@@ -200,7 +200,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                     ifrm.postMessage(postMessage, page_val.url+"detail/index.php");
                     roadingModal.hide();
                     break;
-                    case "list_detail":
+                case "list_detail":
                     ifrm.postMessage(postMessage, page_val.url+"detail/index.php");
                     roadingModal.hide();
                     break;
@@ -454,7 +454,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                             page_val.spot_id=event.data["spot_id"];
                         }
                     }
-                    
+
                     if(event.data["stamp_type"]=="comp"){
                         compBtn.style.visibility="visible";
                         stampBtn.style.visibility="hidden";
@@ -531,6 +531,10 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                     mainTab.hide();
                     roadingModal.hide();
                     break;
+                case "coupon":
+                    page_val.coupon="detail";
+                    page_val.spot_id=event.data["spot_id"];
+                    mainTab.setActiveTab(3);
             }
         }
         if(event.data["page"]=="maintenance"){
@@ -701,7 +705,8 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                 }
             } else {
                 console.log("アップデートあり");
-                window.open(url,"_system");
+                alart(message);
+                cordova.plugins.market.open(url);
             }
         },
         // 失敗時　（deferred.reject）
