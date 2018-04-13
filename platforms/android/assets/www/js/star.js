@@ -45,7 +45,12 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                 ifrm=document.getElementById('starFrame').contentWindow;
             }
             // 外部サイトにメッセージを投げる
-            var postMessage =id;
+            var postMessage =
+            {   "user":id,
+                "rally_id":page_val.rally_id,
+                "course_id":page_val.course_id,
+                "spot_id":page_val.spot_id,
+                "page":"home"};
             ifrm.postMessage(postMessage, page_val.url+"star/index.php");
         }
     });
@@ -80,6 +85,7 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
             {   "user":id,
                 "rally_id":page_val.rally_id,
                 "course_id":page_val.course_id,
+                "spot_id":page_val.spot_id,
                 "page":"home"};
             switch(page){
                 case "":
@@ -126,6 +132,7 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                     {   "user":id,
                         "rally_id":page_val.rally_id,
                         "course_id":page_val.course_id,
+                        "spot_id":page_val.spot_id,
                         "page":"home",
                         "mode":"stop"};
                     ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");

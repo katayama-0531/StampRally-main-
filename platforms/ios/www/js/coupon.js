@@ -54,6 +54,7 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
             page="";
             page_val.coupon="";
             couponFrame.scr=page_val.url+"coupon/index.php";
+            couponFrame.addEventListener('load',couponLoad);
             if(device.platform == "iOS"){
                 document.getElementById('couponFrame').addEventListener('load',couponLoad);
             }
@@ -78,6 +79,10 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
             page="";
             page_val.coupon="";
             couponFrame.scr=page_val.url+"coupon/index.php";
+            couponFrame.addEventListener('load',couponLoad);
+            if(device.platform == "iOS"){
+                document.getElementById('couponFrame').addEventListener('load',couponLoad);
+            }
         }
     });
 
@@ -96,6 +101,7 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
         {   "user":id,
             "course_id":page_val.course_id,
             "rally_id":page_val.rally_id,
+            "spot_id":page_val.spot_id,
             "page":"home"};
 
         // 外部サイトにメッセージを投げる
@@ -109,6 +115,8 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                     postMessage={
                         "user":localStorage.getItem('ID'),
                         "coupon_id":page_val.coupon_id,
+                        "rally_id":page_val.rally_id,
+                        "spot_id":page_val.spot_id,
                         "page":""
                     }
                     ifrm.postMessage(postMessage, page_val.url+"coupon/index.php");
@@ -130,6 +138,7 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                     {   "user":id,
                         "course_id":page_val.course_id,
                         "rally_id":page_val.rally_id,
+                        "spot_id":page_val.spot_id,
                         "page":"home",
                         "mode":"stop"};
                 ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
@@ -159,6 +168,7 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                 {   "user":id,
                     "course_id":page_val.course_id,
                     "rally_id":page_val.rally_id,
+                    "spot_id":page_val.spot_id,
                     "page":"home",
                     "mode":"stop"};
                 ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
@@ -169,6 +179,7 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                 {   "user":id,
                     "course_id":page_val.course_id,
                     "rally_id":page_val.rally_id,
+                    "spot_id":page_val.spot_id,
                     "page":"home",
                     "mode":"stop"};
                 ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
@@ -205,14 +216,21 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                         }
                         roadingModal.hide();
                     }else if(event.data["mode"]=="list"){
-                        var scr = couponFrame.scr;
-                        if(device.platform == "iOS"){
-                            scr = document.getElementById('couponFrame').scr;
+                        var postMessage={
+                            "user":id,
+                            "rally_id":page_val.rally_id,
+                            "coupon_id":page_val.coupon_id,
+                            "spot_id":page_val.spot_id,
+                            "coupon":"false",
+                            "mode":"coupon"
                         }
-                        page="";
-                        page_val.coupon="";
-                        scr=page_val.url+"coupon/index.php";
-                    }
+                        // iframeのwindowオブジェクトを取得
+                        var ifrm = couponFrame.contentWindow;
+                        if(!ifrm){
+                            ifrm=document.getElementById('couponFrame').contentWindow;
+                        }
+                        ifrm.postMessage(postMessage, page_val.url+"coupon/index.php");
+                        }
                     break;
                 case "near":
                     roadingModal.hide();
@@ -222,6 +240,12 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                     page_val.rally_mode=event.data["mode"];
                     if(!angular.isUndefined(event.data["course_id"])){
                         page_val.course_id=event.data["course_id"];
+                    }
+
+                    if(!angular.isUndefined(event.data["spot_id"])){
+                        if(event.data["spot_id"]!=0){
+                            page_val.spot_id=event.data["spot_id"];
+                        }
                     }
                     
                     if(event.data["stamp_type"]=="comp"){
@@ -295,6 +319,11 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                         stampBtn.style.visibility="hidden";
                     }
                     break;
+                case "near_spot":
+                    mainTab.setActiveTab(2);
+                    page_val.nearSpot=event.data["spot_id"];
+                    page_val.spot_id=event.data["spot_id"];
+                break;
             }
         }
     });

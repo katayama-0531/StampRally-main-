@@ -35,16 +35,19 @@ angular.module('stampRallyApp').factory('get_http_service', ['$http', 'page_val'
                     console.log("version情報");
                     console.log(version);
                     var message = "";
-                    var url = ""
+                    var url = "";
+
                     if (storeVersion > version){
                         message = "新しいバージョンが公開されています。更新を行ってください。";
                         if (device.platform == "iOS"){
                             //TODO:アプリ公開後に確認
-                            //url = 'id1367402543'
+                            //url = 'id1367402543';
                         }
                             if (device.platform == "Android"){
-                                url = 'com.jafstamprally'
+                                url = 'com.jafstamprally';
                         }
+                        alert(message);
+                        cordova.plugins.market.open(url);
                     }
                     deferred.resolve(message, url); 
                 });
@@ -69,8 +72,8 @@ angular.module('stampRallyApp').factory('get_http_service', ['$http', 'page_val'
             };
         }
         //Ajax通信でphpにアクセス
-        var url = "https://www.online-carelplus.com/stamp/api/login.php",
-        // var url = "https://jafstamprally.com/api/login.php",
+        // var url = "https://www.online-carelplus.com/stamp/api/login.php",
+        var url = "https://jafstamprally.com/api/login.php",
         config = {
                 timeout: 30
             };

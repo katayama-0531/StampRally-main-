@@ -23,6 +23,8 @@ app.controller('rallyCtr', ['page_val', function(page_val) {
             var postMessage =
             {   "user":id,
                 "course_id":page_val.course_id,
+                "rally_id":page_val.rally_id,
+                "spot_id":page_val.spot_id,
                 "page":"rally"};
                 var url="";
             if(mainTab.getActiveTabIndex()==1){
@@ -79,6 +81,8 @@ app.controller('rallyCtr', ['page_val', function(page_val) {
             var postMessage =
             {   "user":id,
                 "course_id":page_val.course_id,
+                "rally_id":page_val.rally_id,
+                "spot_id":page_val.spot_id,
                 "page":"rally"};
             if(mainTab.getActiveTabIndex()==1){
                 if(page==""){
@@ -98,6 +102,8 @@ app.controller('rallyCtr', ['page_val', function(page_val) {
             var postMessage =
             {   "user":id,
                 "course_id":page_val.course_id,
+                "rally_id":page_val.rally_id,
+                "spot_id":page_val.spot_id,
                 "mode":"stop"};
             if(mainTab.getActiveTabIndex()==1){
                 if(page==""){

@@ -2,10 +2,10 @@ ons.bootstrap(['stampRallyApp']);
 var app = angular.module('stampRallyApp',['onsen', 'ngResource', 'ngStorage']);
 //画像表示の際に使用する共通変数
 app.constant('page_val', {
-  // 'url':'https://www.online-carelplus.com/stamp/app_view/',
-  // 'root_url':'https://www.online-carelplus.com/stamp/',
-  'url':'https://jafstamprally.com/app_view/',
-  'root_url':'https://jafstamprally.com/',
+  'url':'https://www.online-carelplus.com/stamp/app_view/',
+  'root_url':'https://www.online-carelplus.com/stamp/',
+  // 'url':'https://jafstamprally.com/app_view/',
+  // 'root_url':'https://jafstamprally.com/',
   'spot_id': 0,
   'course_id': 0,
   'rally_id': 0,

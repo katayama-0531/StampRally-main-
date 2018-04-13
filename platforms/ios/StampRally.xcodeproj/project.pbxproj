@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		0207DA581B56EA530066E2B4 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0207DA571B56EA530066E2B4 /* Images.xcassets */; };
 		149A97E1000D438F99746FF4 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F35813C30CF4C9995E7074D /* AudioToolbox.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -19,6 +20,7 @@
 		6AFF5BF91D6E424B00AB3073 /* CDVLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AFF5BF81D6E424B00AB3073 /* CDVLaunchScreen.storyboard */; };
 		70FC37098D6044699D671F12 /* CDVFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 90DA15B172BD43CB980FDC4D /* CDVFile.m */; };
 		75095FD472AD4F57A1FE165D /* AppVersion.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A44DCF47C674CF9B2F7FE9A /* AppVersion.m */; };
+		759032780CF94D37971AAC40 /* CDVMarket.m in Sources */ = {isa = PBXBuildFile; fileRef = C1210DC2291C407788838EC8 /* CDVMarket.m */; };
 		763FD47012754AD087C91DD0 /* CDVNotification.m in Sources */ = {isa = PBXBuildFile; fileRef = F5E6D667A1D04E228CD267A7 /* CDVNotification.m */; };
 		90EF25DF28FF47FC8520E955 /* CDVLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 8137A84650E04510A130269F /* CDVLocation.m */; };
 		97480E995D0C49AABDC6C5E6 /* CDVFileTransfer.m in Sources */ = {isa = PBXBuildFile; fileRef = A70731C5C046423E892FA83D /* CDVFileTransfer.m */; };
@@ -26,7 +28,6 @@
 		A8F7F8B346FA440C81362161 /* CDVLocalFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = D47FB2DDDC8C44C78AD3D213 /* CDVLocalFilesystem.m */; };
 		D03094876DB14B6DB41575F2 /* CDVNotification.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 5709420DB9F24A18B2FBC007 /* CDVNotification.bundle */; };
 		F7486367B01341FF8860CB46 /* CDVInAppBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = 71E6143AC0EA480EBB137307 /* CDVInAppBrowser.m */; };
-		759032780CF94D37971AAC40 /* CDVMarket.m in Sources */ = {isa = PBXBuildFile; fileRef = C1210DC2291C407788838EC8 /* CDVMarket.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,19 +86,19 @@
 		A70731C5C046423E892FA83D /* CDVFileTransfer.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVFileTransfer.m; path = "cordova-plugin-file-transfer/CDVFileTransfer.m"; sourceTree = "<group>"; };
 		BD066A07F2BF46E2A6495EB2 /* CDVDevice.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVDevice.m; path = "cordova-plugin-device/CDVDevice.m"; sourceTree = "<group>"; };
 		BDDD4F6527264A19B13CB420 /* CoreLocation.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		C1210DC2291C407788838EC8 /* CDVMarket.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVMarket.m; path = "cordova-plugin-market/CDVMarket.m"; sourceTree = "<group>"; };
 		D47FB2DDDC8C44C78AD3D213 /* CDVLocalFilesystem.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVLocalFilesystem.m; path = "cordova-plugin-file/CDVLocalFilesystem.m"; sourceTree = "<group>"; };
 		DEE808D4B55F478AA0C61B95 /* CDVFileTransfer.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVFileTransfer.h; path = "cordova-plugin-file-transfer/CDVFileTransfer.h"; sourceTree = "<group>"; };
 		EB87FDF31871DA8E0020F90C /* www */ = {isa = PBXFileReference; lastKnownFileType = folder; name = www; path = ../../www; sourceTree = "<group>"; };
 		EB87FDF41871DAF40020F90C /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = ../../config.xml; sourceTree = "<group>"; };
 		EBDB7E639A1C48058F1D4184 /* AppVersion.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = AppVersion.h; path = "cordova-plugin-app-version/AppVersion.h"; sourceTree = "<group>"; };
 		ED33DF2A687741AEAF9F8254 /* Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
+		F09D4D512E154CD6BE4352EE /* CDVMarket.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVMarket.h; path = "cordova-plugin-market/CDVMarket.h"; sourceTree = "<group>"; };
 		F5E6D667A1D04E228CD267A7 /* CDVNotification.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVNotification.m; path = "cordova-plugin-dialogs/CDVNotification.m"; sourceTree = "<group>"; };
 		F6150A7E42B14D3E80439F67 /* CDVAssetLibraryFilesystem.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVAssetLibraryFilesystem.h; path = "cordova-plugin-file/CDVAssetLibraryFilesystem.h"; sourceTree = "<group>"; };
 		F7DB1F8A98BC4A17BEB34BEF /* CDVFile.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVFile.h; path = "cordova-plugin-file/CDVFile.h"; sourceTree = "<group>"; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = StampRally/config.xml; sourceTree = "<group>"; };
 		FA6A8F3CDBA24A45AA6549E9 /* CDVLocation.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVLocation.h; path = "cordova-plugin-geolocation/CDVLocation.h"; sourceTree = "<group>"; };
-		C1210DC2291C407788838EC8 /* CDVMarket.m */ = {isa = PBXFileReference; name = "CDVMarket.m"; path = "cordova-plugin-market/CDVMarket.m"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; explicitFileType = undefined; includeInIndex = 0; };
-		F09D4D512E154CD6BE4352EE /* CDVMarket.h */ = {isa = PBXFileReference; name = "CDVMarket.h"; path = "cordova-plugin-market/CDVMarket.h"; sourceTree = "<group>"; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -275,7 +276,7 @@
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
 						DevelopmentTeam = HT3AV8JZAS;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -392,9 +393,9 @@
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = HT3AV8JZAS;
+				DEVELOPMENT_TEAM = "";
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -406,8 +407,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.japan-izm.stamprallykyusyu";
 				PRODUCT_NAME = StampRally;
-				PROVISIONING_PROFILE = "59bb5079-ff2a-45bd-8d69-b02eafa19bd3";
-				PROVISIONING_PROFILE_SPECIFIER = stamprally_dev;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -421,10 +422,10 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				COPY_PHASE_STRIP = YES;
-				DEVELOPMENT_TEAM = HT3AV8JZAS;
+				DEVELOPMENT_TEAM = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "StampRally/StampRally-Prefix.pch";
 				GCC_THUMB_SUPPORT = NO;
@@ -434,8 +435,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "@executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.japan-izm.stamprallykyusyu";
 				PRODUCT_NAME = StampRally;
-				PROVISIONING_PROFILE = "2ef1635f-a549-417f-ae6d-88066ebb35c7";
-				PROVISIONING_PROFILE_SPECIFIER = stamprallykyushu_dist;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

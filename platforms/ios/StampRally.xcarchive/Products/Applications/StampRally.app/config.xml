@@ -41,6 +41,9 @@
     <feature name="Device">
         <param name="ios-package" value="CDVDevice" />
     </feature>
+    <feature name="Market">
+        <param name="ios-package" value="CDVMarket" />
+    </feature>
     <name>StampRally</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.

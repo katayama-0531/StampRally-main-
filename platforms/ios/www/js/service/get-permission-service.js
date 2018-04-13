@@ -37,12 +37,12 @@ angular.module('stampRallyApp').factory('get_permission_service', ['page_val', '
             var n = 6;
             page_val.lat = Math.floor(position.coords.latitude * Math.pow(10, n)) / Math.pow(10, n);
             //緯度 TODO:テスト用
-            // page_val.lat = 33.2123;
-            page_val.lng = Math.floor(position.coords.longitude * Math.pow(10, n)) / Math.pow(10, n);
+            page_val.lat = 33.2123;
+            // page_val.lng = Math.floor(position.coords.longitude * Math.pow(10, n)) / Math.pow(10, n);
             //経度　TODO:テスト用
-            // page_val.lng = 130.444;
+            page_val.lng = 130.444;
             //高度
-            page_val.alt = Math.floor(position.coords.altitude * Math.pow(10, n)) / Math.pow(10, n);
+            // page_val.alt = Math.floor(position.coords.altitude * Math.pow(10, n)) / Math.pow(10, n);
             //位置精度
             page_val.acc = Math.floor(position.coords.accuracy * Math.pow(10, n)) / Math.pow(10, n);
             var gpsData = {

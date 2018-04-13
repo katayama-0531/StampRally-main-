@@ -13,7 +13,10 @@ app.controller('newsCtr' ,[function () {
     //         // 外部サイトにメッセージを投げる
     //         var postMessage =
     //         {   "user":id,
-    //             "course_id":page_val.course_id};
+    //             "course_id":page_val.course_id,
+    //             "rally_id":page_val.rally_id,
+    //             "spot_id":page_val.spot_id
+    //          };
     //         ifrm.postMessage(postMessage, page_val.url+"index.php");
     //     }
     // });

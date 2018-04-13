@@ -5,7 +5,6 @@ angular.module('stampRallyApp').factory('get_permission_service', ['page_val', '
         var permissions = cordova.plugins.permissions; 
         //permission確認
         permissions.hasPermission(permissions.ACCESS_FINE_LOCATION, permissionCallback);
-  
         function permissionCallback (status) {
           var permissionStatus = false;
           if ( status.hasPermission ) {
