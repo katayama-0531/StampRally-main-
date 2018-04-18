@@ -1,13 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.jafstamprally" version="1.2.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.japan-izm.stamprallykyusyu" version="1.2.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <feature name="Notification">
         <param name="android-package" value="org.apache.cordova.dialogs.Notification" />
     </feature>
     <feature name="Permissions">
         <param name="android-package" value="com.android.plugins.Permissions" />
-    </feature>
-    <feature name="InAppBrowser">
-        <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
     </feature>
     <feature name="Whitelist">
         <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
@@ -36,6 +33,9 @@
     <feature name="Market">
         <param name="android-package" value="com.xmartlabs.cordova.market.Market" />
     </feature>
+    <feature name="InAppBrowser">
+        <param name="android-package" value="org.apache.cordova.inappbrowser.InAppBrowser" />
+    </feature>
     <name>StampRally</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
@@ -46,19 +46,19 @@
     <content src="index.html" />
     <access origin="*" />
     <access origin="https://jafstamprally.com" subdomains="true" />
-    <access origin="https://www.online-carelplus.com/" subdomains="true" />
+    <access origin="https://www.online-carelplus.com/*" subdomains="true" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
-    <allow-intent href="https://jafstamprally.com" />
-    <allow-intent href="https://www.online-carelplus.com/" />
+    <allow-intent href="https://jafstamprally.com/*" />
+    <allow-intent href="https://www.online-carelplus.com/*" />
     <allow-intent href="tel:*" />
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
     <allow-navigation href="http://*/*" />
     <allow-navigation href="https://*/*" />
-    <allow-navigation href="https://jafstamprally.com" />
-    <allow-navigation href="https://www.online-carelplus.com/" />
+    <allow-navigation href="https://jafstamprally.com/*" />
+    <allow-navigation href="https://www.online-carelplus.com/*" />
     <allow-intent href="market:*" />
     <icon density="ldpi" src="res/icon/android/ldpi.png" />
     <icon density="mdpi" src="res/icon/android/mdpi.png" />

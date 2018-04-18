@@ -36,10 +36,10 @@ angular.module('stampRallyApp').factory('get_permission_service', ['page_val', '
             var n = 6;
             page_val.lat = Math.floor(position.coords.latitude * Math.pow(10, n)) / Math.pow(10, n);
             //緯度 TODO:テスト用
-            // page_val.lat = 33.2123;
+            // page_val.lat = 33.1803;
             page_val.lng = Math.floor(position.coords.longitude * Math.pow(10, n)) / Math.pow(10, n);
             //経度　TODO:テスト用
-            // page_val.lng = 130.444;
+            // page_val.lng = 130.491;
             //高度
             page_val.alt = Math.floor(position.coords.altitude * Math.pow(10, n)) / Math.pow(10, n);
             //位置精度
@@ -60,14 +60,6 @@ angular.module('stampRallyApp').factory('get_permission_service', ['page_val', '
         };
 
         var onGpsError = function (message) {
-            //iOSでalterを使用すると問題が発生する可能性がある為、問題回避の為setTimeoutを使用する。
-            // エラーコードのメッセージを定義
-            var errorMessage = {
-                0: "原因不明のエラーが発生しました。",
-                1: "位置情報の取得が許可されませんでした。",
-                2: "電波状況などで位置情報が取得できませんでした。",
-                3: "位置情報の取得に時間がかかり過ぎてタイムアウトしました。",
-            };
             deferred.reject(message);
         };
         

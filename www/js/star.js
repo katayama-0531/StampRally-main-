@@ -38,7 +38,10 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
     //アクティブなタブの切り替え前の処理
     mainTab.on('postchange',function(event){
         if(event.index==4){
-            starFrame.src=page_val.url+"star/index.php";
+            starFrame.src=page_val.url+"c/index.php";
+            if (device.platform == "iOS") {
+                document.getElementById('starFrame').src=page_val.url+"starFrame/index.php";
+            }
             // iframeのwindowオブジェクトを取得
             var ifrm = starFrame.contentWindow;
             if(!ifrm){
@@ -65,6 +68,9 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
     mainTab.on('reactive',function(event){
         if(event.index==4){
             starFrame.src=page_val.url+"star/index.php";
+            if (device.platform == "iOS") {
+                document.getElementById('starFrame').src=page_val.url+"starFrame/index.php";
+            }
         }
     });
 
@@ -87,9 +93,13 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                 "course_id":page_val.course_id,
                 "spot_id":page_val.spot_id,
                 "page":"home"};
+
+            if(angular.isUndefined(page)){
+                page="";
+            }
+
             switch(page){
                 case "":
-                case angular.isUndefined(page):
                     ifrm.postMessage(postMessage, page_val.url+"star/index.html");
                     roadingModal.hide();
                     break;

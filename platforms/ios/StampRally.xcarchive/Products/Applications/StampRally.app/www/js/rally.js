@@ -11,33 +11,13 @@ app.controller('rallyCtr', ['page_val', function(page_val) {
     mainTab.on('postchange',function(event){
         if(event.index==1){
             rallyFrame.src=page_val.url+"index_list.php";
+            if (device.platform == "iOS") {
+                document.getElementById('rallyFrame').src=page_val.url+"index_list.php";
+                document.getElementById('rallyFrame').addEventListener('load',rallyLoad);
+            }
             //スタンプが押せる画面ではないので非表示にする
             stampBtn.style.visibility="hidden";
             compBtn.style.visibility="hidden";
-            // iframeのwindowオブジェクトを取得
-            var rallyifrm = rallyFrame.contentWindow;
-            if(!rallyifrm){
-                rallyifrm=document.getElementById('rallyFrame').contentWindow;
-            }
-            // 外部サイトにメッセージを投げる
-            var postMessage =
-            {   "user":id,
-                "course_id":page_val.course_id,
-                "rally_id":page_val.rally_id,
-                "spot_id":page_val.spot_id,
-                "page":"rally"};
-                var url="";
-            if(mainTab.getActiveTabIndex()==1){
-                if(page==""){
-                    url=page_val.url+"index_list.php";
-                    page="rally";
-                }else{
-                    url=page_val.url+"rally/index.php";
-                }
-            }
-            if(url!=""){
-                rallyifrm.postMessage(postMessage, url);
-            }
         }
     });
     //アクティブなタブの切り替え完了後の処理
@@ -64,7 +44,12 @@ app.controller('rallyCtr', ['page_val', function(page_val) {
     });
     
     //iframe読み込み完了後の処理
-    rallyFrame.addEventListener('load',function() {
+    rallyFrame.addEventListener('load',rallyLoad);
+    if (device.platform == "iOS") {
+        document.getElementById('rallyFrame').addEventListener('load',rallyLoad);
+    }
+
+    function rallyLoad(){
         header.style.backgroundColor=page_val.header_color_code;
         head_icon.src=page_val.header_title_img;
         head_news.src=page_val.header_news_img;
@@ -75,7 +60,6 @@ app.controller('rallyCtr', ['page_val', function(page_val) {
         if(!rallyifrm){
             rallyifrm=document.getElementById('rallyFrame').contentWindow;
         }
-        // if(page_val.rally_mode!="stop" && page_val.rally_mode!="detail"){
         if(page_val.rally_mode!="stop"){
                 // 外部サイトにメッセージを投げる
             var postMessage =
@@ -96,7 +80,6 @@ app.controller('rallyCtr', ['page_val', function(page_val) {
                     }
                 }
             }
-        //}else if(page_val.rally_mode=="stop"){
         }else{
             // 外部サイトにメッセージを投げる
             var postMessage =
@@ -115,5 +98,5 @@ app.controller('rallyCtr', ['page_val', function(page_val) {
             }
         }
         roadingModal.hide();
-    });
+    }
 }]);

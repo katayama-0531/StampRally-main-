@@ -54,9 +54,10 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
             stampBtn.style.visibility="hidden";
             page="";
             page_val.coupon="";
-            couponFrame.scr=page_val.url+"coupon/index.php";
+            couponFrame.src=page_val.url+"coupon/index.php";
             couponFrame.addEventListener('load',couponLoad);
             if(device.platform == "iOS"){
+                document.getElementById('couponFrame').src=page_val.url+"coupon/index.php";
                 document.getElementById('couponFrame').addEventListener('load',couponLoad);
             }
         }
@@ -66,7 +67,7 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
     mainTab.on('postchange',function(e){
         if(event.index==3){
             console.log("couponタブへ切り替え完了");
-            couponLoad();
+            //couponLoad();
         }
     });
 
@@ -77,11 +78,17 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
             roadingModal.show();
             page="";
             page_val.coupon="";
-            couponFrame.scr=page_val.url+"coupon/index.php";
+            couponFrame.src=page_val.url+"coupon/index.php";
             couponFrame.addEventListener('load',couponLoad);
+
             if(device.platform == "iOS"){
+                document.getElementById('couponFrame').src=page_val.url+"coupon/index.php";
                 document.getElementById('couponFrame').addEventListener('load',couponLoad);
             }
+            
+            // if(device.platform == "iOS"){
+            //     couponLoad();
+            // }
         }
     });
 
@@ -104,15 +111,19 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                 "spot_id":page_val.spot_id,
                 "page":"home"};
 
+            if(angular.isUndefined(page)){
+                page="";
+            }
+
             // 外部サイトにメッセージを投げる
             switch(page){
                 case "":
-                case angular.isUndefined(page):
+                case "coupon":
                     if(page_val.coupon=="detail"){
                         roadingModal.show();
                         page="wait";
                         couponPermissionAndGps();
-                    }else {
+                    } else {
                         postMessage={
                             "user":localStorage.getItem('ID'),
                             "coupon_id":page_val.coupon_id,
@@ -120,12 +131,12 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                             "spot_id":page_val.spot_id,
                             "page":""
                         }
-                        ifrm.postMessage(postMessage, page_val.url+"coupon/index.html");
+                        ifrm.postMessage(postMessage, page_val.url+"coupon/index.php");
+                        roadingModal.hide();
                     }
                     break;
                 case "rally":
                     ifrm.postMessage(postMessage, page_val.url+"rally/index.php");
-                    roadingModal.hide();
                     break;
                 case "stamp":
                     ifrm.postMessage(postMessage, page_val.url+"stamp/index.php");
@@ -135,15 +146,15 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                     roadingModal.hide();
                     break;
                 case "spot":
-                    postMessage =
-                        {   "user":id,
-                            "course_id":page_val.course_id,
-                            "rally_id":page_val.rally_id,
-                            "spot_id":page_val.spot_id,
-                            "page":"home",
-                            "mode":"stop"};
-                    ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
-                    roadingModal.hide();
+                    postMessage={
+                        "user":id,
+                        "course_id":page_val.course_id,
+                        "rally_id":page_val.rally_id,
+                        "page":"home",
+                        "lat":page_val.lat,
+                        "lng":page_val.lng
+                    }
+                    ifrm.postMessage(postMessage, page_val.url+"rally/map/index.php");
                     break;
                 case "map":
                     postMessage={
@@ -197,7 +208,9 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
         if(mainTab.getActiveTabIndex()==3){
             console.log("couponFrameメッセージ受信");
             console.log(event.data);
+            roadingModal.show();
             page_val.coupon=event.data["mode"];
+            page=event.data["page"];
             if(event.data["coupon_id"]!=0 || event.data["coupon_id"] == ""){
                 page_val.coupon_id=event.data["coupon_id"];
             }
@@ -216,10 +229,12 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                         page="";
                         roadingModal.hide();
                     }else if(event.data["mode"]=="back"){
+                        roadingModal.show();
+                        couponFrame.src=page_val.url+"coupon/index.php";
                         if(device.platform == "iOS"){
-                            couponLoad();
+                            document.getElementById('couponFrame').src=page_val.url+"coupon/index.php";
+                            document.getElementById('couponFrame').addEventListener('load',couponLoad);
                         }
-                        roadingModal.hide();
                     }else if(event.data["mode"]=="list"){
                         var postMessage={
                             "user":id,
@@ -235,7 +250,7 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                             ifrm=document.getElementById('couponFrame').contentWindow;
                         }
                         ifrm.postMessage(postMessage, page_val.url+"coupon/index.php");
-                        }
+                    }
                     break;
                 case "near":
                     roadingModal.hide();
@@ -245,12 +260,16 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                     page_val.rally_mode=event.data["mode"];
                     if(!angular.isUndefined(event.data["course_id"])){
                         page_val.course_id=event.data["course_id"];
+                    }else{
+                        page_val.course_id=0;
                     }
 
                     if(!angular.isUndefined(event.data["spot_id"])){
                         if(event.data["spot_id"]!=0){
                             page_val.spot_id=event.data["spot_id"];
                         }
+                    }else{
+                        page_val.spot_id=0;
                     }
                     
                     if(event.data["stamp_type"]=="comp"){
@@ -313,9 +332,7 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                         default:
                             page="rally";
                             if(page_val.stamp_comp_flg==0){
-                                if(page_val.stamp_comp_flg==0){
-                                    couponPermissionAndGps();
-                                }
+                                couponPermissionAndGps();
                             }
                             break;
                     }
@@ -399,7 +416,6 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                 } else {
                     stampBtn.style.visibility="visible";
                 }
-                page="";
                 roadingModal.hide();
             },
             // 失敗時　（deferred.reject）
@@ -438,8 +454,7 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                 if(!ifrm){
                     ifrm=document.getElementById('couponFrame').contentWindow;
                 }
-                // ifrm.postMessage(postMessage, page_val.url+"coupon_det/index.php");
-                ifrm.postMessage(postMessage, page_val.url+"coupon/index.php");
+                ifrm.postMessage(postMessage, page_val.url+"coupon_det/index.php");
             },
             // 失敗時　（deferred.reject）
             function (res,status) {

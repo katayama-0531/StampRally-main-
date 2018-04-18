@@ -17,7 +17,7 @@
        under the License.
  */
 
-package com.jafstamprally;
+package com.japan_izm.stamprallykyusyu;
 
 import android.os.Bundle;
 import org.apache.cordova.*;

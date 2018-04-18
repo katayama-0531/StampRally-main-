@@ -47,6 +47,10 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
             roadingModal.show();
             page_val.rally_mode="";
             page_val.nearSpot="";
+            spotFrame.src=page_val.url+"nearby/index.php";
+            if (device.platform == "iOS") {
+                document.getElementById('spotFrame').src=page_val.url+"nearby/index.php";
+            }
             spotFrame.addEventListener('load',spotLoad);
             if (device.platform == "iOS") {
                 document.getElementById('spotFrame').addEventListener('load',spotLoad);
@@ -54,9 +58,26 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
         }
     });
 
+     //アクティブなタブの切り替え前の処理
+     mainTab.on('postchange',function(event){
+        if(event.index==2){
+            console.log("spotタブへ切り替え前");
+            // compBtn.style.visibility="hidden";
+            // stampBtn.style.visibility="hidden";
+            // page="";
+            // page_val.coupon="";
+            // couponFrame.src=page_val.url+"coupon/index.php";
+            // couponFrame.addEventListener('load',couponLoad);
+            // if(device.platform == "iOS"){
+            //     document.getElementById('couponFrame').addEventListener('load',couponLoad);
+            // }
+        }
+    });
+
     //アクティブなタブの完了後の処理
     mainTab.on('postchange',function(event){
         if(event.index!=2){
+            page_val.rally_mode="";
             if(compBtn.style.visibility==""){
                 compBtn.style.visibility="hidden";
             }
@@ -66,8 +87,12 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
         }
 
         if(event.index==2){
+            console.log("spotタブへ切り替え完了後");
             roadingModal.show();
             spotFrame.src=page_val.url+"nearby/index.php";
+            if (device.platform == "iOS") {
+                document.getElementById('spotFrame').src=page_val.url+"nearby/index.php";
+            }
             spotFrame.addEventListener('load',spotLoad);
             if (device.platform == "iOS") {
                 document.getElementById('spotFrame').addEventListener('load',spotLoad);
@@ -96,6 +121,9 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                 "lng":page_val.lng,
                 "page":"spot"
             };
+            if(angular.isUndefined(page_val.rally_mode)){
+                page_val.rally_mode="";
+            }
             switch(page_val.rally_mode){
                 case "":
                     if(page_val.nearSpot=="" || page_val.nearSpot!=page_val.spot_id){
@@ -200,7 +228,7 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                     ifrm.postMessage(postMessage, page_val.url+"nearby/index.php");
                     roadingModal.hide();
                     break;
-                case "coupon_det":
+                case "coupon":
                     roadingModal.show();
                     spotPermissionAndGps();
                     break;
@@ -224,29 +252,14 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
             gpsCheck(id).then(
                 function (msg) {
                 console.log('SuccessGps:' + msg);
-                // iframeのwindowオブジェクトを取得
-                var ifrm = spotFrame.contentWindow;
-                if(!ifrm){
-                    ifrm=document.getElementById('spotFrame').contentWindow;
-                }
                 switch(page_val.rally_mode){
                     case "map":
-                        postMessage={
-                            "user":id,
-                            "course_id":page_val.course_id,
-                            "rally_id":page_val.rally_id,
-                            "page":"home",
-                            "lat":page_val.lat,
-                            "lng":page_val.lng
-                        }
-                        ifrm.postMessage(msg, page_val.url+"rally/map/index.php");
                         spotNearSpotSearch(msg);
                     break;
-                    case "coupon_det":
+                    case "coupon":
                         cSearch(msg);
                         break;
                     default:
-                        ifrm.postMessage(msg, page_val.url+"nearby/index.php");
                         spotNearSpotSearch(msg);
                         break;
                 }
@@ -267,37 +280,14 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                     gpsCheck(id).then(
                         function (msg) {
                         console.log('SuccessGps:' + msg);
-                        // iframeのwindowオブジェクトを取得
-                        var ifrm = spotFrame.contentWindow;
-                        if(!ifrm){
-                            ifrm=document.getElementById('spotFrame').contentWindow;
-                        }
                         switch(page_val.rally_mode){
                             case "map":
-                                var postMessage={
-                                    "user":id,
-                                    "course_id":page_val.course_id,
-                                    "rally_id":page_val.rally_id,
-                                    "page":"home",
-                                    "lat":page_val.lat,
-                                    "lng":page_val.lng
-                                }
-                                ifrm.postMessage(postMessage, page_val.url+"rally/map/index.php");
                                 spotNearSpotSearch(msg);
                             break;
-                            case "coupon_det":
+                            case "coupon":
                                 cSearch(msg);
                                 break;
                             default:
-                                var postMessage={
-                                    "user":id,
-                                    "course_id":page_val.course_id,
-                                    "rally_id":page_val.rally_id,
-                                    "page":"home",
-                                    "lat":page_val.lat,
-                                    "lng":page_val.lng
-                                }
-                                ifrm.postMessage(postMessage, page_val.url+"nearby/index.php");
                                 spotNearSpotSearch(msg);
                                 break;
                         }
@@ -330,11 +320,32 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
     function spotNearSpotSearch (data){
         nearSpot(data).then(
             function (res) {
-                // if (res.length==0) {
-                //     stampBtn.style.visibility="hidden";
-                // } else {
-                //     stampBtn.style.visibility="visible";
-                // }
+                stampBtn.style.visibility="hidden";
+                compBtn.style.visibility="hidden";
+                // iframeのwindowオブジェクトを取得
+                var ifrm = spotFrame.contentWindow;
+                if(!ifrm){
+                    ifrm=document.getElementById('spotFrame').contentWindow;
+                }
+                var postMessage={
+                    "user":id,
+                    "course_id":page_val.course_id,
+                    "rally_id":page_val.rally_id,
+                    "page":"home",
+                    "lat":page_val.lat,
+                    "lng":page_val.lng
+                }
+                switch(page_val.rally_mode){
+                    case "map":
+                        ifrm.postMessage(postMessage, page_val.url+"rally/map/index.php");
+                    break;
+                    case "stamp":
+                        ifrm.postMessage(postMessage, page_val.url+"rally/index.php");
+                    break;
+                    default:
+                        ifrm.postMessage(postMessage, page_val.url+"nearby/index.php");
+                        break;
+                }
                 page="";
                 roadingModal.hide();
             },
@@ -351,7 +362,7 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
             function (res) {
                 var postMessage="";
                 if (res.length>=1) {
-                    var postMessage={
+                    postMessage={
                         "user":id,
                         "coupon_id":page_val.coupon_id,
                         "spot_id":page_val.spot_id,
@@ -359,7 +370,7 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                         "page":"detail"
                     }
                 }else{
-                    var postMessage={
+                    postMessage={
                         "user":id,
                         "coupon_id":page_val.coupon_id,
                         "spot_id":page_val.spot_id,
@@ -373,7 +384,7 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                 if(!ifrm){
                     ifrm=document.getElementById('spotFrame').contentWindow;
                 }
-                ifrm.postMessage(postMessage, page_val.url+"coupon/index_detail.php");
+                ifrm.postMessage(postMessage, page_val.url+"coupon_det/index.php");
             },
             // 失敗時　（deferred.reject）
             function (res,status) {

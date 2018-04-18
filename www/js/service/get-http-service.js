@@ -21,7 +21,7 @@ angular.module('stampRallyApp').factory('get_http_service', ['$http', 'page_val'
                 url: url,
             };
             console.log("配布中アプリversionチェック");
-            $http(req).then(function onSuccess(data, status) {
+            $http(req).then(function onSuccess(data) {
                 var  storeVersion="";
                 if (device.platform == "iOS"){
                     //storeVersion=data["data"]["results"]["0"]["version"];
@@ -51,15 +51,15 @@ angular.module('stampRallyApp').factory('get_http_service', ['$http', 'page_val'
                     }
                     deferred.resolve(message, url); 
                 });
-            }, function onError(data, status) {
+            }, function onError(data) {
                 roadingModal.hide();
                 setTimeout(function() {
-                    ons.notification.alert({ message: "versionチェック中にエラーが発生しました。エラー："+data.data+"ステータス："+status, title: "エラー", cancelable: true });
+                    ons.notification.alert({ message: "versionチェック中にエラーが発生しました。エラー："+data.data+"ステータス："+data.status, title: "エラー", cancelable: true });
                     }, 0);
                 
                 console.log("エラー："+data.data);
                 console.log("ステータス："+status);
-                deferred.reject(data.data,status);
+                deferred.reject(data.data,data.status);
             });
                 return deferred.promise;
             },
@@ -72,8 +72,8 @@ angular.module('stampRallyApp').factory('get_http_service', ['$http', 'page_val'
             };
         }
         //Ajax通信でphpにアクセス
-        // var url = "https://www.online-carelplus.com/stamp/api/login.php",
-        var url = "https://jafstamprally.com/api/login.php",
+        var url = "https://www.online-carelplus.com/stamp/api/login.php",
+        // var url = "https://jafstamprally.com/api/login.php",
         config = {
                 timeout: 30
             };
