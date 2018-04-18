@@ -208,7 +208,9 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
         if(mainTab.getActiveTabIndex()==3){
             console.log("couponFrameメッセージ受信");
             console.log(event.data);
-            roadingModal.show();
+            if($.type(event.data)!="string"){
+                roadingModal.show();
+            }
             page_val.coupon=event.data["mode"];
             page=event.data["page"];
             if(event.data["coupon_id"]!=0 || event.data["coupon_id"] == ""){
@@ -284,6 +286,25 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                         page_val.stamp_comp_flg=0;
                     }
                     switch (event.data["mode"]){
+                        case "stamp":
+                            break;
+                        case "url":
+                            window.open(event.data["url"], '_blank');
+                            roadingModal.hide();
+                            break;
+                        case "adress":
+                            var url="";
+                            //iOS,Androidでそれぞれ地図アプリを開く
+                            if (device.platform=="Android") {
+                                url="http://maps.google.com?q=" + encodeURI(event.data["adress"]);
+                            }else{
+                                url="maps://?q=" + encodeURI(event.data["adress"]);
+                            }
+                            if(url!=""){
+                                window.open(url, "_system");
+                            }
+                            roadingModal.hide();
+                            break;
                         case "list":
                             page="list";
                             break;

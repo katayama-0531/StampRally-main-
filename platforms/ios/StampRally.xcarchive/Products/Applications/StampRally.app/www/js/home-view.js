@@ -6,7 +6,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
     var id = localStorage.getItem('ID');
     var url = "";
     var page = "";
-
+    var check = 0;
     //サービスを使うための準備
     //injectしたいサービスを記述。ngも必要。
     var injector = angular.injector(['ng','stampRallyApp']);
@@ -73,7 +73,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
         }, 0)
         return deferred.promise;
     }
-
+    
     document.addEventListener("deviceready", function(){
          //通信の為の準備
         app.config(function($httpProvider) {
@@ -208,7 +208,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
             console.log("homeiframe読み込み完了");
             console.log(page);
             roadingModal.show();
-            if(device.platform == "iOS" && mainTab.getActiveTabIndex()==0){
+            if(device.platform == "iOS" && check==0){
                 versionCheck ();
             }
             //ヘッダーのアイコンもダウンロードしてくる
@@ -413,6 +413,24 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                         page_val.stamp_comp_flg=0;
                     }
                     switch (event.data["mode"]){
+                        case "stamp":
+                            break;
+                        case "url":
+                            window.open(event.data["url"], '_blank');
+                            break;
+                        case "adress":
+                            var url="";
+                            //iOS,Androidでそれぞれ地図アプリを開く
+                            if (device.platform=="Android") {
+                                url="http://maps.google.com?q=" + encodeURI(event.data["adress"]);
+                            }else{
+                                url="maps://?q=" + encodeURI(event.data["adress"]);
+                            }
+                            if(url!=""){
+                                window.open(url, "_system");
+                            }
+                            roadingModal.hide();
+                            break;
                         case "list":
                             page="list";
                             break;
@@ -454,6 +472,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                                 "map_lng":positionArray[1].slice(0,-1)
                             };
                             page_val.near_spot_data[0]=position ;
+                            page_val.spot_name=event.data["title"];
                             roadingModal.hide();
                         break;
                         default:
@@ -570,6 +589,25 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                         page_val.stamp_comp_flg=0;
                     }
                     switch (event.data["mode"]){
+                        case "stamp":
+                            break;
+                        case "url":
+                            window.open(event.data["url"], '_blank');
+                            roadingModal.hide()
+                            break;
+                        case "adress":
+                            var url="";
+                            //iOS,Androidでそれぞれ地図アプリを開く
+                            if (device.platform=="Android") {
+                                url="http://maps.google.com?q=" + encodeURI(event.data["adress"]) + "";
+                            }else{
+                                url="maps://?q=" + encodeURI(event.data["adress"]);
+                            }
+                            if(url!=""){
+                                window.open(url, "_system");
+                            }
+                            roadingModal.hide();
+                            break;
                         case "list":
                             page="list";
                             break;
@@ -800,6 +838,9 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
 
     function versionCheck (){
         update().then(function (message) {
+            if(device.platform == "iOS"){
+                check=1;
+            }
             if (message == "") {
                 console.log("アップデートなし");
                 console.log("ユーザーID"+id);

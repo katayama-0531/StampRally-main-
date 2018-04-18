@@ -70,17 +70,18 @@ app.controller('tabCtr', ['$scope', '$http', 'page_val', 'get_img_service', func
                 if(position==null||position=="undefined"){
                     url="http://maps.google.com";
                 }else{
-                    url="http://maps.google.com?q="+position;
+                    url="http://maps.google.com?q="+position+"(" + encodeURI(page_val.spot_name) + ")";
                 }
             }else{
                 if(position==null||position=="undefined"){
                     url="maps:q=";
                 }else{
-                    url="https://maps.apple.com./?ll="+position;
+                    url="maps://?q=" + encodeURI(page_val.spot_name)+"&ll="+position;
                 }
             }
             if(url!=""){
                 window.open(url, "_system");
+                menu.close();
             }
         }else{
             mapapp.style="background-color: #bcbcbc;"

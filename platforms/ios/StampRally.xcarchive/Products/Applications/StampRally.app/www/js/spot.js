@@ -348,6 +348,11 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                 }
                 page="";
                 roadingModal.hide();
+                if(res.length==0){
+                    setTimeout(function() {
+                        ons.notification.alert({ message: "近くに表示可能なスポットがありません。", title: "", cancelable: true });
+                    }, 0);
+                }
             },
             // 失敗時　（deferred.reject）
             function (res,status) {

@@ -32,6 +32,7 @@ app.constant('page_val', {
   'acc':0,
   'coupon':"",
   'nearSpot':"",
+  'spot_name':"",
   'maintenance':0
     });
   app.config(['$localStorageProvider',
