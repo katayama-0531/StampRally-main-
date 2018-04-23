@@ -52,7 +52,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
     var nearSpot= function(data) {
         var deferred = $q.defer();
         $timeout(function() {
-            httpService.getNearSpot(deferred, data);
+            httpService.getNearStampSpot(deferred, data);
         }, 0)
         return deferred.promise;
     }
@@ -73,6 +73,15 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
         }, 0)
         return deferred.promise;
     }
+
+    var complete= function(id) {
+        var deferred = $q.defer();
+        $timeout(function() {
+            id=localStorage.getItem('ID');
+            httpService.checkComplete(deferred,id);
+        }, 0)
+        return deferred.promise;
+    }
     
     document.addEventListener("deviceready", function(){
          //通信の為の準備
@@ -86,8 +95,11 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
 
     //アクティブなタブの切り替え前の処理
     mainTab.on('postchange',function(event){
-        if(event.index==0){
+        if(navi.pages.length==1){
             roadingModal.show();
+        }
+        
+        if(event.index==0){
             console.log("homeタブへ切り替え前");
             homeFrame.addEventListener('load',load);
             homeFrame.src=page_val.url+"index.php";
@@ -110,12 +122,14 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
     mainTab.on('postchange',function(event){
         if(event.index==0){
             console.log("homeタブへ切り替え完了");
-            homeFrame.addEventListener('load',load);
         }
     });
 
     //アクティブなタブが再度押された場合の処理
     mainTab.on('reactive',function(event){
+        roadingModal.show();
+        compBtn.style.visibility="hidden";
+        stampBtn.style.visibility="hidden";
         if(navi.pages.length >= 2){
             navi.resetToPage("html/home.html");
         }else{
@@ -126,7 +140,6 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
         }
         if(event.index==0){
             console.log("homeタブが再度押された");
-            roadingModal.show();
 
             if(page_val.rally_id!=0){
                 page_val.rally_id=0;
@@ -149,16 +162,16 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
     stampBtn.addEventListener('click',function(){
         console.log("スタンプを押すボタンタッチ");
         //スタンプ画像表示、アニメーション開始。
-        var stampName = "stamp" + page_val.rally_id;
-        var stamp = localStorage.getItem(stampName);
-        stampImg.src=stamp;
+        // var stampName = "stamp" + page_val.rally_id;
+        // var stamp = localStorage.getItem(stampName);
+        // stampImg.src=stamp;
+        stampImg.src=page_val.stamp_img_URL;
         stampImg.className = "animated bounceInDown";
         stampImg.style.visibility="visible";
     });
     compBtn.addEventListener('click',function(){
         console.log("応募ボタンタッチ");
         compBtn.style.visibility="hidden";
-        //navi.pushPage("html/entry.html");
         var ifrm;
         switch (mainTab.getActiveTabIndex()) {
             case 0:
@@ -204,11 +217,12 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
         roadingModal.hide();
     });
     function load() {
-        if(mainTab.getActiveTabIndex()==0 || mainTab.getActiveTabIndex()==1){
+        if((mainTab.getActiveTabIndex()==0 || mainTab.getActiveTabIndex()==1) && navi.pages.length == 1){
             console.log("homeiframe読み込み完了");
             console.log(page);
             roadingModal.show();
             if(device.platform == "iOS" && check==0){
+                check++;
                 versionCheck ();
             }
             //ヘッダーのアイコンもダウンロードしてくる
@@ -240,7 +254,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
             if(angular.isUndefined(page)){
                 page="";
             }
-            switch(page){
+             switch(page){
                 case "":
                     ifrm.postMessage(postMessage, page_val.url+"index.php");
                     roadingModal.hide();
@@ -300,7 +314,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
 
     // メッセージ受信イベント
     window.addEventListener('message', function(event) {
-        if(mainTab.getActiveTabIndex()==0 || mainTab.getActiveTabIndex()==1){
+        if((mainTab.getActiveTabIndex()==0 || mainTab.getActiveTabIndex()==1) && navi.pages.length == 1){
             console.log("homeiframeメッセージ受信");
             console.log(event.data);
             roadingModal.show();
@@ -365,9 +379,10 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                 
                 case "stamp":
                     page_val.spot_id=event.data["spot_id"];
-                    if(page_val.stamp_comp_flg==0){
-                        permissionAndGps();
-                    }
+                    // if(page_val.stamp_comp_flg==0){
+                    //     permissionAndGps();
+                    // }
+                    completeSearch(id);
                     break;
 
                 case "coupon":
@@ -402,14 +417,14 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                     }
                     
                     if(event.data["stamp_type"]=="comp"){
-                        compBtn.style.visibility="visible";
-                        stampBtn.style.visibility="hidden";
+                        // compBtn.style.visibility="visible";
+                        // stampBtn.style.visibility="hidden";
                         page_val.stamp_comp_flg=1;
-                        if(roadingModal.visible){
-                            roadingModal.hide();
-                        }
+                        // if(roadingModal.visible){
+                        //     roadingModal.hide();
+                        // }
                     }else{
-                        compBtn.style.visibility="hidden";
+                        // compBtn.style.visibility="hidden";
                         page_val.stamp_comp_flg=0;
                     }
                     switch (event.data["mode"]){
@@ -477,9 +492,10 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                         break;
                         default:
                             page="rally";
-                            if(page_val.stamp_comp_flg==0){
-                                permissionAndGps();
-                            }
+                            // if(page_val.stamp_comp_flg==0){
+                            //     permissionAndGps();
+                            // }
+                            completeSearch(id);
                             break;
                     }
                     if(event.data["spot_id"]){
@@ -531,7 +547,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                             console.log("ダウンロード成功");
                             page_val.header_title_img=localStorage.getItem("head" + page_val.rally_id);
                             page_val.stamp_img_URL=localStorage.getItem("stamp" + page_val.rally_id);
-                            // page_val.stamp_img_URL="img_common/stamp_anime.gif"
+                            page_val.stamp_img_URL="img_common/stamp_anime.gif"
                             head_icon.src=page_val.header_title_img;
                             page_val.header_news_img="img_common/header/header-news.png";
                             page_val.header_setting_img="img_common/header/header-hamb-menu.png";
@@ -539,7 +555,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                     });
                 }else{
                     page_val.header_title_img=localStorage.getItem("head"+ page_val.rally_id);
-                    // page_val.stamp_img_URL=localStorage.getItem("stamp" + page_val.rally_id);
+                    page_val.stamp_img_URL=localStorage.getItem("stamp" + page_val.rally_id);
                     page_val.stamp_img_URL="img_common/stamp_anime.gif"
                     head_icon.src=page_val.header_title_img;
                     page_val.header_news_img="img_common/header/header-news.png";
@@ -578,14 +594,14 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                     }
 
                     if(event.data["stamp_type"]=="comp"){
-                        compBtn.style.visibility="visible";
-                        stampBtn.style.visibility="hidden";
+                        // compBtn.style.visibility="visible";
+                        // stampBtn.style.visibility="hidden";
                         page_val.stamp_comp_flg=1;
-                        if(roadingModal.visible){
-                            roadingModal.hide();
-                        }
+                        // if(roadingModal.visible){
+                        //     roadingModal.hide();
+                        // }
                     }else{
-                        compBtn.style.visibility="hidden";
+                        // compBtn.style.visibility="hidden";
                         page_val.stamp_comp_flg=0;
                     }
                     switch (event.data["mode"]){
@@ -652,9 +668,10 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                         break;
                         default:
                             page="rally";
-                            if(page_val.stamp_comp_flg==0){
-                                permissionAndGps();
-                            }
+                            // if(page_val.stamp_comp_flg==0){
+                            //     permissionAndGps();
+                            // }
+                            completeSearch(id);
                             break;
                     }
                     if(event.data["spot_id"]){
@@ -666,6 +683,12 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                     mainTab.setActiveTab(2);
                     page_val.nearSpot=event.data["spot_id"];
                     page_val.spot_id=event.data["spot_id"];
+                    if(page_val.course_id==0){
+                        page_val.course_id=event.data["course_id"];
+                    }
+                    if(page_val.rally_id==0){
+                        page_val.rally_id=event.data["rally_id"];
+                    }
                     break;
                 case "maintenance":
                     page_val.maintenance=1;
@@ -717,6 +740,46 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                                 ifrm=document.getElementById('rallyFrame').contentWindow;
                             }
                         }
+                        if(mainTab.getActiveTabIndex()==2){
+                            ifrm = spotFrame.contentWindow;
+                            if(!ifrm){
+                                ifrm=document.getElementById('spotFrame').contentWindow;
+                            }
+                        }
+                        var ifrm;
+                        switch(mainTab.getActiveTabIndex()){
+                            case 0:
+                                ifrm = homeFrame.contentWindow;
+                                if(!ifrm){
+                                    ifrm=document.getElementById('homeFrame').contentWindow;
+                                }
+                                break;
+                            case 1:
+                                ifrm = rallyFrame.contentWindow;
+                                if(!ifrm){
+                                    ifrm=document.getElementById('rallyFrame').contentWindow;
+                                }
+                                break;
+                            case 2:
+                                ifrm = spotFrame.contentWindow;
+                                if(!ifrm){
+                                    ifrm=document.getElementById('spotFrame').contentWindow;
+                                }
+                                break;
+                            case 3:
+                                ifrm = couponFrame.contentWindow;
+                                if(!ifrm){
+                                    ifrm=document.getElementById('couponFrame').contentWindow;
+                                }
+                                break;
+                            case 4:
+                                ifrm = starFrame.contentWindow;
+                                if(!ifrm){
+                                    ifrm=document.getElementById('starFrame').contentWindow;
+                                }
+                                break;
+
+                        }
                         // 外部サイトにメッセージを投げる
                         var postMessage =
                         {   "spot_id":Number(page_val.near_spot_data[0]["id"]),
@@ -725,7 +788,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                             "spot_id":page_val.spot_id,
                             "mode":res["result"]
                         };
-                        ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
+                        ifrm.postMessage(postMessage, page_val.url+"rally/index.php");
                         //送信するデータを近くのスポット配列から消す
                         page_val.near_spot_data.splice(0,1);
                         
@@ -756,6 +819,40 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
         }
     });
 
+    //コンプリート状況確認
+    function completeSearch(id){
+        complete(id).then(
+            function (msg) {
+                console.log('comp:' + msg);
+                if(msg[0]=="true" && page_val.stamp_comp_flg==1){
+                    //コンプ済応募済み
+                    compBtn.style.visibility="visible";
+                    stampBtn.style.visibility="hidden";
+                    page_val.stamp_comp_flg=1;
+                    roadingModal.hide();
+                }else if(msg[0]=="false" && page_val.stamp_comp_flg==1){
+                    //コンプ済
+                    compBtn.style.visibility="hidden";
+                    stampBtn.style.visibility="hidden";
+                    page_val.stamp_comp_flg=1;
+                    roadingModal.hide();
+                }else{
+                    //未コンプ
+                    compBtn.style.visibility="hidden";
+                    page_val.stamp_comp_flg=0;
+                    permissionAndGps();
+                }
+            },
+            // 失敗時　（deferred.reject）
+            function (msg) {
+                // エラーコードに合わせたエラー内容をアラート表示
+                setTimeout(function() {
+                    ons.notification.alert({ message: "スタンプ情報取得中にエラーが発生しました。", title: "エラー", cancelable: true });
+                    }, 0);
+                roadingModal.hide();
+        });
+    }
+
     //パーミッション確認
     function permissionAndGps() {
         if (device.platform == "iOS") {
@@ -768,6 +865,13 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                 function (msg) {
                     // エラーコードに合わせたエラー内容をアラート表示
                     setTimeout(function() {
+                        // エラーコードのメッセージを定義
+                                var errorMessage = {
+                                    0: "原因不明のエラーが発生しました。",
+                                    1: "位置情報の取得が許可されませんでした。",
+                                    2: "電波状況などで位置情報が取得できませんでした。",
+                                    3: "位置情報の取得に時間がかかり過ぎてタイムアウトしました。",
+                                };
                         ons.notification.alert({ message: errorMessage[message.code], title: "エラー", cancelable: true });
                         }, 0);
                     roadingModal.hide();
@@ -838,9 +942,6 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
 
     function versionCheck (){
         update().then(function (message) {
-            if(device.platform == "iOS"){
-                check=1;
-            }
             if (message == "") {
                 console.log("アップデートなし");
                 console.log("ユーザーID"+id);

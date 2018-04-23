@@ -10,25 +10,33 @@ app.controller('tabCtr', ['$scope', '$http', 'page_val', 'get_img_service', func
     this.info=function(){
         menu.close();
         navi.resetToPage("html/info.html");
-        mainTab.setActiveTab(0);
+        if(mainTab.getActiveTabIndex()!=0){
+            mainTab.setActiveTab(0);
+        }
     }
 
     this.accountOpen=function(){
         menu.close();
         navi.pushPage("html/account.html");
-        mainTab.setActiveTab(0);
+        if(mainTab.getActiveTabIndex()!=0){
+            mainTab.setActiveTab(0);
+        }
     }
     
     this.howtoOpen=function(){
         menu.close();
         navi.pushPage("html/howto.html");
-        mainTab.setActiveTab(0);
+        if(mainTab.getActiveTabIndex()!=0){
+            mainTab.setActiveTab(0);
+        }
     }
     
     this.contractOpen=function(){
         menu.close();
         navi.pushPage("html/contract.html");
-        mainTab.setActiveTab(0);
+        if(mainTab.getActiveTabIndex()!=0){
+            mainTab.setActiveTab(0);
+        }
     }
     
     this.contactOpen=function(){
@@ -95,11 +103,14 @@ app.controller('tabCtr', ['$scope', '$http', 'page_val', 'get_img_service', func
             stampBtn.style.visibility="hidden";
             navi.pushPage("html/news.html");
             roadingModal.show();
-            mainTab.setActiveTab(0);
+            if(mainTab.getActiveTabIndex()!=0){
+                mainTab.setActiveTab(0);
+            }
         }            
     }
     this.iconTouch=function(){
         if(page_val.maintenance==0){
+            roadingModal.show();
             menu.close();
             mainTab.setActiveTab(0);
             if(navi.pages.length >= 2){

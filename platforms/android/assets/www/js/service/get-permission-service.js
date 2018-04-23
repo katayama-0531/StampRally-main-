@@ -34,12 +34,14 @@ angular.module('stampRallyApp').factory('get_permission_service', ['page_val', '
         var onGpsSuccess = function (position) {
             // 小数点第n位まで残す
             var n = 6;
+            //緯度
             page_val.lat = Math.floor(position.coords.latitude * Math.pow(10, n)) / Math.pow(10, n);
-            //緯度 TODO:テスト用
-            // page_val.lat = 33.1803;
+            //TODO:テスト用
+            page_val.lat = 33.1467;
+            //経度
             page_val.lng = Math.floor(position.coords.longitude * Math.pow(10, n)) / Math.pow(10, n);
-            //経度　TODO:テスト用
-            // page_val.lng = 130.491;
+            //TODO:テスト用
+            page_val.lng = 130.483;
             //高度
             page_val.alt = Math.floor(position.coords.altitude * Math.pow(10, n)) / Math.pow(10, n);
             //位置精度

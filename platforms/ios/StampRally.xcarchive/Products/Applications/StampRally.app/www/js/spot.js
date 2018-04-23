@@ -62,15 +62,13 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
      mainTab.on('postchange',function(event){
         if(event.index==2){
             console.log("spotタブへ切り替え前");
-            // compBtn.style.visibility="hidden";
-            // stampBtn.style.visibility="hidden";
-            // page="";
-            // page_val.coupon="";
-            // couponFrame.src=page_val.url+"coupon/index.php";
-            // couponFrame.addEventListener('load',couponLoad);
-            // if(device.platform == "iOS"){
-            //     document.getElementById('couponFrame').addEventListener('load',couponLoad);
-            // }
+            roadingModal.show();
+            spotFrame.src=page_val.url+"nearby/index.php";
+            spotFrame.addEventListener('load',spotLoad);
+            if (device.platform == "iOS") {
+                document.getElementById('spotFrame').src=page_val.url+"nearby/index.php";
+                document.getElementById('spotFrame').addEventListener('load',spotLoad);
+            }
         }
     });
 
@@ -88,15 +86,6 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
 
         if(event.index==2){
             console.log("spotタブへ切り替え完了後");
-            roadingModal.show();
-            spotFrame.src=page_val.url+"nearby/index.php";
-            if (device.platform == "iOS") {
-                document.getElementById('spotFrame').src=page_val.url+"nearby/index.php";
-            }
-            spotFrame.addEventListener('load',spotLoad);
-            if (device.platform == "iOS") {
-                document.getElementById('spotFrame').addEventListener('load',spotLoad);
-            }
         }
     });
     
@@ -170,6 +159,7 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                         "course_id":page_val.course_id,
                         "spot_id":page_val.spot_id,
                     };
+                    
                     ifrm.postMessage(postMessage, page_val.url+"nearby/index.php");
                     roadingModal.hide();
                     break;
@@ -182,7 +172,7 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                         "lat":page_val.lat,
                         "lng":page_val.lng
                     }
-                    ifrm.postMessage(postMessage, page_val.url+"rally/map/index.php");
+                    ifrm.postMessage(postMessage, page_val.url+"near_map/index.php");
                     break;
                 case "detail":
                     var postMessage =

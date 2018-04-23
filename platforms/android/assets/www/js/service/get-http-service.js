@@ -95,7 +95,7 @@ angular.module('stampRallyApp').factory('get_http_service', ['$http', 'page_val'
         },
       getNearSpot: function (deferred,postData){
         //Ajax通信でphpにアクセス
-        var url = page_val.root_url+"api/nearStampSpot.php",
+        var url = page_val.root_url+"api/nearSpot.php",
         config = {
             timeout: 5000
         };
@@ -113,6 +113,36 @@ angular.module('stampRallyApp').factory('get_http_service', ['$http', 'page_val'
                 }else{
                     //近くにスポットがある
                     console.log("近くに表示可能なスポットがある");
+                    console.log(data.data);
+                    page_val.near_spot_data=data.data;
+                }
+                deferred.resolve(data.data); 
+        }, function onError(data, status) {
+            console.log("エラー："+data.data);
+            console.log("ステータス："+status);
+            deferred.reject(data.data,status);
+        });
+    },
+    getNearStampSpot: function (deferred,postData){
+        //Ajax通信でphpにアクセス
+        var url = page_val.root_url+"api/nearStampSpot.php",
+        config = {
+            timeout: 5000
+        };
+
+        var req = {
+            method: 'POST',
+            url: url,
+            data: postData
+        };
+
+        $http(req).then(function onSuccess(data, status) {
+                if(data.data.length==0){
+                    //近くにスポットは無い
+                    console.log("近くにスタンプが押せるスポットは無い");
+                }else{
+                    //近くにスポットがある
+                    console.log("近くにスタンプが押せるスポットがある");
                     console.log(data.data);
                     page_val.near_spot_data=data.data;
                 }
@@ -182,6 +212,38 @@ angular.module('stampRallyApp').factory('get_http_service', ['$http', 'page_val'
                 }, 0);
             console.log("エラー："+data);
             console.log("ステータス："+status);
+        });
+    },
+    checkComplete: function(deferred,id){
+        //Ajax通信でphpにアクセス
+        var url = page_val.root_url+"api/compStamp.php",
+        config = {
+            timeout: 5000
+        };
+        var postData={};
+        postData.course_id=page_val.course_id;
+        postData.user_id=id;
+
+        var req = {
+            method: 'POST',
+            url: url,
+            data: postData
+        };
+
+        $http(req).then(function onSuccess(data, status) {
+                if(data.data[0]=="true"){
+                    //コンプリート済み
+                    console.log("コンプリート済み");
+                    console.log(data.data);
+                }else{
+                    //コンプリートしてない
+                    console.log("コンプリートしてない");
+                }
+                deferred.resolve(data.data); 
+        }, function onError(data, status) {
+            console.log("エラー："+data.data);
+            console.log("ステータス："+status);
+            deferred.reject(data.data,status);
         });
     }
  };

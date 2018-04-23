@@ -15,7 +15,7 @@ app.constant('page_val', {
   'stamp_comp_flg':0,
   'num': 0,
   'img_num': 0,
-  'stamp_img_URL':'',
+  'stamp_img_URL':'img_common/stamp_anime.gif',
   'img_list':[],
   'near_spot_data':[],
   'header_color_code':'',

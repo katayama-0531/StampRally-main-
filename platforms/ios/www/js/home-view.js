@@ -52,7 +52,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
     var nearSpot= function(data) {
         var deferred = $q.defer();
         $timeout(function() {
-            httpService.getNearSpot(deferred, data);
+            httpService.getNearStampSpot(deferred, data);
         }, 0)
         return deferred.promise;
     }
@@ -86,8 +86,11 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
 
     //アクティブなタブの切り替え前の処理
     mainTab.on('postchange',function(event){
-        if(event.index==0){
+        if(navi.pages.length==1){
             roadingModal.show();
+        }
+        
+        if(event.index==0){
             console.log("homeタブへ切り替え前");
             homeFrame.addEventListener('load',load);
             homeFrame.src=page_val.url+"index.php";
@@ -110,12 +113,14 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
     mainTab.on('postchange',function(event){
         if(event.index==0){
             console.log("homeタブへ切り替え完了");
-            homeFrame.addEventListener('load',load);
         }
     });
 
     //アクティブなタブが再度押された場合の処理
     mainTab.on('reactive',function(event){
+        roadingModal.show();
+        compBtn.style.visibility="hidden";
+        stampBtn.style.visibility="hidden";
         if(navi.pages.length >= 2){
             navi.resetToPage("html/home.html");
         }else{
@@ -126,7 +131,6 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
         }
         if(event.index==0){
             console.log("homeタブが再度押された");
-            roadingModal.show();
 
             if(page_val.rally_id!=0){
                 page_val.rally_id=0;
@@ -149,16 +153,16 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
     stampBtn.addEventListener('click',function(){
         console.log("スタンプを押すボタンタッチ");
         //スタンプ画像表示、アニメーション開始。
-        var stampName = "stamp" + page_val.rally_id;
-        var stamp = localStorage.getItem(stampName);
-        stampImg.src=stamp;
+        // var stampName = "stamp" + page_val.rally_id;
+        // var stamp = localStorage.getItem(stampName);
+        // stampImg.src=stamp;
+        stampImg.src=page_val.stamp_img_URL;
         stampImg.className = "animated bounceInDown";
         stampImg.style.visibility="visible";
     });
     compBtn.addEventListener('click',function(){
         console.log("応募ボタンタッチ");
         compBtn.style.visibility="hidden";
-        //navi.pushPage("html/entry.html");
         var ifrm;
         switch (mainTab.getActiveTabIndex()) {
             case 0:
@@ -204,11 +208,12 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
         roadingModal.hide();
     });
     function load() {
-        if(mainTab.getActiveTabIndex()==0 || mainTab.getActiveTabIndex()==1){
+        if((mainTab.getActiveTabIndex()==0 || mainTab.getActiveTabIndex()==1) && navi.pages.length == 1){
             console.log("homeiframe読み込み完了");
             console.log(page);
             roadingModal.show();
             if(device.platform == "iOS" && check==0){
+                check++;
                 versionCheck ();
             }
             //ヘッダーのアイコンもダウンロードしてくる
@@ -300,7 +305,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
 
     // メッセージ受信イベント
     window.addEventListener('message', function(event) {
-        if(mainTab.getActiveTabIndex()==0 || mainTab.getActiveTabIndex()==1){
+        if((mainTab.getActiveTabIndex()==0 || mainTab.getActiveTabIndex()==1) && navi.pages.length == 1){
             console.log("homeiframeメッセージ受信");
             console.log(event.data);
             roadingModal.show();
@@ -531,7 +536,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                             console.log("ダウンロード成功");
                             page_val.header_title_img=localStorage.getItem("head" + page_val.rally_id);
                             page_val.stamp_img_URL=localStorage.getItem("stamp" + page_val.rally_id);
-                            // page_val.stamp_img_URL="img_common/stamp_anime.gif"
+                            page_val.stamp_img_URL="img_common/stamp_anime.gif"
                             head_icon.src=page_val.header_title_img;
                             page_val.header_news_img="img_common/header/header-news.png";
                             page_val.header_setting_img="img_common/header/header-hamb-menu.png";
@@ -539,7 +544,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                     });
                 }else{
                     page_val.header_title_img=localStorage.getItem("head"+ page_val.rally_id);
-                    // page_val.stamp_img_URL=localStorage.getItem("stamp" + page_val.rally_id);
+                    page_val.stamp_img_URL=localStorage.getItem("stamp" + page_val.rally_id);
                     page_val.stamp_img_URL="img_common/stamp_anime.gif"
                     head_icon.src=page_val.header_title_img;
                     page_val.header_news_img="img_common/header/header-news.png";
@@ -666,6 +671,12 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                     mainTab.setActiveTab(2);
                     page_val.nearSpot=event.data["spot_id"];
                     page_val.spot_id=event.data["spot_id"];
+                    if(page_val.course_id==0){
+                        page_val.course_id=event.data["course_id"];
+                    }
+                    if(page_val.rally_id==0){
+                        page_val.rally_id=event.data["rally_id"];
+                    }
                     break;
                 case "maintenance":
                     page_val.maintenance=1;
@@ -717,6 +728,46 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                                 ifrm=document.getElementById('rallyFrame').contentWindow;
                             }
                         }
+                        if(mainTab.getActiveTabIndex()==2){
+                            ifrm = spotFrame.contentWindow;
+                            if(!ifrm){
+                                ifrm=document.getElementById('spotFrame').contentWindow;
+                            }
+                        }
+                        var ifrm;
+                        switch(mainTab.getActiveTabIndex()){
+                            case 0:
+                                ifrm = homeFrame.contentWindow;
+                                if(!ifrm){
+                                    ifrm=document.getElementById('homeFrame').contentWindow;
+                                }
+                                break;
+                            case 1:
+                                ifrm = rallyFrame.contentWindow;
+                                if(!ifrm){
+                                    ifrm=document.getElementById('rallyFrame').contentWindow;
+                                }
+                                break;
+                            case 2:
+                                ifrm = spotFrame.contentWindow;
+                                if(!ifrm){
+                                    ifrm=document.getElementById('spotFrame').contentWindow;
+                                }
+                                break;
+                            case 3:
+                                ifrm = couponFrame.contentWindow;
+                                if(!ifrm){
+                                    ifrm=document.getElementById('couponFrame').contentWindow;
+                                }
+                                break;
+                            case 4:
+                                ifrm = starFrame.contentWindow;
+                                if(!ifrm){
+                                    ifrm=document.getElementById('starFrame').contentWindow;
+                                }
+                                break;
+
+                        }
                         // 外部サイトにメッセージを投げる
                         var postMessage =
                         {   "spot_id":Number(page_val.near_spot_data[0]["id"]),
@@ -725,7 +776,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                             "spot_id":page_val.spot_id,
                             "mode":res["result"]
                         };
-                        ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
+                        ifrm.postMessage(postMessage, page_val.url+"rally/index.php");
                         //送信するデータを近くのスポット配列から消す
                         page_val.near_spot_data.splice(0,1);
                         
@@ -838,9 +889,6 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
 
     function versionCheck (){
         update().then(function (message) {
-            if(device.platform == "iOS"){
-                check=1;
-            }
             if (message == "") {
                 console.log("アップデートなし");
                 console.log("ユーザーID"+id);
