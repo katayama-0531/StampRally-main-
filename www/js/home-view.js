@@ -159,11 +159,11 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
     }
     //iframe読み込み完了後の処理
     homeFrame.addEventListener('load',load);
-    // gpsBtn.addEventListener('click',function(){
-    //     console.log("現在位置確認ボタンタッチ");
-    //     roadingModal.show();
-    //     permissionAndGps();
-    // });
+    gpsBtn.addEventListener('click',function(){
+        console.log("現在位置確認ボタンタッチ");
+        roadingModal.show();
+        permissionAndGps();
+    });
     stampBtn.addEventListener('click',function(){
         console.log("スタンプを押すボタンタッチ");
         //スタンプ画像表示、アニメーション開始。
@@ -265,7 +265,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                     roadingModal.hide();
                     break;
                 case "rally":
-                    // gpsBtn.style.visibility="visible";
+                    gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"rally/index.php");
                     roadingModal.hide();
                     break;
@@ -469,7 +469,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                         case "privilege":
                             stampBtn.style.visibility="hidden";
                             compBtn.style.visibility="hidden";
-                            // gpsBtn.style.visibility="hidden";
+                            gpsBtn.style.visibility="hidden";
                             page="list";
                             break;
                         case "detail":
@@ -792,12 +792,12 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                         
                         if(page_val.near_spot_data.length < 1){
                             //押せるスタンプが無いので非表示にする
-                            // gpsBtn.style.visibility="visible";
+                            gpsBtn.style.visibility="visible";
                             stampBtn.style.visibility="hidden";
                         }
                         if(res["result"]=="comp"){
                             //コンプリートしたので応募ボタンを表示
-                            // gpsBtn.style.visibility="hidden";
+                            gpsBtn.style.visibility="hidden";
                             compBtn.style.visibility="visible";
                         }else if(res["result"]=="true"){
                             compBtn.style.visibility="hidden";
@@ -828,14 +828,14 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                     //コンプ済
                     compBtn.style.visibility="visible";
                     stampBtn.style.visibility="hidden";
-                    // gpsBtn.style.visibility="hidden";
+                    gpsBtn.style.visibility="hidden";
                     page_val.stamp_comp_flg=1;
                     roadingModal.hide();
                 }else if(msg[0]=="false" && page_val.stamp_comp_flg==1){
                     //コンプ済応募済み
                     compBtn.style.visibility="hidden";
                     stampBtn.style.visibility="hidden";
-                    // gpsBtn.style.visibility="hidden";
+                    gpsBtn.style.visibility="hidden";
                     page_val.stamp_comp_flg=1;
                     roadingModal.hide();
                 }else{
@@ -843,7 +843,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                     compBtn.style.visibility="hidden";
                     page_val.stamp_comp_flg=0;
                     roadingModal.hide();
-                    permissionAndGps();
+                    // permissionAndGps();
                 }
             },
             // 失敗時　（deferred.reject）
@@ -929,7 +929,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                 if (res.length==0) {
                     stampBtn.style.visibility="hidden";
                 } else {
-                    // gpsBtn.style.visibility="hidden";
+                    gpsBtn.style.visibility="hidden";
                     stampBtn.style.visibility="visible";
                 }
                 page="";

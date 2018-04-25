@@ -120,15 +120,15 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                     roadingModal.hide();
                     break;
                 case "rally":
-                    // gpsBtn.style.visibility="visible";
+                    gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"rally/index.php");
                     break;
                 case "stamp":
-                    // gpsBtn.style.visibility="visible";
+                    gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"stamp/index.php");
                     break;
                 case "list":
-                    // gpsBtn.style.visibility="visible";
+                    gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
                     roadingModal.hide();
                     break;
@@ -141,7 +141,7 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                         "lat":page_val.lat,
                         "lng":page_val.lng
                     }
-                    // gpsBtn.style.visibility="visible";
+                    gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"rally/map/index.php");
                     break;
                 case "map":
@@ -153,16 +153,16 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                         "lat":page_val.lat,
                         "lng":page_val.lng
                     }
-                    // gpsBtn.style.visibility="visible";
+                    gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"rally/map/index.php");
                     break;
                 case "detail":
-                    // gpsBtn.style.visibility="visible";
+                    gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"detail/index.php");
                     roadingModal.hide();
                     break;
                 case "list_detail":
-                    // gpsBtn.style.visibility="visible";
+                    gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"detail/index.php");
                     roadingModal.hide();
                     break;
@@ -174,7 +174,7 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                         "spot_id":page_val.spot_id,
                         "page":"home",
                         "mode":"stop"};
-                    // gpsBtn.style.visibility="visible";
+                    gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
                     roadingModal.hide();
                     break;
