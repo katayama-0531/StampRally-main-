@@ -44,6 +44,15 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
         return deferred.promise;
     }
 
+    var complete= function(id) {
+        var deferred = $q.defer();
+        $timeout(function() {
+            id=localStorage.getItem('ID');
+            httpService.checkComplete(deferred,id);
+        }, 0)
+        return deferred.promise;
+    }
+
     //アクティブなタブの切り替え前の処理
     mainTab.on('postchange',function(event){
         if(event.index==page_val.starTab){
@@ -120,15 +129,12 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                     roadingModal.hide();
                     break;
                 case "rally":
-                    gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"rally/index.php");
                     break;
                 case "stamp":
-                    gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"stamp/index.php");
                     break;
                 case "list":
-                    gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
                     roadingModal.hide();
                     break;
@@ -141,7 +147,6 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                         "lat":page_val.lat,
                         "lng":page_val.lng
                     }
-                    gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"rally/map/index.php");
                     break;
                 case "map":
@@ -153,16 +158,13 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                         "lat":page_val.lat,
                         "lng":page_val.lng
                     }
-                    gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"rally/map/index.php");
                     break;
                 case "detail":
-                    gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"detail/index.php");
                     roadingModal.hide();
                     break;
                 case "list_detail":
-                    gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"detail/index.php");
                     roadingModal.hide();
                     break;
@@ -174,7 +176,6 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                         "spot_id":page_val.spot_id,
                         "page":"home",
                         "mode":"stop"};
-                    gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
                     roadingModal.hide();
                     break;
@@ -218,7 +219,9 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
             }
             switch (event.data["page"]){
                 case "coupon":
+                    gpsBtn.style.visibility="hidden";
                     if(event.data["mode"]=="detail"){
+                        gpsBtn.style.visibility="hidden";
                         roadingModal.show();
                         cPermissionAndGps();
                     }else if(event.data["mode"]=="detail_disp_end"){
@@ -281,6 +284,7 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                     }
                     switch (event.data["mode"]){
                         case "stamp":
+                            gpsBtn.style.visibility="hidden";
                             break;
                         case "url":
                             window.open(event.data["url"], '_blank');
@@ -300,9 +304,12 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                             roadingModal.hide();
                             break;
                         case "list":
+                            gpsBtn.style.visibility="hidden";
+                            roadingModal.show();    
                             page="list";
                             break;
                         case "map":
+                            gpsBtn.style.visibility="hidden";
                             roadingModal.show();
                             page="map";
                             break;
@@ -324,16 +331,21 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                         case "privilege":
                             stampBtn.style.visibility="hidden";
                             compBtn.style.visibility="hidden";
+                            gpsBtn.style.visibility="hidden";
                             page="stop";
                             break;
                         case "detail":
                             if(page_val.rally_id != event.data["rally_id"]){
                                 page_val.rally_id=event.data["rally_id"]
                             }
+                            gpsBtn.style.visibility="visible";
                             page="detail";
+                            page_val.coupon_id=0;
                         break;
                         case "list_detail":
+                            gpsBtn.style.visibility="visible";
                             page="list_detail";
+                            page_val.coupon_id=0;
                         break;
                         case "spot_touch":
                             var positionArray = event.data["position"].split(",");
@@ -346,9 +358,10 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                         break;
                         default:
                             page="rally";
-                            if(page_val.stamp_comp_flg==0){
-                                sPermissionAndGps();
-                            }
+                            // if(page_val.stamp_comp_flg==0){
+                            //     sPermissionAndGps();
+                            // }
+                            completeStampS(id);
                             break;
                     }
                     if(event.data["spot_id"]){
@@ -364,6 +377,45 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
             }
         }
     }, false);
+
+    //コンプリート状況確認
+    function completeStampS(id){
+        complete(id).then(
+            function (msg) {
+                console.log('comp:' + msg);
+                if(msg[0]=="true" && page_val.stamp_comp_flg==1){
+                    //コンプ済
+                    compBtn.style.visibility="visible";
+                    stampBtn.style.visibility="hidden";
+                    gpsBtn.style.visibility="hidden";
+                    page_val.stamp_comp_flg=1;
+                    roadingModal.hide();
+                }else if(msg[0]=="false" && page_val.stamp_comp_flg==1){
+                    //コンプ済応募済み
+                    compBtn.style.visibility="hidden";
+                    stampBtn.style.visibility="hidden";
+                    gpsBtn.style.visibility="hidden";
+                    page_val.stamp_comp_flg=1;
+                    roadingModal.hide();
+                }else{
+                    //未コンプ
+                    compBtn.style.visibility="hidden";
+                    stampBtn.style.visibility="hidden";
+                    gpsBtn.style.visibility="visible";
+                    page_val.stamp_comp_flg=0;
+                    roadingModal.hide();
+                    //sPermissionAndGps();
+                }
+            },
+            // 失敗時　（deferred.reject）
+            function (msg) {
+                // エラーコードに合わせたエラー内容をアラート表示
+                setTimeout(function() {
+                    ons.notification.alert({ message: "スタンプ情報取得中にエラーが発生しました。", title: "エラー", cancelable: true });
+                    }, 0);
+                roadingModal.hide();
+        });
+    }
 
     function sPermissionAndGps() {
         if (device.platform == "iOS") {

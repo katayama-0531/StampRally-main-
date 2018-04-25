@@ -154,14 +154,12 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                     }
                     break;
                 case "rally":
-                    gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"rally/index.php");
                     break;
                 case "stamp":
                     ifrm.postMessage(postMessage, page_val.url+"stamp/index.php");
                     break;
                 case "list":
-                    gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
                     roadingModal.hide();
                     break;
@@ -174,7 +172,6 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                         "lat":page_val.lat,
                         "lng":page_val.lng
                     }
-                    gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"rally/map/index.php");
                     break;
                 case "map":
@@ -186,16 +183,13 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                         "lat":page_val.lat,
                         "lng":page_val.lng
                     }
-                    gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"rally/map/index.php");
                     break;
                 case "detail":
-                    gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"detail/index.php");
                     roadingModal.hide();
                     break;
                 case "list_detail":
-                    gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"detail/index.php");
                     roadingModal.hide();
                     break;
@@ -220,7 +214,6 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                         "spot_id":page_val.spot_id,
                         "page":"home",
                         "mode":"stop"};
-                    gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
                     roadingModal.hide();
                     break;
@@ -250,7 +243,9 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
             }
             switch (event.data["page"]){
                 case "coupon":
+                    gpsBtn.style.visibility="hidden";
                     if(event.data["mode"]=="detail"){
+                        gpsBtn.style.visibility="hidden";
                         couponLoad();
                     }else if(event.data["mode"]=="detail_disp_end"){
                         page="";
@@ -283,12 +278,11 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                     if(event.data["stamp_type"]=="comp"){
                         page_val.stamp_comp_flg=1;
                     }else{
-                        gpsBtn.style.visibility="visible";
-                        compBtn.style.visibility="hidden";
                         page_val.stamp_comp_flg=0;
                     }
                     switch (event.data["mode"]){
                         case "stamp":
+                            gpsBtn.style.visibility="hidden";
                             break;
                         case "url":
                             window.open(event.data["url"], '_blank');
@@ -308,9 +302,12 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                             roadingModal.hide();
                             break;
                         case "list":
+                            gpsBtn.style.visibility="hidden";
+                            roadingModal.show();
                             page="list";
                             break;
                         case "map":
+                            gpsBtn.style.visibility="hidden";
                             roadingModal.show();
                             page="map";
                             break;
@@ -339,9 +336,13 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                             if(page_val.rally_id != event.data["rally_id"]){
                                 page_val.rally_id=event.data["rally_id"]
                             }
+                            gpsBtn.style.visibility="visible";
+                            page_val.coupon_id=0;
                             page="detail";
                         break;
                         case "list_detail":
+                            gpsBtn.style.visibility="visible";
+                            page_val.coupon_id=0;
                             page="list_detail";
                         break;
                         case "spot_touch":
@@ -391,11 +392,14 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                     //コンプ済応募済み
                     compBtn.style.visibility="hidden";
                     stampBtn.style.visibility="hidden";
+                    gpsBtn.style.visibility="hidden";
                     page_val.stamp_comp_flg=1;
                     roadingModal.hide();
                 }else{
                     //未コンプ
                     compBtn.style.visibility="hidden";
+                    stampBtn.style.visibility="hidden";
+                    gpsBtn.style.visibility="visible";
                     page_val.stamp_comp_flg=0;
                     roadingModal.hide();
                     //couponPermissionAndGps();

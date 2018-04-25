@@ -160,11 +160,15 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
     }
     //iframe読み込み完了後の処理
     homeFrame.addEventListener('load',load);
+    
+    //位置情報更新ボタン
     gpsBtn.addEventListener('click',function(){
         console.log("現在位置確認ボタンタッチ");
-        roadingModal.show();
+        gpsModal.show();
         permissionAndGps();
     });
+
+    //スタンプを押すボタン
     stampBtn.addEventListener('click',function(){
         console.log("スタンプを押すボタンタッチ");
         //スタンプ画像表示、アニメーション開始。
@@ -175,6 +179,8 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
         stampImg.className = "animated bounceInDown";
         stampImg.style.visibility="visible";
     });
+
+    //応募ボタン
     compBtn.addEventListener('click',function(){
         console.log("応募ボタンタッチ");
         compBtn.style.visibility="hidden";
@@ -294,6 +300,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                     break;
                 case "list_detail":
                 case "detail":
+                    gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"detail/index.php");
                     roadingModal.hide();
                     break;
@@ -383,6 +390,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                     break;
 
                 case "coupon":
+                    gpsBtn.style.visibility="hidden";
                     page_val.spot_id=event.data["spot_id"];
                     page=event.data["page"];
                     if(event.data["mode"]=="detail_disp_end"){
@@ -582,18 +590,13 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                     }
 
                     if(event.data["stamp_type"]=="comp"){
-                        // compBtn.style.visibility="visible";
-                        // stampBtn.style.visibility="hidden";
                         page_val.stamp_comp_flg=1;
-                        // if(roadingModal.visible){
-                        //     roadingModal.hide();
-                        // }
                     }else{
-                        // compBtn.style.visibility="hidden";
                         page_val.stamp_comp_flg=0;
                     }
                     switch (event.data["mode"]){
                         case "stamp":
+                            gpsBtn.style.visibility="hidden";
                             break;
                         case "url":
                             window.open(event.data["url"], '_blank');
@@ -902,8 +905,8 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                                 };
                                 ons.notification.alert({ message: errorMessage[msg.code], title: "エラー", cancelable: true });
                                 }, 0);
-                            roadingModal.hide();
-                        },
+                                gpsModal.hide();
+                            },
                         // notify呼び出し時
                         function (msg) {
                             console.log('Notification:' + msg);
@@ -912,7 +915,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                 // 失敗時　（deferred.reject）
                 function (msg) {
                     ons.notification.alert({ message: "位置情報へのアクセスが許可されなかったため、現在位置が取得できません。", title: "エラー", cancelable: true });
-                    roadingModal.hide();
+                    gpsModal.hide();
                 },
                 // notify呼び出し時
                 function (msg) {
@@ -932,11 +935,11 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                     stampBtn.style.visibility="visible";
                 }
                 page="";
-                roadingModal.hide();
+                gpsModal.hide();
             },
             // 失敗時　（deferred.reject）
             function (res,status) {
-                roadingModal.hide();
+                gpsModal.hide();
                 setTimeout(function() {
                     ons.notification.alert({ message: "周辺情報検索中にエラーが発生しました。", title: "エラー", cancelable: true });
                 }, 0);
