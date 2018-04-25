@@ -161,7 +161,6 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                     break;
                 case "list":
                     ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
-                    roadingModal.hide();
                     break;
                 case "spot":
                     postMessage={
@@ -227,7 +226,9 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
             console.log("couponFrameメッセージ受信");
             console.log(event.data);
             if($.type(event.data)!="string"){
-                roadingModal.show();
+                if(!mapModal.visible){
+                    roadingModal.show();
+                }
             }
             page_val.coupon=event.data["mode"];
             page=event.data["page"];
@@ -282,6 +283,7 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                     }
                     switch (event.data["mode"]){
                         case "stamp":
+                            mapBtn.style.visibility="hidden";
                             gpsBtn.style.visibility="hidden";
                             break;
                         case "url":
@@ -302,17 +304,22 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                             roadingModal.hide();
                             break;
                         case "list":
+                            mapBtn.style.visibility="hidden";
                             gpsBtn.style.visibility="hidden";
                             roadingModal.show();
                             page="list";
                             break;
                         case "map":
+                            mapBtn.style.visibility="visible";
                             gpsBtn.style.visibility="hidden";
-                            roadingModal.show();
+                            if(!mapModal.visible){
+                                roadingModal.show();
+                            }
                             page="map";
                             break;
                         case "map_visible":
                             roadingModal.hide();
+                            mapModal.hide();
                             break;
                         case "course":
                             page="rally";
@@ -327,6 +334,7 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                             page_val.rally_mode="stop";
                             break;
                         case "privilege":
+                            mapBtn.style.visibility="hidden";
                             gpsBtn.style.visibility="hidden";
                             stampBtn.style.visibility="hidden";
                             compBtn.style.visibility="hidden";
@@ -336,11 +344,13 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                             if(page_val.rally_id != event.data["rally_id"]){
                                 page_val.rally_id=event.data["rally_id"]
                             }
+                            mapBtn.style.visibility="hidden";
                             gpsBtn.style.visibility="visible";
                             page_val.coupon_id=0;
                             page="detail";
                         break;
                         case "list_detail":
+                            mapBtn.style.visibility="hidden";
                             gpsBtn.style.visibility="visible";
                             page_val.coupon_id=0;
                             page="list_detail";
@@ -368,7 +378,7 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                     }
                     break;
                 case "near_spot":
-                    mainTab.setActiveTab(2);
+                    mainTab.setActiveTab(page_val.nearTab);
                     page_val.nearSpot=event.data["spot_id"];
                     page_val.spot_id=event.data["spot_id"];
                 break;

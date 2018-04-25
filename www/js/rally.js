@@ -9,7 +9,7 @@ app.controller('rallyCtr', ['page_val', function(page_val) {
 
     //アクティブなタブの切り替え前の処理
     mainTab.on('postchange',function(event){
-        if(event.index==1){
+        if(event.index==page_val.rallyTab){
             rallyFrame.src=page_val.url+"index_list.php";
             if (device.platform == "iOS") {
                 document.getElementById('rallyFrame').src=page_val.url+"index_list.php";
