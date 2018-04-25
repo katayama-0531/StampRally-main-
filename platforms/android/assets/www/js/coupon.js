@@ -246,18 +246,23 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                 case "coupon":
                     gpsBtn.style.visibility="hidden";
                     if(event.data["mode"]=="detail"){
-                        gpsBtn.style.visibility="hidden";
+                        couponBtn.style.visibility="hidden";
                         couponLoad();
                     }else if(event.data["mode"]=="detail_disp_end"){
+                        couponBtn.style.visibility="visible";
                         page="";
                         roadingModal.hide();
+                        couponModal.hide();
                     }else if(event.data["mode"]=="back"){
+                        couponBtn.style.visibility="hidden";
                         roadingModal.show();
                         couponFrame.src=page_val.url+"coupon/index.php";
                         if(device.platform == "iOS"){
                             document.getElementById('couponFrame').src=page_val.url+"coupon/index.php";
                             document.getElementById('couponFrame').addEventListener('load',couponLoad);
                         }
+                    }else if(event.data["mode"]=="list"){
+                        couponBtn.style.visibility="hidden";
                     }
                     break;
                 case "near":
@@ -344,6 +349,7 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                             if(page_val.rally_id != event.data["rally_id"]){
                                 page_val.rally_id=event.data["rally_id"]
                             }
+                            couponBtn.style.visibility="hidden";
                             mapBtn.style.visibility="hidden";
                             gpsBtn.style.visibility="visible";
                             page_val.coupon_id=0;
@@ -366,9 +372,6 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                         break;
                         default:
                             page="rally";
-                            // if(page_val.stamp_comp_flg==0){
-                            //     couponPermissionAndGps();
-                            // }
                             completeStampSearch(id);
                             break;
                     }

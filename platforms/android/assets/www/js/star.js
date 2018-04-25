@@ -179,6 +179,8 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                     roadingModal.hide();
                     break;
                 case "coupon":
+                    ifrm.postMessage(postMessage, page_val.url+"coupon/index.php");
+                    roadingModal.hide();
                 case "wait":
                     break;
                 default:
@@ -222,20 +224,24 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                 case "coupon":
                     gpsBtn.style.visibility="hidden";
                     if(event.data["mode"]=="detail"){
-                        gpsBtn.style.visibility="hidden";
                         roadingModal.show();
                         cPermissionAndGps();
                     }else if(event.data["mode"]=="detail_disp_end"){
+                        couponBtn.style.visibility="visible";
                         page="";
                         roadingModal.hide();
+                        couponModal.hide();
                     }else if(event.data["mode"]=="back"){
+                        couponBtn.style.visibility="hidden";
                         roadingModal.show();
                         couponFrame.src=page_val.url+"coupon/index.php";
                         if(device.platform == "iOS"){
                             document.getElementById('starFrame').src=page_val.url+"star/index.php";
                             document.getElementById('starFrame').addEventListener('load',starLoad);
                         }
+                        mainTab.setActiveTab(page_val.couponTab);
                     }else if(event.data["mode"]=="list"){
+                        couponBtn.style.visibility="hidden";
                         var postMessage={
                             "user":id,
                             "rally_id":page_val.rally_id,
@@ -346,6 +352,7 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                             if(page_val.rally_id != event.data["rally_id"]){
                                 page_val.rally_id=event.data["rally_id"]
                             }
+                            couponBtn.style.visibility="hidden";
                             mapBtn.style.visibility="hidden";
                             gpsBtn.style.visibility="visible";
                             page="detail";
@@ -523,7 +530,7 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                     function (msg) {
                         // エラーコードに合わせたエラー内容をアラート表示
                         setTimeout(function() {
-                            ons.notification.alert({ message: "位置情報取得中にエラーが発生しました。コード："+message.code, title: "エラー", cancelable: true });
+                            ons.notification.alert({ message: "位置情報取得中にエラーが発生しました。コード："+msg.code, title: "エラー", cancelable: true });
                             }, 0);
                         roadingModal.hide();
                     },

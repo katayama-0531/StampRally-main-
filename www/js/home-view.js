@@ -95,6 +95,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
 
     //アクティブなタブの切り替え前の処理
     mainTab.on('postchange',function(event){
+        couponBtn.style.visibility="hidden";
         mapBtn.style.visibility="hidden";
         gpsBtn.style.visibility="hidden";
         if(navi.pages.length==1){
@@ -129,6 +130,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
 
     //アクティブなタブが再度押された場合の処理
     mainTab.on('reactive',function(event){
+        couponBtn.style.visibility="hidden";
         mapBtn.style.visibility="hidden";
         gpsBtn.style.visibility="hidden";
         roadingModal.show();
@@ -175,6 +177,13 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
         console.log("現在位置確認ボタン(地図)タッチ");
         mapModal.show();
         mPermissionAndGps();
+    });
+
+    //位置情報更新ボタン(クーポン)
+    couponBtn.addEventListener('click',function(){
+        console.log("現在位置確認ボタン(クーポン)タッチ");
+        couponModal.show();
+        cPermissionAndGps();
     });
 
     //スタンプを押すボタン
@@ -404,8 +413,11 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                     page_val.spot_id=event.data["spot_id"];
                     page=event.data["page"];
                     if(event.data["mode"]=="detail_disp_end"){
+                        couponBtn.style.visibility="visible";
                         roadingModal.hide();
+                        couponModal.hide();
                     }else if (event.data["mode"]=="back"){
+                        couponBtn.style.visibility="hidden";
                         roadingModal.hide();
                         mainTab.setActiveTab(page_val.couponTab);
                     }
@@ -491,6 +503,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                             page="list";
                             break;
                         case "detail":
+                            couponBtn.style.visibility="hidden";
                             mapBtn.style.visibility="hidden";
                             gpsBtn.style.visibility="visible";
                             page="detail";
@@ -674,6 +687,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                             page="stop";
                             break;
                         case "detail":
+                            couponBtn.style.visibility="hidden";
                             mapBtn.style.visibility="hidden";
                             gpsBtn.style.visibility="visible";
                             page="detail";
@@ -724,8 +738,11 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                     page_val.spot_id=event.data["spot_id"];
                     page_val.rally_mode=event.data["page"];
                     if(event.data["mode"]=="detail_disp_end"){
+                        couponBtn.style.visibility="visible";
                         roadingModal.hide();
+                        couponModal.hide();
                     }else if (event.data["mode"]=="back"){
+                        couponBtn.style.visibility="hidden";
                         roadingModal.hide();
                         mainTab.setActiveTab(page_val.couponTab);
                     }
@@ -1160,6 +1177,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                     ons.notification.alert({ message: errorMessage[message.code], title: "エラー", cancelable: true });
                     }, 0);
                 roadingModal.hide();
+                couponModal.hide();
             });
         }
         if (device.platform == "Android") {
@@ -1178,6 +1196,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                             ons.notification.alert({ message: "位置情報取得中にエラーが発生しました。コード："+message.code, title: "エラー", cancelable: true });
                             }, 0);
                         roadingModal.hide();
+                        couponModal.hide();
                     },
                     // notify呼び出し時
                     function (msg) {
@@ -1188,6 +1207,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                 function (msg) {
                     ons.notification.alert({ message: "位置情報へのアクセスが許可されなかったため、現在位置が取得できません。", title: "エラー", cancelable: true });
                 roadingModal.hide();
+                couponModal.hide();
                 },
                 // notify呼び出し時
                 function (msg) {
@@ -1219,21 +1239,45 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
 
                 }
                 // iframeのwindowオブジェクトを取得
-                var ifrm = homeFrame.contentWindow;
-                if(!ifrm){
-                    ifrm=document.getElementById('homeFrame').contentWindow;
-                }
-                if(mainTab.getActiveTabIndex()==page_val.rallyTab){
-                    ifrm = rallyFrame.contentWindow;
-                    if(!ifrm){
-                        ifrm=document.getElementById('rallyFrame').contentWindow;
-                    }
+                var ifrm;
+                switch(mainTab.getActiveTabIndex()){
+                    case page_val.homeTab:
+                        ifrm = homeFrame.contentWindow;
+                        if(!ifrm){
+                            ifrm=document.getElementById('homeFrame').contentWindow;
+                        }
+                        break;
+                    case page_val.rallyTab:
+                        ifrm = rallyFrame.contentWindow;
+                        if(!ifrm){
+                            ifrm=document.getElementById('rallyFrame').contentWindow;
+                        }
+                        break;
+                    case page_val.nearTab:
+                        ifrm = spotFrame.contentWindow;
+                        if(!ifrm){
+                            ifrm=document.getElementById('spotFrame').contentWindow;
+                        }
+                        break;
+                    case page_val.couponTab:
+                        ifrm = couponFrame.contentWindow;
+                        if(!ifrm){
+                            ifrm=document.getElementById('couponFrame').contentWindow;
+                        }
+                        break;
+                    case page_val.starTab:
+                        ifrm = starFrame.contentWindow;
+                        if(!ifrm){
+                            ifrm=document.getElementById('starFrame').contentWindow;
+                        }
+                        break;
                 }
                 ifrm.postMessage(postMessage, page_val.url+"coupon_det/index.php");
             },
             // 失敗時　（deferred.reject）
             function (res,status) {
                 roadingModal.hide();
+                couponModal.hide();
                 setTimeout(function() {
                     ons.notification.alert({ message: "周辺情報検索中にエラーが発生しました。", title: "エラー", cancelable: true });
                 }, 0);

@@ -149,9 +149,7 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                     roadingModal.hide();
                     break;
                 case "stamp":
-                    if(page_val.stamp_comp_flg==0){
-                        spotPermissionAndGps();
-                    }
+                    completeSpotS(id);
                     break;
                 case "list":
                     postMessage =
@@ -248,6 +246,45 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
         }
     }
 
+    //コンプリート状況確認
+    function completeSpotS(id){
+        complete(id).then(
+            function (msg) {
+                console.log('comp:' + msg);
+                if(msg[0]=="true" && page_val.stamp_comp_flg==1){
+                    //コンプ済
+                    compBtn.style.visibility="visible";
+                    stampBtn.style.visibility="hidden";
+                    gpsBtn.style.visibility="hidden";
+                    page_val.stamp_comp_flg=1;
+                    roadingModal.hide();
+                }else if(msg[0]=="false" && page_val.stamp_comp_flg==1){
+                    //コンプ済応募済み
+                    compBtn.style.visibility="hidden";
+                    stampBtn.style.visibility="hidden";
+                    gpsBtn.style.visibility="hidden";
+                    page_val.stamp_comp_flg=1;
+                    roadingModal.hide();
+                }else{
+                    //未コンプ
+                    compBtn.style.visibility="hidden";
+                    stampBtn.style.visibility="hidden";
+                    gpsBtn.style.visibility="visible";
+                    page_val.stamp_comp_flg=0;
+                    roadingModal.hide();
+                    // spotPermissionAndGps();
+                }
+            },
+            // 失敗時　（deferred.reject）
+            function (msg) {
+                // エラーコードに合わせたエラー内容をアラート表示
+                setTimeout(function() {
+                    ons.notification.alert({ message: "スタンプ情報取得中にエラーが発生しました。", title: "エラー", cancelable: true });
+                    }, 0);
+                roadingModal.hide();
+        });
+    }
+
     function spotPermissionAndGps() {
         if (device.platform == "iOS") {
             gpsCheck(id).then(
@@ -297,7 +334,7 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                     function (msg) {
                         // エラーコードに合わせたエラー内容をアラート表示
                         setTimeout(function() {
-                            ons.notification.alert({ message: errorMessage[message.code], title: "エラー", cancelable: true });
+                            ons.notification.alert({ message: "位置情報取得中にエラーが発生しました。", title: "エラー", cancelable: true });
                             }, 0);
                         roadingModal.hide();
                     },

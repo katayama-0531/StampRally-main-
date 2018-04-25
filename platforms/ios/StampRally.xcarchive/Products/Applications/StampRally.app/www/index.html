@@ -71,20 +71,20 @@
             </p>
         </div>
 </ons-modal>
-<!--<ons-modal var="roadingModal">
+<ons-modal var="mapModal">
     <div style="text-align: center">
         <p>
-            <ons-icon icon="md-spinner" size="28px" spin></ons-icon> 読み込み中...
+            <ons-icon icon="md-spinner" size="28px" spin></ons-icon> 地図情報更新中...
         </p>
     </div>
 </ons-modal>
-<ons-modal var="roadingModal">
+<ons-modal var="couponModal">
     <div style="text-align: center">
         <p>
-            <ons-icon icon="md-spinner" size="28px" spin></ons-icon> 読み込み中...
+            <ons-icon icon="md-spinner" size="28px" spin></ons-icon> クーポン情報更新中...
         </p>
     </div>
-</ons-modal>-->
+</ons-modal>
     <!--ログイン画面-->
     <ons-page ng-controller="tabCtr as tab">
     <!--スタンプ画像-->
@@ -119,11 +119,11 @@
         style="width:auto; height:auto; max-width:105%; max-height:105%; -webkit-filter: grayscale(100%);">
     </div>
     <!--現在地確認ボタン(クーポン)-->
-    <!--<div id="couponBtn" style="position:absolute; bottom: 0; right:39%; z-index:10000; width: 90px;
+    <div id="couponBtn" style="position:absolute; bottom: 0; right:39%; z-index:10000; width: 90px;
     height: 90px; visibility:hidden;">
     <img src="img_common/itikakunin.png" alt="" 
         style="width:auto; height:auto; max-width:105%; max-height:105%; -webkit-filter: sepia(100%);">
-    </div>-->
+    </div>
     <!--スタンプを押すボタン-->
     <div id="stampBtn" style="position:absolute; bottom: 0; right:39%; z-index:10000; width: 90px;
     height: 90px; visibility:hidden;"　ng-click="tab.stampTouch()">
@@ -174,11 +174,11 @@
                 <ons-tab page="html/home.html" active="true">
                     <img src="img_common/navbar_icon_home.png" width="auto" height="42" alt="">
                 </ons-tab>
-                <ons-tab page="html/rally.html">
-                    <img src="img_common/navbar_icon_note.png" width="auto" height="42" alt="">
-                </ons-tab>
                 <ons-tab page="html/spot.html">
                     <img src="img_common/navbar_icon_stamp.png" width="auto" height="42" alt="">
+                </ons-tab>
+                <ons-tab page="html/rally.html">
+                    <img src="img_common/navbar_icon_note.png" width="auto" height="42" alt="">
                 </ons-tab>
                 <ons-tab page="html/coupon.html">
                     <img src="img_common/navbar_icon_coupon.png" width="auto" height="42" alt="">

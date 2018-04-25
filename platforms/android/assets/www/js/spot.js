@@ -150,9 +150,6 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                     break;
                 case "stamp":
                     completeSpotS(id);
-                    // if(page_val.stamp_comp_flg==0){
-                    //     spotPermissionAndGps();
-                    // }
                     break;
                 case "list":
                     postMessage =
@@ -231,7 +228,7 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                     break;
                 case "coupon":
                     roadingModal.show();
-                    //spotPermissionAndGps();
+                    spotPermissionAndGps();
                     break;
                 default:
                     var postMessage =
