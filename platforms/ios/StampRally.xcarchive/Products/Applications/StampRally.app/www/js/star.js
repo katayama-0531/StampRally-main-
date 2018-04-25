@@ -46,7 +46,7 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
 
     //アクティブなタブの切り替え前の処理
     mainTab.on('postchange',function(event){
-        if(event.index==4){
+        if(event.index==page_val.starTab){
             compBtn.style.visibility="hidden";
             stampBtn.style.visibility="hidden";
             page="";
@@ -61,13 +61,13 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
 
     //アクティブなタブの切り替え完了後の処理
     mainTab.on('postchange',function(event){
-        if(event.index==4){
+        if(event.index==page_val.starTab){
         }
     });
 
     //アクティブなタブが再度押された場合の処理
     mainTab.on('reactive',function(event){
-        if(event.index==4){
+        if(event.index==page_val.starTab){
             console.log("starタブが再び押された");
             roadingModal.show();
             page="";
@@ -85,7 +85,7 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
 
     //iframe読み込み完了後のイベント
     function starLoad() {
-        if(mainTab.getActiveTabIndex()==4){
+        if(mainTab.getActiveTabIndex()==page_val.starTab){
             console.log("starFrame読み込み完了");
             // iframeのwindowオブジェクトを取得
             var ifrm = starFrame.contentWindow;
@@ -120,12 +120,15 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                     roadingModal.hide();
                     break;
                 case "rally":
+                    // gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"rally/index.php");
                     break;
                 case "stamp":
+                    // gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"stamp/index.php");
                     break;
                 case "list":
+                    // gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
                     roadingModal.hide();
                     break;
@@ -138,6 +141,7 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                         "lat":page_val.lat,
                         "lng":page_val.lng
                     }
+                    // gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"rally/map/index.php");
                     break;
                 case "map":
@@ -149,13 +153,16 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                         "lat":page_val.lat,
                         "lng":page_val.lng
                     }
+                    // gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"rally/map/index.php");
                     break;
                 case "detail":
+                    // gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"detail/index.php");
                     roadingModal.hide();
                     break;
                 case "list_detail":
+                    // gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"detail/index.php");
                     roadingModal.hide();
                     break;
@@ -167,6 +174,7 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                         "spot_id":page_val.spot_id,
                         "page":"home",
                         "mode":"stop"};
+                    // gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
                     roadingModal.hide();
                     break;
@@ -190,7 +198,7 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
 
     // メッセージ受信イベント
     window.addEventListener('message', function(event) {
-        if(mainTab.getActiveTabIndex()==4){
+        if(mainTab.getActiveTabIndex()==page_val.starTab){
             console.log("stariframeメッセージ受信");
             console.log(event.data);
             if($.type(event.data)!="string"){

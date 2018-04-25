@@ -43,7 +43,7 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
 
     //アクティブなタブが再度押された場合の処理
     mainTab.on('reactive',function(event){
-        if(event.index==2){
+        if(event.index==page_val.nearTab){
             roadingModal.show();
             page_val.rally_mode="";
             page_val.nearSpot="";
@@ -60,7 +60,7 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
 
      //アクティブなタブの切り替え前の処理
      mainTab.on('postchange',function(event){
-        if(event.index==2){
+        if(event.index==page_val.nearTab){
             console.log("spotタブへ切り替え前");
             roadingModal.show();
             spotFrame.src=page_val.url+"nearby/index.php";
@@ -74,7 +74,7 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
 
     //アクティブなタブの完了後の処理
     mainTab.on('postchange',function(event){
-        if(event.index!=2){
+        if(event.index!=page_val.nearTab){
             page_val.rally_mode="";
             if(compBtn.style.visibility==""){
                 compBtn.style.visibility="hidden";
@@ -84,7 +84,7 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
             }
         }
 
-        if(event.index==2){
+        if(event.index==page_val.nearTab){
             console.log("spotタブへ切り替え完了後");
         }
     });
@@ -96,7 +96,7 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
         if(!ifrm){
             ifrm=document.getElementById('spotFrame').contentWindow;
         }
-        if(mainTab.getActiveTabIndex()==2){
+        if(mainTab.getActiveTabIndex()==page_val.nearTab){
             console.log("spotFrame読み込み完了");
             console.log(page_val.rally_mode);
             roadingModal.show();
@@ -144,6 +144,7 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                     roadingModal.hide();
                     break;
                 case "rally":
+                    // gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"rally/index.php");
                     roadingModal.hide();
                     break;
@@ -172,6 +173,7 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                         "lat":page_val.lat,
                         "lng":page_val.lng
                     }
+                    
                     ifrm.postMessage(postMessage, page_val.url+"near_map/index.php");
                     break;
                 case "detail":
@@ -182,6 +184,7 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                                 "spot_id":page_val.spot_id,
                                 "page":"stop"
                             };
+                    // gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"detail/index.php");
                     roadingModal.hide();
                     break;
@@ -193,6 +196,7 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                             "spot_id":page_val.spot_id,
                             "page":"stop"
                         };
+                    // gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"detail/index.php");
                     roadingModal.hide();
                     break;
@@ -208,6 +212,12 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                     page_val.rally_mode="";
                     break;
                 case "stop":
+                    if(angular.isUndefined(page_val.course_id)){
+                        page_val.course_id=0;
+                    }
+                    if(angular.isUndefined(page_val.v)){
+                        page_val.rally_id=0;
+                    }
                     postMessage =
                             {   "user":id,
                                 "rally_id":page_val.rally_id,
@@ -230,6 +240,7 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                         "spot_id":page_val.spot_id,
                         "page":"home",
                         "mode":"stop"};
+                    // gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
                     roadingModal.hide();
                     break;

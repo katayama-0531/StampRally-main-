@@ -24,8 +24,7 @@ angular.module('stampRallyApp').factory('get_http_service', ['$http', 'page_val'
             $http(req).then(function onSuccess(data) {
                 var  storeVersion="";
                 if (device.platform == "iOS"){
-                    //storeVersion=data["data"]["results"]["0"]["version"];
-                    storeVersion="1.1.0";
+                    storeVersion=data["data"]["results"]["0"]["version"];
                 }
                 if (device.platform == "Android"){
                     storeVersion=data["data"]["version"];
@@ -40,8 +39,7 @@ angular.module('stampRallyApp').factory('get_http_service', ['$http', 'page_val'
                     if (storeVersion > version){
                         message = "新しいバージョンが公開されています。更新を行ってください。";
                         if (device.platform == "iOS"){
-                            //TODO:アプリ公開後に確認
-                            //url = 'id1367402543';
+                            url = 'id1367402543';
                         }
                             if (device.platform == "Android"){
                                 url = 'com.jafstamprally';

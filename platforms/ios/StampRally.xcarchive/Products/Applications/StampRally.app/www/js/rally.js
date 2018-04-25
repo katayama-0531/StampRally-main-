@@ -22,7 +22,7 @@ app.controller('rallyCtr', ['page_val', function(page_val) {
     });
     //アクティブなタブの切り替え完了後の処理
     mainTab.on('postchange',function(event){
-        if(event.index==1){
+        if(event.index==page_val.rallyTab){
             page_val.header_color_code=page_val.default_color_code;
             page_val.header_title_img=page_val.default_title_img;
             page_val.header_news_img=page_val.default_news_img;
@@ -32,7 +32,7 @@ app.controller('rallyCtr', ['page_val', function(page_val) {
 
     //アクティブなタブが再度押された場合の処理
     mainTab.on('reactive',function(event){
-        if(event.index==1){
+        if(event.index==page_val.rallyTab){
             page_val.header_color_code=page_val.default_color_code;
             page_val.header_title_img=page_val.default_title_img;
             page_val.header_news_img=page_val.default_news_img;
@@ -73,7 +73,7 @@ app.controller('rallyCtr', ['page_val', function(page_val) {
                 "rally_id":page_val.rally_id,
                 "spot_id":page_val.spot_id,
                 "page":"rally"};
-            if(mainTab.getActiveTabIndex()==1){
+            if(mainTab.getActiveTabIndex()==page_val.rallyTab){
                 if(page==""){
                     rallyifrm.postMessage(postMessage, page_val.url+"index_list.php");
                     page="rally";
@@ -93,7 +93,7 @@ app.controller('rallyCtr', ['page_val', function(page_val) {
                 "rally_id":page_val.rally_id,
                 "spot_id":page_val.spot_id,
                 "mode":"stop"};
-            if(mainTab.getActiveTabIndex()==1){
+            if(mainTab.getActiveTabIndex()==page_val.rallyTab){
                 if(page==""){
                     rallyifrm.postMessage(postMessage, page_val.url+"index_list.php");
                     page="rally";

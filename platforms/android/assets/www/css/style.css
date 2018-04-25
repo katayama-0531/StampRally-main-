@@ -81,3 +81,21 @@ ons-carousel-item {
     left: 75%;
     transform: translate(-50%,-50%);
 }
+
+.cover-img-right {
+    position: absolute;
+    width:5%;
+    height:auto;
+    right: 0;
+    top:50%;
+    z-index: 3;
+  }
+
+.cover-img-left {
+    position: absolute;
+    width:5%;
+    height:auto;
+    left: 0;
+    top:50%;
+    z-index: 3;
+  }

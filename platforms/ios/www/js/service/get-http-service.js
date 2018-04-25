@@ -24,8 +24,7 @@ angular.module('stampRallyApp').factory('get_http_service', ['$http', 'page_val'
             $http(req).then(function onSuccess(data) {
                 var  storeVersion="";
                 if (device.platform == "iOS"){
-                    //storeVersion=data["data"]["results"]["0"]["version"];
-                    storeVersion="1.1.0";
+                    storeVersion=data["data"]["results"]["0"]["version"];
                 }
                 if (device.platform == "Android"){
                     storeVersion=data["data"]["version"];
@@ -40,8 +39,7 @@ angular.module('stampRallyApp').factory('get_http_service', ['$http', 'page_val'
                     if (storeVersion > version){
                         message = "新しいバージョンが公開されています。更新を行ってください。";
                         if (device.platform == "iOS"){
-                            //TODO:アプリ公開後に確認
-                            //url = 'id1367402543';
+                            url = 'id1367402543';
                         }
                             if (device.platform == "Android"){
                                 url = 'com.jafstamprally';
@@ -72,8 +70,8 @@ angular.module('stampRallyApp').factory('get_http_service', ['$http', 'page_val'
             };
         }
         //Ajax通信でphpにアクセス
-        // var url = "https://www.online-carelplus.com/stamp/api/login.php",
-        var url = "https://jafstamprally.com/api/login.php",
+        var url = "https://www.online-carelplus.com/stamp/api/login.php",
+        // var url = "https://jafstamprally.com/api/login.php",
         config = {
                 timeout: 30
             };
@@ -212,6 +210,38 @@ angular.module('stampRallyApp').factory('get_http_service', ['$http', 'page_val'
                 }, 0);
             console.log("エラー："+data);
             console.log("ステータス："+status);
+        });
+    },
+    checkComplete: function(deferred,id){
+        //Ajax通信でphpにアクセス
+        var url = page_val.root_url+"api/compStamp.php",
+        config = {
+            timeout: 5000
+        };
+        var postData={};
+        postData.course_id=page_val.course_id;
+        postData.user_id=id;
+
+        var req = {
+            method: 'POST',
+            url: url,
+            data: postData
+        };
+
+        $http(req).then(function onSuccess(data, status) {
+                if(data.data[0]=="true"){
+                    //コンプリート済み
+                    console.log("コンプリート済み");
+                    console.log(data.data);
+                }else{
+                    //コンプリートしてない
+                    console.log("コンプリートしてない");
+                }
+                deferred.resolve(data.data); 
+        }, function onError(data, status) {
+            console.log("エラー："+data.data);
+            console.log("ステータス："+status);
+            deferred.reject(data.data,status);
         });
     }
  };
