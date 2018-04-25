@@ -13,14 +13,8 @@
     "cordova-plugin-android-permissions": {
       "PACKAGE_NAME": "com.example.StampRally"
     },
-    "cordova-plugin-inappbrowser": {
-      "PACKAGE_NAME": "com.example.StampRally"
-    },
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "com.jafstamprally"
-    },
-    "cordova-plugin-geolocation": {
-      "PACKAGE_NAME": "com.japan_izm.stamprally"
     },
     "cordova-plugin-file-transfer": {
       "PACKAGE_NAME": "com.jafstamprally"
@@ -36,6 +30,12 @@
     },
     "cordova-plugin-market": {
       "PACKAGE_NAME": "com.japan_izm.stamprallykyusyu"
+    },
+    "cordova-plugin-inappbrowser": {
+      "PACKAGE_NAME": "com.jafstamprally"
+    },
+    "cordova-plugin-geolocation": {
+      "PACKAGE_NAME": "com.jafstamprally"
     }
   },
   "dependent_plugins": {

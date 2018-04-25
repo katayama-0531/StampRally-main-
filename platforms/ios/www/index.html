@@ -85,6 +85,12 @@
                 </span>
         </div>
     </ons-toolbar>
+    <!--現在地確認ボタン-->
+    <div id="gpsBtn" style="position:absolute; bottom: 0; right:39%; z-index:10000; width: 90px;
+    height: 90px; visibility:hidden;"　ng-click="tab.gpsTouch()">
+    <img src="img_common/itikakunin.png" alt="" 
+        style="width:auto; height:auto; max-width:105%; max-height:105%;">
+    </div>
     <!--スタンプを押すボタン-->
     <div id="stampBtn" style="position:absolute; bottom: 0; right:39%; z-index:10000; width: 90px;
     height: 90px; visibility:hidden;"　ng-click="tab.stampTouch()">
@@ -131,7 +137,7 @@
         </ons-splitter-side>
         <ons-splitter-content>
             <!--タブバー-->
-            <ons-tabbar var="mainTab" modifier="autogrow">
+            <ons-tabbar var="mainTab" modifier="autogrow" position="bottom">
                 <ons-tab page="html/home.html" active="true">
                     <img src="img_common/navbar_icon_home.png" width="auto" height="42" alt="">
                 </ons-tab>

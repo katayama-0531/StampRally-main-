@@ -13,12 +13,6 @@
     "cordova-plugin-dialogs": {
       "PACKAGE_NAME": "com.japan-izm.stamprallykyusyu"
     },
-    "cordova-plugin-geolocation": {
-      "PACKAGE_NAME": "com.japan-izm.stamprallykyusyu"
-    },
-    "cordova-plugin-inappbrowser": {
-      "PACKAGE_NAME": "com.japan-izm.stamprallykyusyu"
-    },
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "com.japan-izm.stamprallykyusyu"
     },
@@ -35,6 +29,12 @@
       "PACKAGE_NAME": "com.japan-izm.stamprallykyusyu"
     },
     "cordova-plugin-market": {
+      "PACKAGE_NAME": "com.japan-izm.stamprallykyusyu"
+    },
+    "cordova-plugin-inappbrowser": {
+      "PACKAGE_NAME": "com.japan-izm.stamprallykyusyu"
+    },
+    "cordova-plugin-geolocation": {
       "PACKAGE_NAME": "com.japan-izm.stamprallykyusyu"
     }
   },

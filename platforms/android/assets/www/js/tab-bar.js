@@ -10,25 +10,33 @@ app.controller('tabCtr', ['$scope', '$http', 'page_val', 'get_img_service', func
     this.info=function(){
         menu.close();
         navi.resetToPage("html/info.html");
-        mainTab.setActiveTab(0);
+        if(mainTab.getActiveTabIndex()!=page_val.homeTab){
+            mainTab.setActiveTab(page_val.homeTab);
+        }
     }
 
     this.accountOpen=function(){
         menu.close();
         navi.pushPage("html/account.html");
-        mainTab.setActiveTab(0);
+        if(mainTab.getActiveTabIndex()!=page_val.homeTab){
+            mainTab.setActiveTab(page_val.homeTab);
+        }
     }
     
     this.howtoOpen=function(){
         menu.close();
         navi.pushPage("html/howto.html");
-        mainTab.setActiveTab(0);
+        if(mainTab.getActiveTabIndex()!=page_val.homeTab){
+            mainTab.setActiveTab(page_val.homeTab);
+        }
     }
     
     this.contractOpen=function(){
         menu.close();
         navi.pushPage("html/contract.html");
-        mainTab.setActiveTab(0);
+        if(mainTab.getActiveTabIndex()!=page_val.homeTab){
+            mainTab.setActiveTab(page_val.homeTab);
+        }
     }
     
     this.contactOpen=function(){
@@ -49,6 +57,7 @@ app.controller('tabCtr', ['$scope', '$http', 'page_val', 'get_img_service', func
     }
     
     menu.addEventListener('preopen',function(event){
+        // gpsBtn.style.visibility="hidden";
         if(page_val.rally_mode=="map_visible" || page_val.rally_mode=="spot_touch"){
             mapapp.modifier="tappble";
             mapapp.click="tab.mapOpen()";
@@ -56,6 +65,12 @@ app.controller('tabCtr', ['$scope', '$http', 'page_val', 'get_img_service', func
         }else{
             mapapp.click="";
             mapapp.style="background-color: #bcbcbc;"
+        }
+    });
+
+    menu.addEventListener('postclose',function(event){
+        if(page_val.rally_mode!="" && mainTab.getActiveTabIndex()!=page_val.nearTab && navi.pages.length == 1){
+            // gpsBtn.style.visibility="visible";
         }
     });
 
@@ -70,17 +85,18 @@ app.controller('tabCtr', ['$scope', '$http', 'page_val', 'get_img_service', func
                 if(position==null||position=="undefined"){
                     url="http://maps.google.com";
                 }else{
-                    url="http://maps.google.com?q="+position;
+                    url="http://maps.google.com?q="+position+"(" + encodeURI(page_val.spot_name) + ")";
                 }
             }else{
                 if(position==null||position=="undefined"){
                     url="maps:q=";
                 }else{
-                    url="https://maps.apple.com./?ll="+position;
+                    url="maps://?q=" + encodeURI(page_val.spot_name)+"&ll="+position;
                 }
             }
             if(url!=""){
                 window.open(url, "_system");
+                menu.close();
             }
         }else{
             mapapp.style="background-color: #bcbcbc;"
@@ -92,33 +108,28 @@ app.controller('tabCtr', ['$scope', '$http', 'page_val', 'get_img_service', func
             menu.close();
             compBtn.style.visibility="hidden";
             stampBtn.style.visibility="hidden";
+            if(navi.pages[navi.pages.length-1].id == "newsPage"){
+                newsFrame.src="https://www.online-carelplus.com/stamp/app_view/news/index.php";
+                if(device.platform == "iOS"){
+                    document.getElementById('newsFrame').src="https://www.online-carelplus.com/stamp/app_view/news/index.php";
+                }
+            }
             navi.pushPage("html/news.html");
-            roadingModal.show();
-            mainTab.setActiveTab(0);
+            // roadingModal.show();
+            if(mainTab.getActiveTabIndex()!=page_val.homeTab){
+                mainTab.setActiveTab(page_val.homeTab);
+            }
         }            
     }
     this.iconTouch=function(){
         if(page_val.maintenance==0){
+            roadingModal.show();
             menu.close();
-            mainTab.setActiveTab(0);
+            mainTab.setActiveTab(page_val.homeTab);
             if(navi.pages.length >= 2){
                 navi.resetToPage("html/home.html");
             }
         }
         
-    }
-    this.compTouch=function(){
-        console.log("応募ボタンタッチ");
-        compBtn.style.visibility="hidden";
-        navi.pushPage("html/entry.html");
-    }
-    this.stampTouch=function(){
-        console.log("スタンプを押すボタンタッチ");
-        //スタンプ画像表示、アニメーション開始。
-        var stampName = "stamp" + page_val.rally_id;
-        var stamp = localStorage.getItem(stampName);
-        stampImg.src=stamp;
-        stampImg.className = "animated bounceInDown";
-        stampImg.style.visibility="visible";
     }
 }]);

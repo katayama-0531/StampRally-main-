@@ -22,6 +22,7 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
     var gpsCheck = function(id) {
         var deferred = $q.defer();
         $timeout(function() {
+            id=localStorage.getItem('ID');
             permission.getGps(deferred, id);
         }, 0)
         return deferred.promise;
@@ -30,102 +31,162 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
     var nearSpot= function(data) {
         var deferred = $q.defer();
         $timeout(function() {
-            httpService.getNearSpot(deferred, data);
+            httpService.getNearStampSpot(deferred, data);
+        }, 0)
+        return deferred.promise;
+    }
+
+    var nCoupon= function(data) {
+        var deferred = $q.defer();
+        $timeout(function() {
+            httpService.getNearCoupon(deferred, data);
         }, 0)
         return deferred.promise;
     }
 
     //アクティブなタブの切り替え前の処理
     mainTab.on('postchange',function(event){
-        if(event.index==4){
+        if(event.index==page_val.starTab){
+            compBtn.style.visibility="hidden";
+            stampBtn.style.visibility="hidden";
+            page="";
             starFrame.src=page_val.url+"star/index.php";
+            starFrame.addEventListener('load',starLoad);
+            if (device.platform == "iOS") {
+                document.getElementById('starFrame').src=page_val.url+"star/index.php";
+                document.getElementById('starFrame').addEventListener('load',starLoad);
+            }
+        }
+    });
+
+    //アクティブなタブの切り替え完了後の処理
+    mainTab.on('postchange',function(event){
+        if(event.index==page_val.starTab){
+        }
+    });
+
+    //アクティブなタブが再度押された場合の処理
+    mainTab.on('reactive',function(event){
+        if(event.index==page_val.starTab){
+            console.log("starタブが再び押された");
+            roadingModal.show();
+            page="";
+            starFrame.src=page_val.url+"star/index.php";
+            starFrame.addEventListener('load',starLoad);
+            if (device.platform == "iOS") {
+                document.getElementById('starFrame').src=page_val.url+"star/index.php";
+                document.getElementById('starFrame').addEventListener('load',starLoad);
+            }
+        }
+    });
+
+    //iframe読み込み完了後の処理
+    starFrame.addEventListener('load',starLoad);
+
+    //iframe読み込み完了後のイベント
+    function starLoad() {
+        if(mainTab.getActiveTabIndex()==page_val.starTab){
+            console.log("starFrame読み込み完了");
             // iframeのwindowオブジェクトを取得
             var ifrm = starFrame.contentWindow;
             if(!ifrm){
                 ifrm=document.getElementById('starFrame').contentWindow;
             }
             // 外部サイトにメッセージを投げる
-            var postMessage =id;
-            ifrm.postMessage(postMessage, page_val.url+"star/index.php");
-        }
-    });
-
-    //アクティブなタブの切り替え完了後の処理
-    mainTab.on('postchange',function(event){
-        if(event.index==4){
-        }
-    });
-
-    //アクティブなタブが再度押された場合の処理
-    mainTab.on('reactive',function(event){
-        if(event.index==4){
-            starFrame.src=page_val.url+"star/index.php";
-        }
-    });
-
-    //iframe読み込み完了後のイベント
-    starFrame.addEventListener('load',function() {
-        console.log("starFrame読み込み完了");
-        // iframeのwindowオブジェクトを取得
-        var ifrm = starFrame.contentWindow;
-        if(!ifrm){
-            ifrm=document.getElementById('starFrame').contentWindow;
-        }
-        // // 外部サイトにメッセージを投げる
-        // var postMessage =id;
-        // ifrm.postMessage(postMessage, page_val.url+"star/index.php");
-        if(mainTab.getActiveTabIndex()==4){
-            // 外部サイトにメッセージを投げる
             var postMessage =
             {   "user":id,
                 "rally_id":page_val.rally_id,
                 "course_id":page_val.course_id,
-                "page":"home"};
+                "spot_id":page_val.spot_id,
+                "page":"star"};
+
+            if(angular.isUndefined(page)){
+                page="";
+            }
+
+            // 外部サイトにメッセージを投げる
             switch(page){
                 case "":
-                case angular.isUndefined(page):
-                    ifrm.postMessage(postMessage, page_val.url+"star/index.html");
+                    ifrm.postMessage(postMessage, page_val.url+"star/index.php");
+                    break;
+                case "star":
+                    postMessage =
+                    {   "user":id,
+                        "rally_id":page_val.rally_id,
+                        "course_id":page_val.course_id,
+                        "spot_id":page_val.spot_id,
+                        "page":""};
+                    ifrm.postMessage(postMessage, page_val.url+"star/index.php");
                     roadingModal.hide();
                     break;
                 case "rally":
+                    // gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"rally/index.php");
-                    roadingModal.hide();
                     break;
                 case "stamp":
+                    // gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"stamp/index.php");
                     break;
                 case "list":
+                    // gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
                     roadingModal.hide();
                     break;
                 case "spot":
-                    ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
-                    roadingModal.hide();
-                    break;
-                case "map":
                     postMessage={
                         "user":id,
-                        "rally_id":page_val.rally_id,
                         "course_id":page_val.course_id,
+                        "rally_id":page_val.rally_id,
                         "page":"home",
                         "lat":page_val.lat,
                         "lng":page_val.lng
                     }
+                    // gpsBtn.style.visibility="visible";
+                    ifrm.postMessage(postMessage, page_val.url+"rally/map/index.php");
+                    break;
+                case "map":
+                    postMessage={
+                        "user":id,
+                        "course_id":page_val.course_id,
+                        "rally_id":page_val.rally_id,
+                        "page":"home",
+                        "lat":page_val.lat,
+                        "lng":page_val.lng
+                    }
+                    // gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"rally/map/index.php");
                     break;
                 case "detail":
+                    // gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"detail/index.php");
                     roadingModal.hide();
                     break;
                 case "list_detail":
+                    // gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"detail/index.php");
                     roadingModal.hide();
                     break;
-                default:
-                    var postMessage =
+                case "stop":
+                    postMessage =
                     {   "user":id,
-                        "rally_id":page_val.rally_id,
                         "course_id":page_val.course_id,
+                        "rally_id":page_val.rally_id,
+                        "spot_id":page_val.spot_id,
+                        "page":"home",
+                        "mode":"stop"};
+                    // gpsBtn.style.visibility="visible";
+                    ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
+                    roadingModal.hide();
+                    break;
+                case "coupon":
+                case "wait":
+                    break;
+                default:
+                    postMessage =
+                    {   "user":id,
+                        "course_id":page_val.course_id,
+                        "rally_id":page_val.rally_id,
+                        "spot_id":page_val.spot_id,
                         "page":"home",
                         "mode":"stop"};
                     ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
@@ -133,47 +194,78 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                     break;
             }
         }
-    });
+    }
 
     // メッセージ受信イベント
     window.addEventListener('message', function(event) {
-        if(mainTab.getActiveTabIndex()==4){
+        if(mainTab.getActiveTabIndex()==page_val.starTab){
             console.log("stariframeメッセージ受信");
             console.log(event.data);
-            roadingModal.show();
-            if($.type(event.data)=="string"){
-                roadingModal.hide();
-            }else{
-                page_val.rally_mode='';
+            if($.type(event.data)!="string"){
+                roadingModal.show();
+            }
+            page_val.coupon=event.data["mode"];
+            page=event.data["page"];
+            if(event.data["coupon_id"]!=0 || event.data["coupon_id"] == ""){
+                page_val.coupon_id=event.data["coupon_id"];
+            }
+            if(event.data["rally_id"]!=0 || event.data["rally_id"] == ""){
+                page_val.rally_id=event.data["rally_id"];
+            }
+            if(event.data["page"]=="maintenance"){
+                page_val.maintenance=1;
+                mainTab.hide();
             }
             switch (event.data["page"]){
-                case "home":
-                    page="rally";
-                    break;
-                
-                case "list":
-                    mainTab.setActiveTab(1);
-                    roadingModal.hide();
-                    break;
-                
-                case "stamp":
-                    page_val.spot_id=event.data["spot_id"];
-                    if(page_val.stamp_comp_flg==0){
-                        sPermissionAndGps();
+                case "coupon":
+                    if(event.data["mode"]=="detail"){
+                        roadingModal.show();
+                        cPermissionAndGps();
+                    }else if(event.data["mode"]=="detail_disp_end"){
+                        page="";
+                        roadingModal.hide();
+                    }else if(event.data["mode"]=="back"){
+                        roadingModal.show();
+                        couponFrame.src=page_val.url+"coupon/index.php";
+                        if(device.platform == "iOS"){
+                            document.getElementById('starFrame').src=page_val.url+"star/index.php";
+                            document.getElementById('starFrame').addEventListener('load',starLoad);
+                        }
+                    }else if(event.data["mode"]=="list"){
+                        var postMessage={
+                            "user":id,
+                            "rally_id":page_val.rally_id,
+                            "coupon_id":page_val.coupon_id,
+                            "spot_id":page_val.spot_id,
+                            "coupon":"false",
+                            "mode":"coupon"
+                        }
+                        // iframeのwindowオブジェクトを取得
+                        var ifrm = starFrame.contentWindow;
+                        if(!ifrm){
+                            ifrm=document.getElementById('starFrame').contentWindow;
+                        }
+                        ifrm.postMessage(postMessage, page_val.url+"star/index.php");
                     }
                     break;
-
-                case "coupon":
-                    page_val.coupon="detail";
-                    page_val.spot_id=event.data["spot_id"];
-                    mainTab.setActiveTab(3);
+                case "near":
+                    roadingModal.hide();
                     break;
-                
                 case "rally":
                     page_val.spot_id=0;
                     page_val.rally_mode=event.data["mode"];
                     if(!angular.isUndefined(event.data["course_id"])){
                         page_val.course_id=event.data["course_id"];
+                    }else{
+                        page_val.course_id=0;
+                    }
+
+                    if(!angular.isUndefined(event.data["spot_id"])){
+                        if(event.data["spot_id"]!=0){
+                            page_val.spot_id=event.data["spot_id"];
+                        }
+                    }else{
+                        page_val.spot_id=0;
                     }
                     
                     if(event.data["stamp_type"]=="comp"){
@@ -188,11 +280,30 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                         page_val.stamp_comp_flg=0;
                     }
                     switch (event.data["mode"]){
-                        case "list":
-                            page="list";
+                        case "stamp":
+                            break;
+                        case "url":
+                            window.open(event.data["url"], '_blank');
                             roadingModal.hide();
                             break;
+                        case "adress":
+                            var url="";
+                            //iOS,Androidでそれぞれ地図アプリを開く
+                            if (device.platform=="Android") {
+                                url="http://maps.google.com?q=" + encodeURI(event.data["adress"]);
+                            }else{
+                                url="maps://?q=" + encodeURI(event.data["adress"]);
+                            }
+                            if(url!=""){
+                                window.open(url, "_system");
+                            }
+                            roadingModal.hide();
+                            break;
+                        case "list":
+                            page="list";
+                            break;
                         case "map":
+                            roadingModal.show();
                             page="map";
                             break;
                         case "map_visible":
@@ -216,6 +327,9 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                             page="stop";
                             break;
                         case "detail":
+                            if(page_val.rally_id != event.data["rally_id"]){
+                                page_val.rally_id=event.data["rally_id"]
+                            }
                             page="detail";
                         break;
                         case "list_detail":
@@ -229,8 +343,6 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                             };
                             page_val.near_spot_data[0]=position ;
                             roadingModal.hide();
-                        break;
-                        case "back":
                         break;
                         default:
                             page="rally";
@@ -246,14 +358,9 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                     break;
                 case "near_spot":
                     mainTab.setActiveTab(2);
-                    page_val.spot_id=event.data["spot_id"]
-                    break;
-                case "maintenance":
-                    page_val.maintenance=1;
-                    $scope.tab=false;
-                    roadingModal.hide();
-                    break;
-                
+                    page_val.nearSpot=event.data["spot_id"];
+                    page_val.spot_id=event.data["spot_id"];
+                break;
             }
         }
     }, false);
@@ -318,6 +425,94 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                 }
                 page="";
                 roadingModal.hide();
+            },
+            // 失敗時　（deferred.reject）
+            function (res,status) {
+                roadingModal.hide();
+                setTimeout(function() {
+                    ons.notification.alert({ message: "周辺情報検索中にエラーが発生しました。", title: "エラー", cancelable: true });
+                }, 0);
+        });
+    }
+
+    function cPermissionAndGps() {
+        if (device.platform == "iOS") {
+            gpsCheck(id).then(
+                function (msg) {
+                console.log('SuccessGps:' + msg);
+                cSearch(msg);
+            },
+            // 失敗時　（deferred.reject）
+            function (msg) {
+                // エラーコードに合わせたエラー内容をアラート表示
+                setTimeout(function() {
+                    ons.notification.alert({ message: errorMessage[message.code], title: "エラー", cancelable: true });
+                    }, 0);
+                roadingModal.hide();
+            });
+        }
+        if (device.platform == "Android") {
+            permissionCheck().then(// 成功時　（deferred.resolve）
+                function (msg) {
+                    console.log('Success:' + msg);
+                    gpsCheck(id).then(
+                        function (msg) {
+                        console.log('SuccessGps:' + msg);
+                        cSearch(msg);
+                    },
+                    // 失敗時　（deferred.reject）
+                    function (msg) {
+                        // エラーコードに合わせたエラー内容をアラート表示
+                        setTimeout(function() {
+                            ons.notification.alert({ message: "位置情報取得中にエラーが発生しました。コード："+message.code, title: "エラー", cancelable: true });
+                            }, 0);
+                        roadingModal.hide();
+                    },
+                    // notify呼び出し時
+                    function (msg) {
+                        console.log('Notification:' + msg);
+                    });
+                },
+                // 失敗時　（deferred.reject）
+                function (msg) {
+                    ons.notification.alert({ message: "位置情報へのアクセスが許可されなかったため、現在位置が取得できません。", title: "エラー", cancelable: true });
+                roadingModal.hide();
+                },
+                // notify呼び出し時
+                function (msg) {
+                    console.log('Notification:' + msg);
+                });
+        }
+    }
+
+    function cSearch (data){
+        nCoupon(data).then(
+            function (res) {
+                var postMessage="";
+                if (res.length>=1) {
+                    var postMessage={
+                        "user":id,
+                        "coupon_id":page_val.coupon_id,
+                        "spot_id":page_val.spot_id,
+                        "coupon":"true",
+                        "page":"detail"
+                    }
+                }else{
+                    var postMessage={
+                        "user":id,
+                        "coupon_id":page_val.coupon_id,
+                        "spot_id":page_val.spot_id,
+                        "coupon":"false",
+                        "page":"detail"
+                    }
+
+                }
+                // iframeのwindowオブジェクトを取得
+                var ifrm = starFrame.contentWindow;
+                if(!ifrm){
+                    ifrm=document.getElementById('starFrame').contentWindow;
+                }
+                ifrm.postMessage(postMessage, page_val.url+"coupon_det/index.php");
             },
             // 失敗時　（deferred.reject）
             function (res,status) {

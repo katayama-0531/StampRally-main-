@@ -2,20 +2,25 @@ ons.bootstrap(['stampRallyApp']);
 var app = angular.module('stampRallyApp',['onsen', 'ngResource', 'ngStorage']);
 //画像表示の際に使用する共通変数
 app.constant('page_val', {
-  // 'url':'https://www.online-carelplus.com/stamp/app_view/',
-  // 'root_url':'https://www.online-carelplus.com/stamp/',
-  'url':'https://jafstamprally.com/app_view/',
-  'root_url':'https://jafstamprally.com/',
+  'url':'https://www.online-carelplus.com/stamp/app_view/',
+  'root_url':'https://www.online-carelplus.com/stamp/',
+  // 'url':'https://jafstamprally.com/app_view/',
+  // 'root_url':'https://jafstamprally.com/',
   'spot_id': 0,
   'course_id': 0,
   'rally_id': 0,
   'rally_mode': '',
   'coupon_id':0,
+  'homeTab':0,
+  'rallyTab':1,
+  'nearTab':2,
+  'couponTab':3,
+  'starTab':4,
   'pages': '',
   'stamp_comp_flg':0,
   'num': 0,
   'img_num': 0,
-  'stamp_img_URL':'',
+  'stamp_img_URL':'img_common/stamp_anime.gif',
   'img_list':[],
   'near_spot_data':[],
   'header_color_code':'',
@@ -32,6 +37,7 @@ app.constant('page_val', {
   'acc':0,
   'coupon':"",
   'nearSpot':"",
+  'spot_name':"",
   'maintenance':0
     });
   app.config(['$localStorageProvider',

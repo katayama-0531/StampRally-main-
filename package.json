@@ -30,14 +30,14 @@
     "plugins": {
       "cordova-plugin-dialogs": {},
       "cordova-plugin-android-permissions": {},
-      "cordova-plugin-inappbrowser": {},
       "cordova-plugin-whitelist": {},
-      "cordova-plugin-geolocation": {},
       "cordova-plugin-file-transfer": {},
       "cordova-plugin-app-version": {},
       "com.borismus.webintent": {},
       "cordova-plugin-device": {},
-      "cordova-plugin-market": {}
+      "cordova-plugin-market": {},
+      "cordova-plugin-inappbrowser": {},
+      "cordova-plugin-geolocation": {}
     },
     "platforms": [
       "android",
