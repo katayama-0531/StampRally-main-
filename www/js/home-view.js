@@ -95,6 +95,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
 
     //アクティブなタブの切り替え前の処理
     mainTab.on('postchange',function(event){
+        gpsBtn.style.visibility="hidden";
         if(navi.pages.length==1){
             roadingModal.show();
         }
@@ -127,6 +128,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
 
     //アクティブなタブが再度押された場合の処理
     mainTab.on('reactive',function(event){
+        gpsBtn.style.visibility="hidden";
         roadingModal.show();
         compBtn.style.visibility="hidden";
         stampBtn.style.visibility="hidden";
@@ -140,7 +142,6 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
         }
         if(event.index==page_val.homeTab){
             console.log("homeタブが再度押された");
-            // gpsBtn.style.visibility="hidden";
             if(page_val.rally_id!=0){
                 page_val.rally_id=0;
                 page_val.course_id=0;
@@ -291,11 +292,8 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                     }
                     ifrm.postMessage(postMessage, page_val.url+"rally/map/index.php");
                     break;
-                case "detail":
-                    ifrm.postMessage(postMessage, page_val.url+"detail/index.php");
-                    roadingModal.hide();
-                    break;
                 case "list_detail":
+                case "detail":
                     ifrm.postMessage(postMessage, page_val.url+"detail/index.php");
                     roadingModal.hide();
                     break;
@@ -381,9 +379,6 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                 
                 case "stamp":
                     page_val.spot_id=event.data["spot_id"];
-                    // if(page_val.stamp_comp_flg==0){
-                    //     permissionAndGps();
-                    // }
                     completeSearch(id);
                     break;
 
@@ -415,18 +410,13 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                     }
                     
                     if(event.data["stamp_type"]=="comp"){
-                        // compBtn.style.visibility="visible";
-                        // stampBtn.style.visibility="hidden";
                         page_val.stamp_comp_flg=1;
-                        // if(roadingModal.visible){
-                        //     roadingModal.hide();
-                        // }
                     }else{
-                        // compBtn.style.visibility="hidden";
                         page_val.stamp_comp_flg=0;
                     }
                     switch (event.data["mode"]){
                         case "stamp":
+                            gpsBtn.style.visibility="hidden";
                             break;
                         case "url":
                             window.open(event.data["url"], '_blank');
@@ -445,9 +435,12 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                             roadingModal.hide();
                             break;
                         case "list":
+                            gpsBtn.style.visibility="hidden";
+                            roadingModal.show();
                             page="list";
                             break;
                         case "map":
+                            gpsBtn.style.visibility="hidden";
                             roadingModal.show();
                             page="map";
                             break;
@@ -473,11 +466,14 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                             page="list";
                             break;
                         case "detail":
+                            gpsBtn.style.visibility="visible";
                             page="detail";
                             page_val.coupon_id=0;
                         break;
                         case "list_detail":
+                            gpsBtn.style.visibility="visible";
                             page="list_detail";
+                            page_val.coupon_id=0;
                         break;
                         case "spot_touch":
                             var positionArray = event.data["position"].split(",");
@@ -491,9 +487,6 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                         break;
                         default:
                             page="rally";
-                            // if(page_val.stamp_comp_flg==0){
-                            //     permissionAndGps();
-                            // }
                             completeSearch(id);
                             break;
                     }
@@ -620,9 +613,12 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                             roadingModal.hide();
                             break;
                         case "list":
+                            gpsBtn.style.visibility="hidden";
+                            roadingModal.show();
                             page="list";
                             break;
                         case "map":
+                            gpsBtn.style.visibility="hidden";
                             roadingModal.show();
                             page="map";
                             break;
@@ -647,10 +643,14 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                             page="stop";
                             break;
                         case "detail":
+                            gpsBtn.style.visibility="visible";
                             page="detail";
+                            page_val.coupon_id=0;
                         break;
                         case "list_detail":
+                            gpsBtn.style.visibility="visible";
                             page="list_detail";
+                            page_val.coupon_id=0;
                         break;
                         case "spot_touch":
                             var positionArray = event.data["position"].split(",");
@@ -663,9 +663,6 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                         break;
                         default:
                             page="rally";
-                            // if(page_val.stamp_comp_flg==0){
-                            //     permissionAndGps();
-                            // }
                             completeSearch(id);
                             break;
                     }
@@ -841,6 +838,8 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                 }else{
                     //未コンプ
                     compBtn.style.visibility="hidden";
+                    stampBtn.style.visibility="hidden";
+                    gpsBtn.style.visibility="visible";
                     page_val.stamp_comp_flg=0;
                     roadingModal.hide();
                     // permissionAndGps();

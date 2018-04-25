@@ -57,7 +57,7 @@ app.controller('tabCtr', ['$scope', '$http', 'page_val', 'get_img_service', func
     }
     
     menu.addEventListener('preopen',function(event){
-        // gpsBtn.style.visibility="hidden";
+        gpsBtn.style.visibility="hidden";
         if(page_val.rally_mode=="map_visible" || page_val.rally_mode=="spot_touch"){
             mapapp.modifier="tappble";
             mapapp.click="tab.mapOpen()";
@@ -70,7 +70,7 @@ app.controller('tabCtr', ['$scope', '$http', 'page_val', 'get_img_service', func
 
     menu.addEventListener('postclose',function(event){
         if(page_val.rally_mode!="" && mainTab.getActiveTabIndex()!=page_val.nearTab && navi.pages.length == 1){
-            // gpsBtn.style.visibility="visible";
+            gpsBtn.style.visibility="visible";
         }
     });
 
