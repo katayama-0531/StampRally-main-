@@ -10,11 +10,11 @@
 		</data>
 		<key>AppIcon20x20@2x~ipad.png</key>
 		<data>
-		zelNeGxGt9K89vgplvVUiEPVg8E=
+		nebqyc3I/7mn9iuyuOWISzhiCBc=
 		</data>
 		<key>AppIcon20x20@3x.png</key>
 		<data>
-		Xv6z+F29wMNZ/W+HjEj/6RyEz9I=
+		jg7X83H20VH1eh1UOS7C695gplU=
 		</data>
 		<key>AppIcon20x20~ipad.png</key>
 		<data>
@@ -22,15 +22,15 @@
 		</data>
 		<key>AppIcon29x29.png</key>
 		<data>
-		TQeWJMp9Vhe8gWdAbqvZZyECNfs=
+		bgi9BJusPN7H/NM2ZJSkGTIhU1A=
 		</data>
 		<key>AppIcon29x29@2x.png</key>
 		<data>
-		oDXdrODmcTjjj8T8PUN4dFb63gA=
+		17YRIXuAwhBTdRkEkdRpGJPHPSU=
 		</data>
 		<key>AppIcon29x29@2x~ipad.png</key>
 		<data>
-		oDXdrODmcTjjj8T8PUN4dFb63gA=
+		17YRIXuAwhBTdRkEkdRpGJPHPSU=
 		</data>
 		<key>AppIcon29x29@3x.png</key>
 		<data>
@@ -38,7 +38,7 @@
 		</data>
 		<key>AppIcon29x29~ipad.png</key>
 		<data>
-		TQeWJMp9Vhe8gWdAbqvZZyECNfs=
+		bgi9BJusPN7H/NM2ZJSkGTIhU1A=
 		</data>
 		<key>AppIcon40x40@2x.png</key>
 		<data>
@@ -66,11 +66,11 @@
 		</data>
 		<key>AppIcon57x57.png</key>
 		<data>
-		/Amd+H7j62LxA949i5dBjwJLQW4=
+		eHc1DkhM3pjBKj44m4Wd8ilQlYI=
 		</data>
 		<key>AppIcon57x57@2x.png</key>
 		<data>
-		iT9Ok9QGyVYVQb5vt2Y0Lenq6Sc=
+		rNFVAf65b08AUl11sssv5bMPpm0=
 		</data>
 		<key>AppIcon60x60@2x.png</key>
 		<data>
@@ -102,11 +102,11 @@
 		</data>
 		<key>Assets.car</key>
 		<data>
-		UB59oLHkkqQudzlDu2iNK/lPbb8=
+		NggBJwCDKc1lLf3UhAlQBIQ6xfY=
 		</data>
 		<key>CDVLaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib</key>
 		<data>
-		Mg8PpphGIdy/7DEOG6GEXwoYxwo=
+		ZLlwoyh1vwB2NrWLqI1sh+dmhts=
 		</data>
 		<key>CDVLaunchScreen.storyboardc/Info.plist</key>
 		<data>
@@ -114,7 +114,7 @@
 		</data>
 		<key>CDVLaunchScreen.storyboardc/UIViewController-01J-lp-oVM.nib</key>
 		<data>
-		L20KP1L2IIyUArYsq9iSTk8f3dg=
+		el/JHRpG5kSbXs8yNo77UOpdpf0=
 		</data>
 		<key>CDVNotification.bundle/beep.wav</key>
 		<data>
@@ -130,7 +130,7 @@
 		</data>
 		<key>MainViewController.nib</key>
 		<data>
-		LDdZYMr7bd+x9xVrIcB6/EHnT1M=
+		VEEaWo2bm/OmqLX3shN/kG7vOYQ=
 		</data>
 		<key>PkgInfo</key>
 		<data>
@@ -8862,7 +8862,7 @@
 		</data>
 		<key>www/js/service/get-permission-service.js</key>
 		<data>
-		KnHOiNsMzKpTCBx9hk/imWlkqOQ=
+		bovJWq3ci4gITfEU3c1y86mwF04=
 		</data>
 		<key>www/js/setting.js</key>
 		<data>
@@ -9126,22 +9126,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			zelNeGxGt9K89vgplvVUiEPVg8E=
+			nebqyc3I/7mn9iuyuOWISzhiCBc=
 			</data>
 			<key>hash2</key>
 			<data>
-			pnlfIGGrto+YafHFAE3BVrDCF5L6X934IsorGgaz5dU=
+			7RvtNk9ghueShy0B8k3huzHhajOP4KumMdOjQB13gTI=
 			</data>
 		</dict>
 		<key>AppIcon20x20@3x.png</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			Xv6z+F29wMNZ/W+HjEj/6RyEz9I=
+			jg7X83H20VH1eh1UOS7C695gplU=
 			</data>
 			<key>hash2</key>
 			<data>
-			Fu3sIv2f8NiYpg25KPkDuUlBgpsx9HI6OtPjw7e7i5U=
+			ypyXBuY391gIK/RYlx57Snr2ZhcK6jwMaee1nrl06tE=
 			</data>
 		</dict>
 		<key>AppIcon20x20~ipad.png</key>
@@ -9159,33 +9159,33 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			TQeWJMp9Vhe8gWdAbqvZZyECNfs=
+			bgi9BJusPN7H/NM2ZJSkGTIhU1A=
 			</data>
 			<key>hash2</key>
 			<data>
-			YY0to4Hi7AqK3ORPmr7Y5+3luG8Pbk4gED7R5cTJWPQ=
+			GDiJBaH4kt3wkbhSZpJzfWyTPyX5u/OkIyphLXl/gHU=
 			</data>
 		</dict>
 		<key>AppIcon29x29@2x.png</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			oDXdrODmcTjjj8T8PUN4dFb63gA=
+			17YRIXuAwhBTdRkEkdRpGJPHPSU=
 			</data>
 			<key>hash2</key>
 			<data>
-			sg/UWjxVz7kl/QyxpvxbT61B2RwOskC/KmLCpWtiD+4=
+			IAUW/fJX3rP/ld4U5gV6MWedvs1EUeC+9HO/wrJXe9U=
 			</data>
 		</dict>
 		<key>AppIcon29x29@2x~ipad.png</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			oDXdrODmcTjjj8T8PUN4dFb63gA=
+			17YRIXuAwhBTdRkEkdRpGJPHPSU=
 			</data>
 			<key>hash2</key>
 			<data>
-			sg/UWjxVz7kl/QyxpvxbT61B2RwOskC/KmLCpWtiD+4=
+			IAUW/fJX3rP/ld4U5gV6MWedvs1EUeC+9HO/wrJXe9U=
 			</data>
 		</dict>
 		<key>AppIcon29x29@3x.png</key>
@@ -9203,11 +9203,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			TQeWJMp9Vhe8gWdAbqvZZyECNfs=
+			bgi9BJusPN7H/NM2ZJSkGTIhU1A=
 			</data>
 			<key>hash2</key>
 			<data>
-			YY0to4Hi7AqK3ORPmr7Y5+3luG8Pbk4gED7R5cTJWPQ=
+			GDiJBaH4kt3wkbhSZpJzfWyTPyX5u/OkIyphLXl/gHU=
 			</data>
 		</dict>
 		<key>AppIcon40x40@2x.png</key>
@@ -9280,22 +9280,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			/Amd+H7j62LxA949i5dBjwJLQW4=
+			eHc1DkhM3pjBKj44m4Wd8ilQlYI=
 			</data>
 			<key>hash2</key>
 			<data>
-			Tx1ZWVMu3J/i4gRf4yqX6RuB2HFww4kO99BjqsiaGaY=
+			eiKN77k+OkyvE8tY2Bl92rQvempwJ9KBDgPfvDeLETI=
 			</data>
 		</dict>
 		<key>AppIcon57x57@2x.png</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			iT9Ok9QGyVYVQb5vt2Y0Lenq6Sc=
+			rNFVAf65b08AUl11sssv5bMPpm0=
 			</data>
 			<key>hash2</key>
 			<data>
-			E4cSmC5j5+3CYUZU4kAD5rfYmG5e4wogak1EwRPkP8Y=
+			HFU+pPSTS2uXzfSZQq86hi7tXCB1Ohi7k/N2TekzuvY=
 			</data>
 		</dict>
 		<key>AppIcon60x60@2x.png</key>
@@ -9379,22 +9379,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			UB59oLHkkqQudzlDu2iNK/lPbb8=
+			NggBJwCDKc1lLf3UhAlQBIQ6xfY=
 			</data>
 			<key>hash2</key>
 			<data>
-			f7zCqp7UpcHjS1Kx+8lP33oEyfOikn77ZrPXvUrA16U=
+			R7dj8Xnlj1hDfE5U8WcZD8pjODxA/xH7Dr6RjUet2fw=
 			</data>
 		</dict>
 		<key>CDVLaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			Mg8PpphGIdy/7DEOG6GEXwoYxwo=
+			ZLlwoyh1vwB2NrWLqI1sh+dmhts=
 			</data>
 			<key>hash2</key>
 			<data>
-			JuiA8v26S4rYF01Rgucdu2FlTrxlGCYehnySu8orcWY=
+			NTAPKJKLsCFFa26usrq3/byxJz4JA5iVRv9H/7bD0B4=
 			</data>
 		</dict>
 		<key>CDVLaunchScreen.storyboardc/Info.plist</key>
@@ -9412,11 +9412,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			L20KP1L2IIyUArYsq9iSTk8f3dg=
+			el/JHRpG5kSbXs8yNo77UOpdpf0=
 			</data>
 			<key>hash2</key>
 			<data>
-			G4lFaKI07/5fXakpYApllgNljtzFKnWaV4B97WPHb0E=
+			raC27WHzwSRwtCj0CptvOQsJasXuVQfEmUVPJzgsg90=
 			</data>
 		</dict>
 		<key>CDVNotification.bundle/beep.wav</key>
@@ -9445,11 +9445,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			LDdZYMr7bd+x9xVrIcB6/EHnT1M=
+			VEEaWo2bm/OmqLX3shN/kG7vOYQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			pzNAdmE9NXKDfWRV4sxcYkVIpY88fhs+l7YxiC/Y+wE=
+			iELVsS+QD0zLqMTgF+vjJshe1tJu2yFSSvGijxnv2Ho=
 			</data>
 		</dict>
 		<key>config.xml</key>
@@ -33447,11 +33447,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			KnHOiNsMzKpTCBx9hk/imWlkqOQ=
+			bovJWq3ci4gITfEU3c1y86mwF04=
 			</data>
 			<key>hash2</key>
 			<data>
-			mxv3L4385BNFo8bLCCwFm15wR1lWuvuMre6VHeh9w2c=
+			axXK+DGnhWrLPHfKLSD0vOJ0/vvHmK17pEZubgJHAuk=
 			</data>
 		</dict>
 		<key>www/js/setting.js</key>
