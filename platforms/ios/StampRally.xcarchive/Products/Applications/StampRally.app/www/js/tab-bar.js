@@ -51,7 +51,7 @@ app.controller('tabCtr', ['$scope', '$http', 'page_val', 'get_img_service', func
             );
         }
         if(device.platform == "iOS"){
-            window.open('mailto:jafstamprally@gmail.com?subject=スタンプラリーについてのお問い合わせ', '_blank', 'location=yes');
+            window.open('mailto:jafstamprally@gmail.com?subject=スタンプラリーについてのお問い合わせ', '_system', 'location=yes');
         }
         menu.close();
     }
@@ -108,13 +108,14 @@ app.controller('tabCtr', ['$scope', '$http', 'page_val', 'get_img_service', func
             menu.close();
             compBtn.style.visibility="hidden";
             stampBtn.style.visibility="hidden";
-            if(navi.pages[navi.pages.length-1].id == "newsPage"){
-                newsFrame.src="https://www.online-carelplus.com/stamp/app_view/news/index.php";
+            if(navi.topPage.id=="newsPage"){
+                newsFrame.src=page_val.url+"news/index.php";
                 if(device.platform == "iOS"){
-                    document.getElementById('newsFrame').src="https://www.online-carelplus.com/stamp/app_view/news/index.php";
+                    document.getElementById('newsFrame').src=age_val.url+"news/index.php";
                 }
+            }else{
+                navi.pushPage("html/news.html");
             }
-            navi.pushPage("html/news.html");
             // roadingModal.show();
             if(mainTab.getActiveTabIndex()!=page_val.homeTab){
                 mainTab.setActiveTab(page_val.homeTab);
@@ -125,7 +126,14 @@ app.controller('tabCtr', ['$scope', '$http', 'page_val', 'get_img_service', func
         if(page_val.maintenance==0){
             roadingModal.show();
             menu.close();
-            mainTab.setActiveTab(page_val.homeTab);
+            if(mainTab.getActiveTabIndex()==page_val.homeTab){
+                homeFrame.src=page_val.url+"index.php";
+                if(device.platform == "iOS"){
+                    document.getElementById('homeFrame').src=page_val.url+"index.php";
+                }
+            }else{
+                mainTab.setActiveTab(page_val.homeTab);
+            }
             if(navi.pages.length >= 2){
                 navi.resetToPage("html/home.html");
             }

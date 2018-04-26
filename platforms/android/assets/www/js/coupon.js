@@ -281,12 +281,7 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                     }
                     
                     if(event.data["stamp_type"]=="comp"){
-                        // compBtn.style.visibility="visible";
-                        // stampBtn.style.visibility="hidden";
                         page_val.stamp_comp_flg=1;
-                        // if(roadingModal.visible){
-                        //     roadingModal.hide();
-                        // }
                     }else{
                         // gpsBtn.style.visibility="visible";
                         compBtn.style.visibility="hidden";
@@ -360,9 +355,6 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                         break;
                         default:
                             page="rally";
-                            // if(page_val.stamp_comp_flg==0){
-                            //     couponPermissionAndGps();
-                            // }
                             completeStampSearch(id);
                             break;
                     }
@@ -402,8 +394,7 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                     //未コンプ
                     compBtn.style.visibility="hidden";
                     page_val.stamp_comp_flg=0;
-                    roadingModal.hide();
-                    //couponPermissionAndGps();
+                    couponPermissionAndGps();
                 }
             },
             // 失敗時　（deferred.reject）

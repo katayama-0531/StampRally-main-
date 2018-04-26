@@ -267,7 +267,6 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                 case "rally":
                     // gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"rally/index.php");
-                    roadingModal.hide();
                     break;
                 case "stamp":
                     ifrm.postMessage(postMessage, page_val.url+"stamp/index.php");
@@ -381,9 +380,6 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                 
                 case "stamp":
                     page_val.spot_id=event.data["spot_id"];
-                    // if(page_val.stamp_comp_flg==0){
-                    //     permissionAndGps();
-                    // }
                     completeSearch(id);
                     break;
 
@@ -415,14 +411,8 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                     }
                     
                     if(event.data["stamp_type"]=="comp"){
-                        // compBtn.style.visibility="visible";
-                        // stampBtn.style.visibility="hidden";
                         page_val.stamp_comp_flg=1;
-                        // if(roadingModal.visible){
-                        //     roadingModal.hide();
-                        // }
                     }else{
-                        // compBtn.style.visibility="hidden";
                         page_val.stamp_comp_flg=0;
                     }
                     switch (event.data["mode"]){
@@ -491,9 +481,6 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                         break;
                         default:
                             page="rally";
-                            // if(page_val.stamp_comp_flg==0){
-                            //     permissionAndGps();
-                            // }
                             completeSearch(id);
                             break;
                     }
@@ -567,7 +554,10 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
             console.log(event.data);
             roadingModal.show();
             if($.type(event.data)=="string"){
-                roadingModal.hide();
+                if(page_val.rally_mode=="list"){
+                    roadingModal.hide();
+                }
+                //roadingModal.hide();
             }
             switch (event.data["page"]){
                 case "near":
@@ -575,7 +565,11 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                     break;
                 case "rally":
                     page_val.spot_id=0;
-                    page_val.rally_mode=event.data["mode"];
+                    if(angular.isUndefined(event.data["mode"])){
+                        page_val.rally_mode="stamp";
+                    }else{
+                        page_val.rally_mode=event.data["mode"];
+                    }
                     if(!angular.isUndefined(event.data["course_id"])){
                         if(event.data["course_id"]!=0){
                             page_val.course_id=event.data["course_id"];
@@ -589,14 +583,8 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                     }
 
                     if(event.data["stamp_type"]=="comp"){
-                        // compBtn.style.visibility="visible";
-                        // stampBtn.style.visibility="hidden";
                         page_val.stamp_comp_flg=1;
-                        // if(roadingModal.visible){
-                        //     roadingModal.hide();
-                        // }
                     }else{
-                        // compBtn.style.visibility="hidden";
                         page_val.stamp_comp_flg=0;
                     }
                     switch (event.data["mode"]){
@@ -663,9 +651,6 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                         break;
                         default:
                             page="rally";
-                            // if(page_val.stamp_comp_flg==0){
-                            //     permissionAndGps();
-                            // }
                             completeSearch(id);
                             break;
                     }
@@ -842,7 +827,6 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                     //未コンプ
                     compBtn.style.visibility="hidden";
                     page_val.stamp_comp_flg=0;
-                    roadingModal.hide();
                     permissionAndGps();
                 }
             },
@@ -875,7 +859,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                                     2: "電波状況などで位置情報が取得できませんでした。",
                                     3: "位置情報の取得に時間がかかり過ぎてタイムアウトしました。",
                                 };
-                        ons.notification.alert({ message: errorMessage[message.code], title: "エラー", cancelable: true });
+                        ons.notification.alert({ message: errorMessage[mes.code], title: "エラー", cancelable: true });
                         }, 0);
                     roadingModal.hide();
             });
@@ -933,6 +917,23 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                     stampBtn.style.visibility="visible";
                 }
                 page="";
+                if(mainTab.getActiveTabIndex()==page_val.nearTab){
+                    // iframeのwindowオブジェクトを取得
+                    var ifrm = spotFrame.contentWindow;
+                    if(!ifrm){
+                        ifrm=document.getElementById('spotFrame').contentWindow;
+                    }
+                    var postMessage =
+                    {   "user":id,
+                        "rally_id":page_val.rally_id,
+                        "course_id":page_val.course_id,
+                        "spot_id":page_val.spot_id,
+                        "lat":page_val.lat,
+                        "lng":page_val.lng,
+                        "mode":"stamp"
+                    };
+                    ifrm.postMessage(postMessage, page_val.url+"rally/index.php");
+                }
                 roadingModal.hide();
             },
             // 失敗時　（deferred.reject）

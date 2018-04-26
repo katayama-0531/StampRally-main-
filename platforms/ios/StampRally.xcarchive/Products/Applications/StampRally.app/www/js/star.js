@@ -44,6 +44,15 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
         return deferred.promise;
     }
 
+    var complete= function(id) {
+        var deferred = $q.defer();
+        $timeout(function() {
+            id=localStorage.getItem('ID');
+            httpService.checkComplete(deferred,id);
+        }, 0)
+        return deferred.promise;
+    }
+
     //アクティブなタブの切り替え前の処理
     mainTab.on('postchange',function(event){
         if(event.index==page_val.starTab){
@@ -346,8 +355,8 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                         break;
                         default:
                             page="rally";
-                            if(page_val.stamp_comp_flg==0){
-                                sPermissionAndGps();
+                            if("stamp_type" in event.data){
+                                stCompleteSearch(id);
                             }
                             break;
                     }
@@ -364,6 +373,42 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
             }
         }
     }, false);
+
+    //コンプリート状況確認
+    function stCompleteSearch(id){
+        complete(id).then(
+            function (msg) {
+                console.log('comp:' + msg);
+                if(msg[0]=="true" && page_val.stamp_comp_flg==1){
+                    //コンプ済
+                    compBtn.style.visibility="visible";
+                    stampBtn.style.visibility="hidden";
+                    // gpsBtn.style.visibility="hidden";
+                    page_val.stamp_comp_flg=1;
+                    roadingModal.hide();
+                }else if(msg[0]=="false" && page_val.stamp_comp_flg==1){
+                    //コンプ済応募済み
+                    compBtn.style.visibility="hidden";
+                    stampBtn.style.visibility="hidden";
+                    // gpsBtn.style.visibility="hidden";
+                    page_val.stamp_comp_flg=1;
+                    roadingModal.hide();
+                }else{
+                    //未コンプ
+                    compBtn.style.visibility="hidden";
+                    page_val.stamp_comp_flg=0;
+                    sPermissionAndGps();
+                }
+            },
+            // 失敗時　（deferred.reject）
+            function (msg) {
+                // エラーコードに合わせたエラー内容をアラート表示
+                setTimeout(function() {
+                    ons.notification.alert({ message: "スタンプ情報取得中にエラーが発生しました。", title: "エラー", cancelable: true });
+                    }, 0);
+                roadingModal.hide();
+        });
+    }
 
     function sPermissionAndGps() {
         if (device.platform == "iOS") {

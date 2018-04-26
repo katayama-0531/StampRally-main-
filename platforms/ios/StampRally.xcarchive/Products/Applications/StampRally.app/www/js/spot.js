@@ -33,10 +33,29 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
         }, 0)
         return deferred.promise;
     }
+
     var nCoupon= function(data) {
         var deferred = $q.defer();
         $timeout(function() {
             httpService.getNearCoupon(deferred, data);
+        }, 0)
+        return deferred.promise;
+    }
+
+    var nearStampSpot= function(data) {
+        var deferred = $q.defer();
+        $timeout(function() {
+            httpService.getNearStampSpot(deferred, data);
+        }, 0)
+        return deferred.promise;
+    }
+
+
+    var complete= function(id) {
+        var deferred = $q.defer();
+        $timeout(function() {
+            id=localStorage.getItem('ID');
+            httpService.checkComplete(deferred,id);
         }, 0)
         return deferred.promise;
     }
@@ -149,8 +168,11 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                     roadingModal.hide();
                     break;
                 case "stamp":
-                    if(page_val.stamp_comp_flg==0){
-                        spotPermissionAndGps();
+                    page_val.rally_mode="stamp";
+                    if(!angular.isUndefined(event.data)){
+                        if(!angular.isUndefined(event.data["stamp_type"])){
+                            stCompleteSearch(id);
+                        }
                     }
                     break;
                 case "list":
@@ -209,7 +231,7 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                         "mode":"stop"
                     };
                     ifrm.postMessage(postMessage, page_val.url+"nearby/index.php");
-                    page_val.rally_mode="";
+                    //page_val.rally_mode="";
                     break;
                 case "stop":
                     if(angular.isUndefined(page_val.course_id)){
@@ -248,6 +270,42 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
         }
     }
 
+    //コンプリート状況確認
+    function sCompleteSearch(id){
+        complete(id).then(
+            function (msg) {
+                console.log('comp:' + msg);
+                if(msg[0]=="true" && page_val.stamp_comp_flg==1){
+                    //コンプ済
+                    compBtn.style.visibility="visible";
+                    stampBtn.style.visibility="hidden";
+                    // gpsBtn.style.visibility="hidden";
+                    page_val.stamp_comp_flg=1;
+                    roadingModal.hide();
+                }else if(msg[0]=="false" && page_val.stamp_comp_flg==1){
+                    //コンプ済応募済み
+                    compBtn.style.visibility="hidden";
+                    stampBtn.style.visibility="hidden";
+                    // gpsBtn.style.visibility="hidden";
+                    page_val.stamp_comp_flg=1;
+                    roadingModal.hide();
+                }else{
+                    //未コンプ
+                    compBtn.style.visibility="hidden";
+                    page_val.stamp_comp_flg=0;
+                    spotPermissionAndGps();
+                }
+            },
+            // 失敗時　（deferred.reject）
+            function (msg) {
+                // エラーコードに合わせたエラー内容をアラート表示
+                setTimeout(function() {
+                    ons.notification.alert({ message: "スタンプ情報取得中にエラーが発生しました。", title: "エラー", cancelable: true });
+                    }, 0);
+                roadingModal.hide();
+        });
+    }
+
     function spotPermissionAndGps() {
         if (device.platform == "iOS") {
             gpsCheck(id).then(
@@ -259,6 +317,9 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                     break;
                     case "coupon":
                         cSearch(msg);
+                        break;
+                    case "stamp":
+                        nearStampSpotSearch (data);
                         break;
                     default:
                         spotNearSpotSearch(msg);
@@ -287,6 +348,9 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                             break;
                             case "coupon":
                                 cSearch(msg);
+                                break;
+                            case "stamp":
+                                nearStampSpotSearch (data);
                                 break;
                             default:
                                 spotNearSpotSearch(msg);
@@ -340,16 +404,13 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                     case "map":
                         ifrm.postMessage(postMessage, page_val.url+"rally/map/index.php");
                     break;
-                    case "stamp":
-                        ifrm.postMessage(postMessage, page_val.url+"rally/index.php");
-                    break;
                     default:
                         ifrm.postMessage(postMessage, page_val.url+"nearby/index.php");
                         break;
                 }
                 page="";
                 roadingModal.hide();
-                if(res.length==0){
+                if(res.length==0 && page_val.rally_mode!="map"){
                     setTimeout(function() {
                         ons.notification.alert({ message: "近くに表示可能なスポットがありません。", title: "", cancelable: true });
                     }, 0);
@@ -400,4 +461,26 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                 }, 0);
         });
     }
+    //位置情報取得
+    function nearStampSpotSearch (data){
+        nearStampSpot(data).then(
+            function (res) {
+                if (res.length==0) {
+                    stampBtn.style.visibility="hidden";
+                } else {
+                    // gpsBtn.style.visibility="hidden";
+                    stampBtn.style.visibility="visible";
+                }
+                page="";
+                roadingModal.hide();
+            },
+            // 失敗時　（deferred.reject）
+            function (res,status) {
+                roadingModal.hide();
+                setTimeout(function() {
+                    ons.notification.alert({ message: "周辺情報検索中にエラーが発生しました。", title: "エラー", cancelable: true });
+                }, 0);
+        });
+    }
+
 }]);
