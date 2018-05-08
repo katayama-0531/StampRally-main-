@@ -104,6 +104,9 @@
     <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
         <string>このアプリは、周辺情報取得のため、位置情報を取得します</string>
     </edit-config>
+    <edit-config file="*-Info.plist" mode="merge" target="NSAllowsArbitraryLoadsInWebContent">
+        <boolean>YES</boolean>
+    </edit-config>
     <preference name="AllowInlineMediaPlayback" value="false" />
     <preference name="BackupWebStorage" value="cloud" />
     <preference name="DisallowOverscroll" value="false" />

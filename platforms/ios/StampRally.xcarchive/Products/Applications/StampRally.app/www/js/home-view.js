@@ -474,18 +474,15 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                             roadingModal.hide();
                             break;
                         case "list":
+                            compBtn.style.visibility="hidden";
                             stampBtn.style.visibility="hidden";
-                            page="list";
-                            break;
-                        case "map":
-                            stampBtn.style.visibility="hidden";
-                            roadingModal.show();
                             mapBtn.style.visibility="hidden";
                             gpsBtn.style.visibility="hidden";
-                            roadingModal.show();
                             page="list";
                             break;
                         case "map":
+                            compBtn.style.visibility="hidden";
+                            stampBtn.style.visibility="hidden";
                             mapBtn.style.visibility="visible";
                             gpsBtn.style.visibility="hidden";
                             if(!mapModal.visible){
@@ -516,6 +513,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                             gpsBtn.style.visibility="hidden";
                             page="list";
                             break;
+                        case "list_detail":
                         case "detail":
                             couponBtn.style.visibility="hidden";
                             mapBtn.style.visibility="hidden";
@@ -524,12 +522,6 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                             page_val.coupon_id=0;
                             roadingModal.show();
                             completeSearch(id);
-                        break;
-                        case "list_detail":
-                            mapBtn.style.visibility="hidden";
-                            gpsBtn.style.visibility="visible";
-                            page="list_detail";
-                            page_val.coupon_id=0;
                         break;
                         case "spot_touch":
                             var positionArray = event.data["position"].split(",");
@@ -629,6 +621,10 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
             switch (event.data["page"]){
                 case "near":
                     page_val.rally_mode=event.data["mode"];
+                    if(event.data["mode"]=="detail"){
+                        roadingModal.show();
+                        completeSearch(id);
+                    }
                     break;
                 case "rally":
                     page_val.spot_id=0;
@@ -677,18 +673,15 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                             roadingModal.hide();
                             break;
                         case "list":
+                            compBtn.style.visibility="hidden";
                             stampBtn.style.visibility="hidden";
-                            page="list";
-                            break;
-                        case "map":
-                            stampBtn.style.visibility="hidden";
-                            roadingModal.show();
                             mapBtn.style.visibility="hidden";
                             gpsBtn.style.visibility="hidden";
-                            roadingModal.show();
                             page="list";
                             break;
                         case "map":
+                            compBtn.style.visibility="hidden";
+                            stampBtn.style.visibility="hidden";
                             mapBtn.style.visibility="visible";
                             gpsBtn.style.visibility="hidden";
                             if(!mapModal.visible){
@@ -908,7 +901,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                     gpsBtn.style.visibility="visible";
                     page_val.stamp_comp_flg=0;
                     permissionAndGps();
-                    roadingModal.hide();
+                    // roadingModal.hide();
                     // permissionAndGps();
                 }
             },
@@ -993,6 +986,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
         nearSpot(data).then(
             function (res) {
                 if (res.length==0) {
+                    gpsBtn.style.visibility="visible";
                     stampBtn.style.visibility="hidden";
                 } else {
                     gpsBtn.style.visibility="hidden";

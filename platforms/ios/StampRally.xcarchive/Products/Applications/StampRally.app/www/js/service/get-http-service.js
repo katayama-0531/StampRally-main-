@@ -50,11 +50,6 @@ angular.module('stampRallyApp').factory('get_http_service', ['$http', 'page_val'
                     deferred.resolve(message, url); 
                 });
             }, function onError(data) {
-                roadingModal.hide();
-                setTimeout(function() {
-                    ons.notification.alert({ message: "versionチェック中にエラーが発生しました。エラー："+data.data+"ステータス："+data.status, title: "エラー", cancelable: true });
-                    }, 0);
-                
                 console.log("エラー："+data.data);
                 console.log("ステータス："+status);
                 deferred.reject(data.data,data.status);

@@ -314,18 +314,15 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                             roadingModal.hide();
                             break;
                         case "list":
+                            compBtn.style.visibility="hidden";
                             stampBtn.style.visibility="hidden";
-                            page="list";
-                            break;
-                        case "map":
-                            stampBtn.style.visibility="hidden";
-                            roadingModal.show();
                             mapBtn.style.visibility="hidden";
                             gpsBtn.style.visibility="hidden";
-                            roadingModal.show();    
                             page="list";
                             break;
                         case "map":
+                            compBtn.style.visibility="hidden";
+                            stampBtn.style.visibility="hidden";
                             mapBtn.style.visibility="visible";
                             gpsBtn.style.visibility="hidden";
                             if(!mapModal.visible){

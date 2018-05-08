@@ -474,12 +474,14 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                             roadingModal.hide();
                             break;
                         case "list":
+                            compBtn.style.visibility="hidden";
                             stampBtn.style.visibility="hidden";
                             mapBtn.style.visibility="hidden";
                             gpsBtn.style.visibility="hidden";
                             page="list";
                             break;
                         case "map":
+                            compBtn.style.visibility="hidden";
                             stampBtn.style.visibility="hidden";
                             mapBtn.style.visibility="visible";
                             gpsBtn.style.visibility="hidden";
@@ -671,13 +673,15 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                             roadingModal.hide();
                             break;
                         case "list":
+                            compBtn.style.visibility="hidden";
                             stampBtn.style.visibility="hidden";
                             mapBtn.style.visibility="hidden";
                             gpsBtn.style.visibility="hidden";
                             page="list";
                             break;
                         case "map":
-                        stampBtn.style.visibility="hidden";
+                            compBtn.style.visibility="hidden";
+                            stampBtn.style.visibility="hidden";
                             mapBtn.style.visibility="visible";
                             gpsBtn.style.visibility="hidden";
                             if(!mapModal.visible){

@@ -205,7 +205,6 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                             };
                     gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"detail/index.php");
-                    roadingModal.hide();
                     break;
                 case "list_detail":
                     var postMessage =
@@ -228,7 +227,6 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                         "mode":"stop"
                     };
                     ifrm.postMessage(postMessage, page_val.url+"nearby/index.php");
-                    //page_val.rally_mode="";
                     break;
                 case "stop":
                     if(angular.isUndefined(page_val.course_id)){
@@ -290,12 +288,10 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                     //未コンプ
                     compBtn.style.visibility="hidden";
                     page_val.stamp_comp_flg=0;
-                    spotPermissionAndGps();
                     stampBtn.style.visibility="hidden";
                     gpsBtn.style.visibility="visible";
                     page_val.stamp_comp_flg=0;
-                    roadingModal.hide();
-                    // spotPermissionAndGps();
+                    spotPermissionAndGps();
                 }
             },
             // 失敗時　（deferred.reject）
