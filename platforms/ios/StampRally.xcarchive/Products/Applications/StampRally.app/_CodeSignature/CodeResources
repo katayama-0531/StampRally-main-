@@ -102,11 +102,11 @@
 		</data>
 		<key>Assets.car</key>
 		<data>
-		wLfPbhHOu77xBbyOutNw5CtWIHo=
+		JiZxpMmb8DF4lmwYUorfoJ4lPto=
 		</data>
 		<key>CDVLaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib</key>
 		<data>
-		cugbUxFZLzZ1nAgsbvV5vqufx8s=
+		0rDstGZVADxFBUCfIS8tHORXSow=
 		</data>
 		<key>CDVLaunchScreen.storyboardc/Info.plist</key>
 		<data>
@@ -114,7 +114,7 @@
 		</data>
 		<key>CDVLaunchScreen.storyboardc/UIViewController-01J-lp-oVM.nib</key>
 		<data>
-		n2LcpHq/3pOlIv0V0vpSR6X9Ynk=
+		CBFWeDBnLRkZFxHDpysskHmGQK4=
 		</data>
 		<key>CDVNotification.bundle/beep.wav</key>
 		<data>
@@ -122,7 +122,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		GHdgZsgG1T7JgD0g33waeWkkOi8=
+		0U6TjS7FDT0/kvFfupFIoxl2XvU=
 		</data>
 		<key>LaunchImage-700-568h@2x.png</key>
 		<data>
@@ -130,7 +130,7 @@
 		</data>
 		<key>MainViewController.nib</key>
 		<data>
-		vQv3GG9PGYEGFuwXa1wJwyg07m4=
+		kwc00q/MU4nfMW99S5KcgUlZKm4=
 		</data>
 		<key>PkgInfo</key>
 		<data>
@@ -138,7 +138,7 @@
 		</data>
 		<key>config.xml</key>
 		<data>
-		wi9upE0P9ujVh/e3XP24bHWdg9k=
+		1h4p3oridxPCh1BfnG4Uiiz9oOE=
 		</data>
 		<key>embedded.mobileprovision</key>
 		<data>
@@ -8818,11 +8818,11 @@
 		</data>
 		<key>www/index.html</key>
 		<data>
-		RbYztZk3J+uCceluy+zvWGE4wAQ=
+		a2bkaY7BMnHNyDhG1cATiuNIZGI=
 		</data>
 		<key>www/js/coupon.js</key>
 		<data>
-		95Qv9EdmsLNqTtfrbLn5yFBdCRQ=
+		BgwfyLL1iOlDI6g2Gz3DvVkd3Z8=
 		</data>
 		<key>www/js/entry.js</key>
 		<data>
@@ -8830,11 +8830,11 @@
 		</data>
 		<key>www/js/home-view.js</key>
 		<data>
-		l4jit7uDaEXtQCHyjip26O8R0tQ=
+		Dx2M07A4Fo8vIlTH7u5oLS5w9Ao=
 		</data>
 		<key>www/js/home.js</key>
 		<data>
-		x+ILt/159bdQlYTyQ1mdC0GBewI=
+		1jE7CFss3Fr0B07cONAgZ+oszjM=
 		</data>
 		<key>www/js/howto.js</key>
 		<data>
@@ -8850,7 +8850,7 @@
 		</data>
 		<key>www/js/rally.js</key>
 		<data>
-		rsezLRcSWgTJJDuUiDj4iyTXpHw=
+		XKIc9Gvwn05/u8e1GC93Q3sGryw=
 		</data>
 		<key>www/js/service/get-http-service.js</key>
 		<data>
@@ -8862,7 +8862,7 @@
 		</data>
 		<key>www/js/service/get-permission-service.js</key>
 		<data>
-		KnHOiNsMzKpTCBx9hk/imWlkqOQ=
+		bovJWq3ci4gITfEU3c1y86mwF04=
 		</data>
 		<key>www/js/setting.js</key>
 		<data>
@@ -8870,15 +8870,15 @@
 		</data>
 		<key>www/js/spot.js</key>
 		<data>
-		oawS14V2K4/WqPYD0Sg3PtuDeRY=
+		UxF5UsPQfOkWhjKKYW+dpZB9IrM=
 		</data>
 		<key>www/js/star.js</key>
 		<data>
-		eSTihbZyM4wWj6LtX6E3xbvDK4Q=
+		ln/Ks1GLFpuwkrPHtI9r7ekfi8o=
 		</data>
 		<key>www/js/tab-bar.js</key>
 		<data>
-		5rLN2mdmvRGFLGOmItitznBoII8=
+		U/mLYrA2u3xEmCtBPMmXIcNpvys=
 		</data>
 		<key>www/js/util/b64utils.js</key>
 		<data>
@@ -9379,22 +9379,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			wLfPbhHOu77xBbyOutNw5CtWIHo=
+			JiZxpMmb8DF4lmwYUorfoJ4lPto=
 			</data>
 			<key>hash2</key>
 			<data>
-			olsfQRnaBJL6mhPUcFeVAwXRAgvgAffg2mmrBnlRPN0=
+			glLY6f6IjN5w/C+pArbCNzJktUyJ5tUTIBl1tdX9J8Y=
 			</data>
 		</dict>
 		<key>CDVLaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			cugbUxFZLzZ1nAgsbvV5vqufx8s=
+			0rDstGZVADxFBUCfIS8tHORXSow=
 			</data>
 			<key>hash2</key>
 			<data>
-			NoyLOLv01xmdR6WQAcJpSFSei1UKISRZspYOHl5+8fE=
+			b6PVnlQNzczZcWaV7e3Qnh9tuZYbMq4UqctcTttCFIk=
 			</data>
 		</dict>
 		<key>CDVLaunchScreen.storyboardc/Info.plist</key>
@@ -9412,11 +9412,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			n2LcpHq/3pOlIv0V0vpSR6X9Ynk=
+			CBFWeDBnLRkZFxHDpysskHmGQK4=
 			</data>
 			<key>hash2</key>
 			<data>
-			O3ll1THnybKVU/zFfU/DUelgoMu9k2SERUVi3yzMhYo=
+			BocXOIupqhuy1nssFmKOIOkYXz0lPX/tPoK5Y1+xCok=
 			</data>
 		</dict>
 		<key>CDVNotification.bundle/beep.wav</key>
@@ -9445,22 +9445,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			vQv3GG9PGYEGFuwXa1wJwyg07m4=
+			kwc00q/MU4nfMW99S5KcgUlZKm4=
 			</data>
 			<key>hash2</key>
 			<data>
-			8Rzo+1xzdeZOMcNO36QAo2wD6VHlZYxAlCoRJaUSJBI=
+			feXsVobbfnoA31Go71SuOdgPvEg1G9kyiDTaxLomuDw=
 			</data>
 		</dict>
 		<key>config.xml</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			wi9upE0P9ujVh/e3XP24bHWdg9k=
+			1h4p3oridxPCh1BfnG4Uiiz9oOE=
 			</data>
 			<key>hash2</key>
 			<data>
-			HMxsnjeZd+fb9vPpzILGTLA5xXVRd4EqF9snfkpdYU8=
+			OuIl+vi4YYEdszyqqjvz0C3ME2wF/7raEqGLNaUrrsM=
 			</data>
 		</dict>
 		<key>embedded.mobileprovision</key>
@@ -33326,22 +33326,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			RbYztZk3J+uCceluy+zvWGE4wAQ=
+			a2bkaY7BMnHNyDhG1cATiuNIZGI=
 			</data>
 			<key>hash2</key>
 			<data>
-			Pp3HafmACGSZ1WfBUle4S62iLfkjC0e1hC02rGZblcY=
+			21P5uOc9XdjU8gcskes2Si8iyGE5R6jMfSDDR/c/tKc=
 			</data>
 		</dict>
 		<key>www/js/coupon.js</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			95Qv9EdmsLNqTtfrbLn5yFBdCRQ=
+			BgwfyLL1iOlDI6g2Gz3DvVkd3Z8=
 			</data>
 			<key>hash2</key>
 			<data>
-			p9OM6R4n84ZDTlfYKjpDX0k2ySgiFmvmfd/9kWqMAQI=
+			MQ0NYyzHpZGwHGmzi+ydt0KCyGp2L9PaNvxuuoxAYwg=
 			</data>
 		</dict>
 		<key>www/js/entry.js</key>
@@ -33359,22 +33359,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			l4jit7uDaEXtQCHyjip26O8R0tQ=
+			Dx2M07A4Fo8vIlTH7u5oLS5w9Ao=
 			</data>
 			<key>hash2</key>
 			<data>
-			hgkJS0KXnGbI5kD1f3JJgrUDqmQX2u+mYGT05L2kWAA=
+			kwo/fybGgN0iY6aXaOmS4U6eSQ/zaMOsEVoWzW/bQbs=
 			</data>
 		</dict>
 		<key>www/js/home.js</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			x+ILt/159bdQlYTyQ1mdC0GBewI=
+			1jE7CFss3Fr0B07cONAgZ+oszjM=
 			</data>
 			<key>hash2</key>
 			<data>
-			tOd4WE8xThJApOF81agphVrr7yYgakxvNAKkJJThwmg=
+			zOI8/a6+eW8hZrW8OJBtY4zNXBxjBLwTFRTtCHx0CB4=
 			</data>
 		</dict>
 		<key>www/js/howto.js</key>
@@ -33414,11 +33414,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			rsezLRcSWgTJJDuUiDj4iyTXpHw=
+			XKIc9Gvwn05/u8e1GC93Q3sGryw=
 			</data>
 			<key>hash2</key>
 			<data>
-			y7Bd891MHyTtiImPgf0X/CiD+Vmz5RcP4RAIdBp+9nI=
+			lVFeQimnDn6id3trbnErd54KnPocdwGTWIpXd5Gg934=
 			</data>
 		</dict>
 		<key>www/js/service/get-http-service.js</key>
@@ -33447,11 +33447,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			KnHOiNsMzKpTCBx9hk/imWlkqOQ=
+			bovJWq3ci4gITfEU3c1y86mwF04=
 			</data>
 			<key>hash2</key>
 			<data>
-			mxv3L4385BNFo8bLCCwFm15wR1lWuvuMre6VHeh9w2c=
+			axXK+DGnhWrLPHfKLSD0vOJ0/vvHmK17pEZubgJHAuk=
 			</data>
 		</dict>
 		<key>www/js/setting.js</key>
@@ -33469,33 +33469,33 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			oawS14V2K4/WqPYD0Sg3PtuDeRY=
+			UxF5UsPQfOkWhjKKYW+dpZB9IrM=
 			</data>
 			<key>hash2</key>
 			<data>
-			QcmNl6QmRR7Xh6bUd7IL0TDXWgAC+egv2pWhlgJSbbc=
+			r8BE+zxEvDqsmBdtBj0D/y00iOnbOQFPtPBQdecnASI=
 			</data>
 		</dict>
 		<key>www/js/star.js</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			eSTihbZyM4wWj6LtX6E3xbvDK4Q=
+			ln/Ks1GLFpuwkrPHtI9r7ekfi8o=
 			</data>
 			<key>hash2</key>
 			<data>
-			9FfgiNvYRDCTkNZ+8BmfZjfGbQBbDIq5uIuePQjx2D4=
+			Z+/y9OiAJyeiqxnXrS0V0ga4fVaH4IrND8btP/HIbtA=
 			</data>
 		</dict>
 		<key>www/js/tab-bar.js</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			5rLN2mdmvRGFLGOmItitznBoII8=
+			U/mLYrA2u3xEmCtBPMmXIcNpvys=
 			</data>
 			<key>hash2</key>
 			<data>
-			G9IQUC0AjswyefJHUuyjvAxQyO1EDONVaeicrnCRn7w=
+			jyQb7A3A/UJV/R1fcrh2moPtE/w6/NiHOM0DGIMnZps=
 			</data>
 		</dict>
 		<key>www/js/util/b64utils.js</key>
