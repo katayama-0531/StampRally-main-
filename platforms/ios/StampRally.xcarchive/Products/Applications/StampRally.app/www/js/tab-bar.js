@@ -40,20 +40,24 @@ app.controller('tabCtr', ['$scope', '$http', 'page_val', 'get_img_service', func
     }
     
     this.contactOpen=function(){
-        if(device.platform == "Android"){
-            window.plugins.webintent.startActivity (
-                {
-                    action: window.plugins.webintent.ACTION_VIEW,
-                    url: 'mailto:jafstamprally@gmail.com?subject=スタンプラリーについてのお問い合わせ'
-                },
-                function () {},
-                function () {alert ('Failed to open URL via Android Intent');}
-            );
-        }
-        if(device.platform == "iOS"){
-            window.open('mailto:jafstamprally@gmail.com?subject=スタンプラリーについてのお問い合わせ', '_system', 'location=yes');
-        }
+        // if(device.platform == "Android"){
+        //     window.plugins.webintent.startActivity (
+        //         {
+        //             action: window.plugins.webintent.ACTION_VIEW,
+        //             url: 'mailto:jafstamprally@gmail.com?subject=スタンプラリーについてのお問い合わせ'
+        //         },
+        //         function () {},
+        //         function () {alert ('Failed to open URL via Android Intent');}
+        //     );
+        // }
+        // if(device.platform == "iOS"){
+        //     window.open('mailto:jafstamprally@gmail.com?subject=スタンプラリーについてのお問い合わせ', '_system', 'location=yes');
+        // }
         menu.close();
+        navi.pushPage("html/contact.html");
+        if(mainTab.getActiveTabIndex()!=page_val.homeTab){
+            mainTab.setActiveTab(page_val.homeTab);
+        }
     }
     
     menu.addEventListener('preopen',function(event){

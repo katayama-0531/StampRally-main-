@@ -102,11 +102,11 @@
 		</data>
 		<key>Assets.car</key>
 		<data>
-		/pBCh+wiqrLPkHct9YMIgENLUQQ=
+		Z3SBOz7ySvPvyFzWv7unfxEfL3U=
 		</data>
 		<key>CDVLaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib</key>
 		<data>
-		Y55tbnVWFvqkoulKRnVQ44CydFM=
+		eKeWHNmFCQccX/H/B7KRKLkWUrA=
 		</data>
 		<key>CDVLaunchScreen.storyboardc/Info.plist</key>
 		<data>
@@ -114,7 +114,7 @@
 		</data>
 		<key>CDVLaunchScreen.storyboardc/UIViewController-01J-lp-oVM.nib</key>
 		<data>
-		DIbHLa0xQvswe3Xiau9AK1SlZYM=
+		T5ACqWYGs9TSaPbHBP4q5UN907A=
 		</data>
 		<key>CDVNotification.bundle/beep.wav</key>
 		<data>
@@ -122,7 +122,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		0U6TjS7FDT0/kvFfupFIoxl2XvU=
+		E+5Nzc58KKBoM/jBdRNrO92X4Vk=
 		</data>
 		<key>LaunchImage-700-568h@2x.png</key>
 		<data>
@@ -130,7 +130,7 @@
 		</data>
 		<key>MainViewController.nib</key>
 		<data>
-		dDuRJzaAn+6fXQIRoOWK0vIuJ+I=
+		LFyb6jXsnTBU2fvhvYBZ0mb/Q28=
 		</data>
 		<key>PkgInfo</key>
 		<data>
@@ -138,7 +138,7 @@
 		</data>
 		<key>config.xml</key>
 		<data>
-		1h4p3oridxPCh1BfnG4Uiiz9oOE=
+		FYW3f9ln5CMj8lbUxU6UiIEdOcc=
 		</data>
 		<key>embedded.mobileprovision</key>
 		<data>
@@ -8660,6 +8660,10 @@
 		<data>
 		YEyc4qzF9brK3RlAwD6BamKmVRs=
 		</data>
+		<key>www/html/contact.html</key>
+		<data>
+		aNnhNhGMe2pX3IoLwVbuWwRYSuY=
+		</data>
 		<key>www/html/contract.html</key>
 		<data>
 		gSMnbvM8NZ6Xggjq4lgITntCa2I=
@@ -8878,7 +8882,7 @@
 		</data>
 		<key>www/js/tab-bar.js</key>
 		<data>
-		U/mLYrA2u3xEmCtBPMmXIcNpvys=
+		b3h0Q0zGa3QJwUO1CwazmsI7JwA=
 		</data>
 		<key>www/js/util/b64utils.js</key>
 		<data>
@@ -9379,22 +9383,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			/pBCh+wiqrLPkHct9YMIgENLUQQ=
+			Z3SBOz7ySvPvyFzWv7unfxEfL3U=
 			</data>
 			<key>hash2</key>
 			<data>
-			nLmGejm/NHJ1WgB8t80GMEluUzdbmMHTvraXviRPDo0=
+			LOT7PSgmUoYTb0FG66YxU4oc+XzV9Uc0GYJbynWcvxw=
 			</data>
 		</dict>
 		<key>CDVLaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			Y55tbnVWFvqkoulKRnVQ44CydFM=
+			eKeWHNmFCQccX/H/B7KRKLkWUrA=
 			</data>
 			<key>hash2</key>
 			<data>
-			7ip1Y7yy2TcbHnDVibC2osOfn9UA/bBVKufBCbf5Gkk=
+			nK3+auZUOqPHNHj6cPrtZwNbCdArdTfLcCFR6i0WpQM=
 			</data>
 		</dict>
 		<key>CDVLaunchScreen.storyboardc/Info.plist</key>
@@ -9412,11 +9416,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			DIbHLa0xQvswe3Xiau9AK1SlZYM=
+			T5ACqWYGs9TSaPbHBP4q5UN907A=
 			</data>
 			<key>hash2</key>
 			<data>
-			rm2F84xywRN900dcxyTeRnAn3XZmMUcBh3iFP1huOEg=
+			nxGYi8XvkqZf88zOKo0z6Dwe8Is7zReTO5n0KcC3Un0=
 			</data>
 		</dict>
 		<key>CDVNotification.bundle/beep.wav</key>
@@ -9445,22 +9449,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			dDuRJzaAn+6fXQIRoOWK0vIuJ+I=
+			LFyb6jXsnTBU2fvhvYBZ0mb/Q28=
 			</data>
 			<key>hash2</key>
 			<data>
-			FExwUHAMshLdKXsaZ0P4MPKCnHsArUbY2z1GEr8f5ZE=
+			afEz7BtySwBsKcbVwcOnfonHA1m/xqrhR98RuIid4cY=
 			</data>
 		</dict>
 		<key>config.xml</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			1h4p3oridxPCh1BfnG4Uiiz9oOE=
+			FYW3f9ln5CMj8lbUxU6UiIEdOcc=
 			</data>
 			<key>hash2</key>
 			<data>
-			OuIl+vi4YYEdszyqqjvz0C3ME2wF/7raEqGLNaUrrsM=
+			OY/SPQcCwKpYlT/FofpWmD1ChlY1FsBeqB3ouhhVfqA=
 			</data>
 		</dict>
 		<key>embedded.mobileprovision</key>
@@ -32893,6 +32897,17 @@
 			KC4BKmMqRoctYuxmquOS82RS57Kh7bSr0OLc4+bJDV8=
 			</data>
 		</dict>
+		<key>www/html/contact.html</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			aNnhNhGMe2pX3IoLwVbuWwRYSuY=
+			</data>
+			<key>hash2</key>
+			<data>
+			rQc4yvPMoyhcJRKiSSde9wcAK94/kUG4B3hC3YKZgsc=
+			</data>
+		</dict>
 		<key>www/html/contract.html</key>
 		<dict>
 			<key>hash</key>
@@ -33491,11 +33506,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			U/mLYrA2u3xEmCtBPMmXIcNpvys=
+			b3h0Q0zGa3QJwUO1CwazmsI7JwA=
 			</data>
 			<key>hash2</key>
 			<data>
-			jyQb7A3A/UJV/R1fcrh2moPtE/w6/NiHOM0DGIMnZps=
+			2yHY64qAD3XrJc7NrCrpagVf6GKTGl9tFw3ZB05cPrQ=
 			</data>
 		</dict>
 		<key>www/js/util/b64utils.js</key>

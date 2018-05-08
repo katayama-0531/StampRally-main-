@@ -101,9 +101,6 @@
     <icon height="180" src="res/ios/icon-180.png" width="180" />
     <icon height="196" src="res/ios/icon-196.png" width="196" />
     <icon height="1024" src="res/ios/icon-1024.png" width="1024" />
-    <edit-config file="*-Info.plist" mode="merge" target="NSLocationWhenInUseUsageDescription">
-        <string>このアプリは、周辺情報取得のため、位置情報を取得します</string>
-    </edit-config>
     <preference name="AllowInlineMediaPlayback" value="false" />
     <preference name="BackupWebStorage" value="cloud" />
     <preference name="DisallowOverscroll" value="false" />
@@ -118,4 +115,6 @@
     <preference name="PaginationBreakingMode" value="page" />
     <preference name="PaginationMode" value="unpaginated" />
     <preference name="Orientation" value="portrait" />
+    <preference name="NSLocationWhenInUseUsageDescription" value="このアプリは、周辺情報取得のため、位置情報を取得します。" />
+    <preference name="NSAllowsArbitraryLoadsInWebContent" value="YES" />
 </widget>
