@@ -51,7 +51,7 @@ app.controller('tabCtr', ['$scope', '$http', 'page_val', 'get_img_service', func
             );
         }
         if(device.platform == "iOS"){
-            window.open('mailto:jafstamprally@gmail.com?subject=スタンプラリーについてのお問い合わせ', '_blank', 'location=yes');
+            window.open('mailto:jafstamprally@gmail.com?subject=スタンプラリーについてのお問い合わせ', '_system', 'location=yes');
         }
         menu.close();
     }

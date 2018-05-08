@@ -117,6 +117,9 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
             switch(page){
                 case "":
                     ifrm.postMessage(postMessage, page_val.url+"star/index.php");
+                    if(page_val.rally_mode=="detail"){
+                        roadingModal.hide();
+                    }
                     break;
                 case "star":
                     postMessage =
@@ -166,14 +169,9 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                     ifrm.postMessage(postMessage, page_val.url+"rally/map/index.php");
                     break;
                 case "detail":
-                    // gpsBtn.style.visibility="visible";
-                    ifrm.postMessage(postMessage, page_val.url+"detail/index.php");
-                    roadingModal.hide();
-                    break;
                 case "list_detail":
                     // gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"detail/index.php");
-                    roadingModal.hide();
                     break;
                 case "stop":
                     postMessage =
@@ -309,9 +307,11 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                             roadingModal.hide();
                             break;
                         case "list":
+                            stampBtn.style.visibility="hidden";
                             page="list";
                             break;
                         case "map":
+                            stampBtn.style.visibility="hidden";
                             roadingModal.show();
                             page="map";
                             break;
@@ -340,6 +340,8 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                                 page_val.rally_id=event.data["rally_id"]
                             }
                             page="detail";
+                            roadingModal.show();
+                            stCompleteSearch(id);
                         break;
                         case "list_detail":
                             page="list_detail";

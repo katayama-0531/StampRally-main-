@@ -88,6 +88,8 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                 document.getElementById('spotFrame').src=page_val.url+"nearby/index.php";
                 document.getElementById('spotFrame').addEventListener('load',spotLoad);
             }
+            stampBtn.style.visibility="hidden";
+            compBtn.style.visibility="hidden";
         }
     });
 
@@ -95,12 +97,6 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
     mainTab.on('postchange',function(event){
         if(event.index!=page_val.nearTab){
             page_val.rally_mode="";
-            if(compBtn.style.visibility==""){
-                compBtn.style.visibility="hidden";
-            }
-            if(stampBtn.style.visibility==""){
-                stampBtn.style.visibility="hidden";
-            }
         }
 
         if(event.index==page_val.nearTab){
@@ -171,7 +167,7 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                     page_val.rally_mode="stamp";
                     if(!angular.isUndefined(event.data)){
                         if(!angular.isUndefined(event.data["stamp_type"])){
-                            stCompleteSearch(id);
+                            sCompleteSearch(id);
                         }
                     }
                     break;

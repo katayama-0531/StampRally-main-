@@ -192,7 +192,6 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                 case "detail":
                     // gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"detail/index.php");
-                    roadingModal.hide();
                     break;
                 case "list_detail":
                     // gpsBtn.style.visibility="visible";
@@ -236,7 +235,6 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
             if($.type(event.data)!="string"){
                 roadingModal.show();
             }
-            page_val.coupon=event.data["mode"];
             page=event.data["page"];
             if(event.data["coupon_id"]!=0 || event.data["coupon_id"] == ""){
                 page_val.coupon_id=event.data["coupon_id"];
@@ -250,6 +248,8 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
             }
             switch (event.data["page"]){
                 case "coupon":
+                    compBtn.style.visibility="hidden";
+                    page_val.coupon=event.data["mode"];
                     if(event.data["mode"]=="detail"){
                         couponLoad();
                     }else if(event.data["mode"]=="detail_disp_end"){
@@ -308,9 +308,11 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                             roadingModal.hide();
                             break;
                         case "list":
+                            stampBtn.style.visibility="hidden";
                             page="list";
                             break;
                         case "map":
+                            stampBtn.style.visibility="hidden";
                             roadingModal.show();
                             page="map";
                             break;
@@ -340,6 +342,8 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                                 page_val.rally_id=event.data["rally_id"]
                             }
                             page="detail";
+                            roadingModal.show();
+                            completeStampSearch(id);
                         break;
                         case "list_detail":
                             page="list_detail";

@@ -273,7 +273,9 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                     break;
                 case "list":
                     ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
-                    roadingModal.hide();
+                    if(page_val.rally_mode=="privilege"){
+                        roadingModal.hide();
+                    }
                     break;
                 case "spot":
                     ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
@@ -292,7 +294,6 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                     break;
                 case "detail":
                     ifrm.postMessage(postMessage, page_val.url+"detail/index.php");
-                    roadingModal.hide();
                     break;
                 case "list_detail":
                     ifrm.postMessage(postMessage, page_val.url+"detail/index.php");
@@ -353,6 +354,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
             switch (event.data["page"]){
                 case "home":
                     page="rally";
+                    stampBtn.style.visibility="hidden";
                     if(device.platform == "iOS"){
                         if(mainTab.getActiveTabIndex()==page_val.homeTab||mainTab.getActiveTabIndex()==page_val.rallyTab){
                             // iframeのwindowオブジェクトを取得
@@ -374,6 +376,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                     break;
                 
                 case "list":
+                    stampBtn.style.visibility="hidden";
                     mainTab.setActiveTab(1);
                     roadingModal.hide();
                     break;
@@ -384,6 +387,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                     break;
 
                 case "coupon":
+                    stampBtn.style.visibility="hidden";
                     page_val.spot_id=event.data["spot_id"];
                     page=event.data["page"];
                     if(event.data["mode"]=="detail_disp_end"){
@@ -435,9 +439,11 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                             roadingModal.hide();
                             break;
                         case "list":
+                            stampBtn.style.visibility="hidden";
                             page="list";
                             break;
                         case "map":
+                            stampBtn.style.visibility="hidden";
                             roadingModal.show();
                             page="map";
                             break;
@@ -465,6 +471,8 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                         case "detail":
                             page="detail";
                             page_val.coupon_id=0;
+                            roadingModal.show();
+                            completeSearch(id);
                         break;
                         case "list_detail":
                             page="list_detail";
@@ -493,6 +501,9 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                     mainTab.setActiveTab(2);
                     page_val.nearSpot=event.data["spot_id"];
                     page_val.spot_id=event.data["spot_id"];
+                    break;
+                case "select":
+                    page=event.data["page"];
                     break;
                 case "maintenance":
                     page_val.maintenance=1;
@@ -608,9 +619,11 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                             roadingModal.hide();
                             break;
                         case "list":
+                            stampBtn.style.visibility="hidden";
                             page="list";
                             break;
                         case "map":
+                            stampBtn.style.visibility="hidden";
                             roadingModal.show();
                             page="map";
                             break;
@@ -636,6 +649,8 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                             break;
                         case "detail":
                             page="detail";
+                            roadingModal.show();
+                            completeSearch(id);
                         break;
                         case "list_detail":
                             page="list_detail";
@@ -710,22 +725,6 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                 stamp(id).then(
                     function (res) {
                         // iframeのwindowオブジェクトを取得
-                        var ifrm = homeFrame.contentWindow;
-                        if(!ifrm){
-                            ifrm=document.getElementById('homeFrame').contentWindow;
-                        }
-                        if(mainTab.getActiveTabIndex()==page_val.homeTab){
-                            ifrm = rallyFrame.contentWindow;
-                            if(!ifrm){
-                                ifrm=document.getElementById('rallyFrame').contentWindow;
-                            }
-                        }
-                        if(mainTab.getActiveTabIndex()==page_val.rallyTab){
-                            ifrm = spotFrame.contentWindow;
-                            if(!ifrm){
-                                ifrm=document.getElementById('spotFrame').contentWindow;
-                            }
-                        }
                         var ifrm;
                         switch(mainTab.getActiveTabIndex()){
                             case page_val.homeTab:
@@ -769,8 +768,6 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                             "mode":res["result"]
                         };
                         ifrm.postMessage(postMessage, page_val.url+"rally/index.php");
-                        ifrm.postMessage(postMessage, page_val.url+"rally/map/index.php");
-                        ifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
                         ifrm.postMessage(postMessage, page_val.url+"detail/index.php");
                         //送信するデータを近くのスポット配列から消す
                         page_val.near_spot_data.splice(0,1);
@@ -952,7 +949,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                 console.log("ユーザーID"+id);
                 if(id=="" || id==null){
                     //チュートリアルの為にアプリの使い方を表示する
-                    // navi.pushPage("html/howto.html");
+                    navi.pushPage("html/howto.html");
                     login().then(
                         function (res) {
                             if (res[0] == "success") {

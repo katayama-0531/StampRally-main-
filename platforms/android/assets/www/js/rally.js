@@ -66,7 +66,7 @@ app.controller('rallyCtr', ['page_val', function(page_val) {
             rallyifrm=document.getElementById('rallyFrame').contentWindow;
         }
         if(page_val.rally_mode!="stop"){
-                // 外部サイトにメッセージを投げる
+            // 外部サイトにメッセージを投げる
             var postMessage =
             {   "user":id,
                 "course_id":page_val.course_id,
@@ -75,13 +75,33 @@ app.controller('rallyCtr', ['page_val', function(page_val) {
                 "page":"rally"};
             if(mainTab.getActiveTabIndex()==page_val.rallyTab){
                 if(page==""){
+                    roadingModal.hide();
                     rallyifrm.postMessage(postMessage, page_val.url+"index_list.php");
                     page="rally";
                 }else{
-                    if(page_val.rally_mode=="map"){
-                        rallyifrm.postMessage(postMessage, page_val.url+"rally/map/index.php");
-                    }else{
-                        rallyifrm.postMessage(postMessage, page_val.url+"rally/index.php");
+                    switch(page_val.rally_mode){
+                        case "map":
+                            roadingModal.hide();
+                            var postMessage =
+                            {   "user":id,
+                                "course_id":page_val.course_id,
+                                "rally_id":page_val.rally_id,
+                                "spot_id":page_val.spot_id,
+                                "page":"home",
+                                "lat":page_val.lat,
+                                "lng":page_val.lng};
+                            rallyifrm.postMessage(postMessage, page_val.url+"rally/map/index.php");
+                            break;
+                        case "detail":
+                            rallyifrm.postMessage(postMessage, page_val.url+"detail/index.php");
+                            break;
+                        case "list":
+                            rallyifrm.postMessage(postMessage, page_val.url+"rally/list/index.php");
+                            break;
+                        default:
+                            roadingModal.hide();
+                            rallyifrm.postMessage(postMessage, page_val.url+"rally/index.php");
+                            break;
                     }
                 }
             }
@@ -101,7 +121,7 @@ app.controller('rallyCtr', ['page_val', function(page_val) {
                     rallyifrm.postMessage(postMessage, page_val.url+"rally/index.php");
                 }
             }
+            roadingModal.hide();
         }
-        roadingModal.hide();
     }
 }]);

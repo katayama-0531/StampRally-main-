@@ -42,6 +42,18 @@
             }
           ]
         }
+      },
+      "*-Info.plist": {
+        "parents": {
+          "NSLocationWhenInUseUsageDescription": [
+            {
+              "xml": "<string>このアプリは、周辺情報取得のため、位置情報を取得します</string>",
+              "count": 1,
+              "mode": "merge",
+              "id": "config.xml"
+            }
+          ]
+        }
       }
     }
   },

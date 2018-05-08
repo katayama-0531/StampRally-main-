@@ -142,6 +142,9 @@ angular.module('stampRallyApp').factory('get_http_service', ['$http', 'page_val'
                     //近くにスポットがある
                     console.log("近くにスタンプが押せるスポットがある");
                     console.log(data.data);
+                    if(page_val.course_id==0){
+                        page_val.course_id=data.data[0]['course_id'];
+                    }
                     page_val.near_spot_data=data.data;
                 }
                 deferred.resolve(data.data); 
