@@ -196,16 +196,6 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                     ifrm.postMessage(postMessage, page_val.url+"near_map/index.php");
                     break;
                 case "detail":
-                    var postMessage =
-                            {   "user":id,
-                                "rally_id":page_val.rally_id,
-                                "course_id":page_val.course_id,
-                                "spot_id":page_val.spot_id,
-                                "page":"stop"
-                            };
-                    gpsBtn.style.visibility="visible";
-                    ifrm.postMessage(postMessage, page_val.url+"detail/index.php");
-                    break;
                 case "list_detail":
                     var postMessage =
                         {   "user":id,

@@ -901,8 +901,6 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                     gpsBtn.style.visibility="visible";
                     page_val.stamp_comp_flg=0;
                     permissionAndGps();
-                    // roadingModal.hide();
-                    // permissionAndGps();
                 }
             },
             // 失敗時　（deferred.reject）
