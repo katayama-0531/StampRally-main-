@@ -102,11 +102,11 @@
 		</data>
 		<key>Assets.car</key>
 		<data>
-		Z3SBOz7ySvPvyFzWv7unfxEfL3U=
+		f67EufW2hozQSm9tVttfsuEtF4o=
 		</data>
 		<key>CDVLaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib</key>
 		<data>
-		eKeWHNmFCQccX/H/B7KRKLkWUrA=
+		S51t7oph7gd10xj7dxN++ag0YC0=
 		</data>
 		<key>CDVLaunchScreen.storyboardc/Info.plist</key>
 		<data>
@@ -114,7 +114,7 @@
 		</data>
 		<key>CDVLaunchScreen.storyboardc/UIViewController-01J-lp-oVM.nib</key>
 		<data>
-		T5ACqWYGs9TSaPbHBP4q5UN907A=
+		cTNfz71EUz6H3o3/mEB2kpj2/yQ=
 		</data>
 		<key>CDVNotification.bundle/beep.wav</key>
 		<data>
@@ -130,7 +130,7 @@
 		</data>
 		<key>MainViewController.nib</key>
 		<data>
-		LFyb6jXsnTBU2fvhvYBZ0mb/Q28=
+		I+K+RsaV4SQYHvOZSgtW4v6uxmY=
 		</data>
 		<key>PkgInfo</key>
 		<data>
@@ -8662,7 +8662,7 @@
 		</data>
 		<key>www/html/contact.html</key>
 		<data>
-		aNnhNhGMe2pX3IoLwVbuWwRYSuY=
+		FekAtLjbp93XwH7M7YEKnfOAxpA=
 		</data>
 		<key>www/html/contract.html</key>
 		<data>
@@ -8716,6 +8716,10 @@
 		<data>
 		MW0GF0+VJyF3L6n2kH6NKUswUL0=
 		</data>
+		<key>www/img/mailto.png</key>
+		<data>
+		vuHQ7fdOamG8K14HYVr8rhJi+6g=
+		</data>
 		<key>www/img/manual/back.png</key>
 		<data>
 		rjgg7utUUbLcRjt0rRsSGlOGMNM=
@@ -8751,6 +8755,10 @@
 		<key>www/img/manual/next.png</key>
 		<data>
 		GRKv+9snRGhXCBDqR9RzSwb+++Q=
+		</data>
+		<key>www/img/tellto.png</key>
+		<data>
+		S1wo+LhYpm2X3t6KzklkBpJJ74k=
 		</data>
 		<key>www/img_common/foot_icon_stamp_complete.png</key>
 		<data>
@@ -9383,22 +9391,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Z3SBOz7ySvPvyFzWv7unfxEfL3U=
+			f67EufW2hozQSm9tVttfsuEtF4o=
 			</data>
 			<key>hash2</key>
 			<data>
-			LOT7PSgmUoYTb0FG66YxU4oc+XzV9Uc0GYJbynWcvxw=
+			IfjP9p/lv7RAcRfMEr0QFVSXy6XlOHSpdvI1LxHIqkc=
 			</data>
 		</dict>
 		<key>CDVLaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			eKeWHNmFCQccX/H/B7KRKLkWUrA=
+			S51t7oph7gd10xj7dxN++ag0YC0=
 			</data>
 			<key>hash2</key>
 			<data>
-			nK3+auZUOqPHNHj6cPrtZwNbCdArdTfLcCFR6i0WpQM=
+			RPcAWK+3+0kIRZy34unRvVEw/DImZx/4n4LSd1/fOkg=
 			</data>
 		</dict>
 		<key>CDVLaunchScreen.storyboardc/Info.plist</key>
@@ -9416,11 +9424,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			T5ACqWYGs9TSaPbHBP4q5UN907A=
+			cTNfz71EUz6H3o3/mEB2kpj2/yQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			nxGYi8XvkqZf88zOKo0z6Dwe8Is7zReTO5n0KcC3Un0=
+			v98m1a+AE1vd3db3awlh/8tgyCdIAp10CFGo8DhEwz0=
 			</data>
 		</dict>
 		<key>CDVNotification.bundle/beep.wav</key>
@@ -9449,11 +9457,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			LFyb6jXsnTBU2fvhvYBZ0mb/Q28=
+			I+K+RsaV4SQYHvOZSgtW4v6uxmY=
 			</data>
 			<key>hash2</key>
 			<data>
-			afEz7BtySwBsKcbVwcOnfonHA1m/xqrhR98RuIid4cY=
+			pRnlVskQKVDJf3h+SSOPl5qF0GKx0dwIZg+EJ6kboJw=
 			</data>
 		</dict>
 		<key>config.xml</key>
@@ -32901,11 +32909,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			aNnhNhGMe2pX3IoLwVbuWwRYSuY=
+			FekAtLjbp93XwH7M7YEKnfOAxpA=
 			</data>
 			<key>hash2</key>
 			<data>
-			rQc4yvPMoyhcJRKiSSde9wcAK94/kUG4B3hC3YKZgsc=
+			qLJbCzmIO78mlV2/t8EbRfUXPPwDUMFqBov4HLbsZ/g=
 			</data>
 		</dict>
 		<key>www/html/contract.html</key>
@@ -33051,6 +33059,17 @@
 			8JmHrhEr2x//0WYZDQyLdQyvokuPf/rAP06Yuah4neM=
 			</data>
 		</dict>
+		<key>www/img/mailto.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			vuHQ7fdOamG8K14HYVr8rhJi+6g=
+			</data>
+			<key>hash2</key>
+			<data>
+			LDC7fbXto8CdD9E5jocWjAUplZc5PLZD/EY8+dYhywM=
+			</data>
+		</dict>
 		<key>www/img/manual/back.png</key>
 		<dict>
 			<key>hash</key>
@@ -33148,6 +33167,17 @@
 			<key>hash2</key>
 			<data>
 			WX9T6xGsVs5VQ71DHdIIMoGRxfdRWcrGawqQ2qcGi4E=
+			</data>
+		</dict>
+		<key>www/img/tellto.png</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			S1wo+LhYpm2X3t6KzklkBpJJ74k=
+			</data>
+			<key>hash2</key>
+			<data>
+			f0wtm9LvK456KyNG/pYCO70lRlj2Nqw/lTrAL460NC4=
 			</data>
 		</dict>
 		<key>www/img_common/foot_icon_stamp_complete.png</key>
