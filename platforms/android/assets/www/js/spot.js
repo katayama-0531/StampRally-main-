@@ -244,15 +244,6 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                     page_val.rally_mode="rally";
                     roadingModal.hide();
                     break;
-                case "privilege":
-                    couponBtn.style.visibility="hidden";
-                    mapBtn.style.visibility="hidden";
-                    gpsBtn.style.visibility="hidden";
-                    compBtn.style.visibility="hidden";
-                    stampBtn.style.visibility="hidden";
-                    page_val.rally_mode="rally";
-                    roadingModal.hide();
-                    break;
                 default:
                     var postMessage =
                     {   "user":id,

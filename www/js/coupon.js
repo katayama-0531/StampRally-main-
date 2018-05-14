@@ -102,6 +102,7 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
     function couponLoad(){
         if(mainTab.getActiveTabIndex()==page_val.couponTab){
             console.log("couponFrame読み込み完了");
+            console.log(page);
             // iframeのwindowオブジェクトを取得
             var ifrm = couponFrame.contentWindow;
             if(!ifrm){
@@ -125,7 +126,7 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                 case "coupon":
                     if(page_val.coupon=="detail"){
                         roadingModal.show();
-                        page="wait";
+                         page="wait";
                         couponPermissionAndGps();
                     } else if(page_val.coupon=="list"){
                         postMessage={
@@ -201,6 +202,21 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                     roadingModal.hide();
                     break;
                 case "wait":
+                    if(device.platform=="iOS"){
+                        var postMessage={
+                            "user":id,
+                            "coupon_id":page_val.coupon_id,
+                            "spot_id":page_val.spot_id,
+                            "coupon":"false",
+                            "page":"detail"
+                        }
+                        // iframeのwindowオブジェクトを取得
+                        var ifrm = couponFrame.contentWindow;
+                        if(!ifrm){
+                            ifrm=document.getElementById('couponFrame').contentWindow;
+                        }
+                        　ifrm.postMessage(postMessage, page_val.url+"coupon_det/index.php");
+                    }
                     break;
                 case "dit":
                     roadingModal.hide();
@@ -232,10 +248,10 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                 }
             }
             page=event.data["page"];
-            if(event.data["coupon_id"]!=0 || event.data["coupon_id"] == ""){
+            if(event.data["coupon_id"]!=0 && event.data["coupon_id"] != "" && !angular.isUndefined(event.data["coupon_id"])){
                 page_val.coupon_id=event.data["coupon_id"];
             }
-            if(event.data["rally_id"]!=0 || event.data["rally_id"] == ""){
+            if(event.data["rally_id"]!=0 && event.data["rally_id"] != "" && !angular.isUndefined(event.data["rally_id"])){
                 page_val.rally_id=event.data["rally_id"];
             }
             if(event.data["page"]=="maintenance"){
@@ -248,6 +264,8 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                     page_val.coupon=event.data["mode"];
                     gpsBtn.style.visibility="hidden";
                     if(event.data["mode"]=="detail"){
+                        page_val.spot_id=event.data["spot_id"];
+                        page_val.coupon_id=event.data["coupon_id"];
                         couponBtn.style.visibility="hidden";
                         couponLoad();
                     }else if(event.data["mode"]=="detail_disp_end"){
@@ -448,6 +466,8 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                 function (msg) {
                 console.log('SuccessGps:' + msg);
                 if(page_val.coupon=="detail"){
+                    msg["spot_id"]=page_val.spot_id;
+                    console.log('送信ｇｐｓ:' + msg);
                     couponSearch(msg);
                 }else{
                     cNearSpotSearch(msg);
@@ -547,7 +567,7 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                 if(!ifrm){
                     ifrm=document.getElementById('couponFrame').contentWindow;
                 }
-                ifrm.postMessage(postMessage, page_val.url+"coupon_det/index.php");
+                　ifrm.postMessage(postMessage, page_val.url+"coupon_det/index.php");
             },
             // 失敗時　（deferred.reject）
             function (res,status) {

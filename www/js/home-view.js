@@ -163,7 +163,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                 page="";
             }
             homeFrame.addEventListener('load',load);
-            homeFrame.src=page_val.url+"index.php";
+            // homeFrame.src=page_val.url+"index.php";
             if (device.platform == "iOS") {
                 document.getElementById('homeFrame').addEventListener('load',load);
                 document.getElementById('homeFrame').src=page_val.url+"index.php";

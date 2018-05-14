@@ -161,16 +161,23 @@ angular.module('stampRallyApp').factory('get_http_service', ['$http', 'page_val'
             url: url,
             data: postData
         };
-
+console.log("送信データ");
+console.log(postData);
         $http(req).then(function onSuccess(data, status) {
                 if(data.data.length==0){
                     //近くにスポットは無い
                     console.log("近くにクーポン使用可能スポットは無い");
                 }else{
-                    //近くにスポットがある
-                    console.log("近くにクーポン使用可能スポットがある");
-                    console.log(data.data);
-                    page_val.near_spot_data=data.data;
+                    //近くにスポットは無い
+                    console.log("近くにクーポン使用可能スポットは無い");
+                    if(data.data[0].id==page_val.coupon_id){
+                        //近くにスポットがある
+                        console.log("近くにクーポン使用可能スポットがある");
+                        console.log(data.data);
+                        page_val.near_spot_data=data.data;
+                    }else{
+                        data.data.splice(0, 1);
+                    }
                 }
                 deferred.resolve(data.data); 
         }, function onError(data, status) {
