@@ -312,7 +312,7 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                         cSearch(msg);
                         break;
                     case "stamp":
-                        nearStampSpotSearch (data);
+                        nearStampSpotSearch (msg);
                         break;
                     default:
                         spotNearSpotSearch(msg);

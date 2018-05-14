@@ -102,11 +102,11 @@
 		</data>
 		<key>Assets.car</key>
 		<data>
-		ee7wNdwNpPapF4vAmFlQEp2ghg4=
+		AYEbLB5tvrLW7G/monjR9Rluals=
 		</data>
 		<key>CDVLaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib</key>
 		<data>
-		GGybx00URLvmwj6sqx0HOlRAOPE=
+		ZxgsXZPkwHI7ZmNO8G1AJeLsVCg=
 		</data>
 		<key>CDVLaunchScreen.storyboardc/Info.plist</key>
 		<data>
@@ -114,7 +114,7 @@
 		</data>
 		<key>CDVLaunchScreen.storyboardc/UIViewController-01J-lp-oVM.nib</key>
 		<data>
-		nv9sMIMUEEm2e+WzLMB1O3p2cbw=
+		VkZgC86FmB6X3XPtsIsZu01jx1s=
 		</data>
 		<key>CDVNotification.bundle/beep.wav</key>
 		<data>
@@ -130,7 +130,7 @@
 		</data>
 		<key>MainViewController.nib</key>
 		<data>
-		VO4g8pYruHS2O5MIl1o66vjpotg=
+		Bv1B5sn/61gnFte+EaaZTWeF1qE=
 		</data>
 		<key>PkgInfo</key>
 		<data>
@@ -8878,7 +8878,7 @@
 		</data>
 		<key>www/js/service/get-http-service.js</key>
 		<data>
-		rn4Lb/KcUkvjudvmWpTqvnTJ8HA=
+		yVl6DhfSYF4J/xDFaiIezEhDBPg=
 		</data>
 		<key>www/js/service/get-img-service.js</key>
 		<data>
@@ -8886,7 +8886,7 @@
 		</data>
 		<key>www/js/service/get-permission-service.js</key>
 		<data>
-		tZKesaYy7wkngI33csT4xw5F29g=
+		Rj7dbFsf564nwPi4G9jDehpCax0=
 		</data>
 		<key>www/js/setting.js</key>
 		<data>
@@ -8894,7 +8894,7 @@
 		</data>
 		<key>www/js/spot.js</key>
 		<data>
-		y9VkPQ7gXZ9WgQBtQdXolKGl8Lk=
+		FJrPo5L4a5hIJBbiMJ5mhsKfCbA=
 		</data>
 		<key>www/js/star.js</key>
 		<data>
@@ -9403,22 +9403,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			ee7wNdwNpPapF4vAmFlQEp2ghg4=
+			AYEbLB5tvrLW7G/monjR9Rluals=
 			</data>
 			<key>hash2</key>
 			<data>
-			13FxkEpcdgQVrCQiRq/RTQ/U9QjX76RoRQ/nWBioyJM=
+			oZ9LvHlWA71jkVergcxfFL0GDwDBRFjdnWZDVU82chY=
 			</data>
 		</dict>
 		<key>CDVLaunchScreen.storyboardc/01J-lp-oVM-view-Ze5-6b-2t3.nib</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			GGybx00URLvmwj6sqx0HOlRAOPE=
+			ZxgsXZPkwHI7ZmNO8G1AJeLsVCg=
 			</data>
 			<key>hash2</key>
 			<data>
-			afMe9iqxyDA00F4rT0E0SF/hMSsyEB+k5nAgVrB0/Vg=
+			u3kcOp3V5xyYZal5aKT1Y9AVXr827FbdzlKlfX8pLfw=
 			</data>
 		</dict>
 		<key>CDVLaunchScreen.storyboardc/Info.plist</key>
@@ -9436,11 +9436,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			nv9sMIMUEEm2e+WzLMB1O3p2cbw=
+			VkZgC86FmB6X3XPtsIsZu01jx1s=
 			</data>
 			<key>hash2</key>
 			<data>
-			fxCeZSdV7NFxP0l2bOmnJAfGNIDxsR0ACY8jwGuhcSE=
+			UzPDJQBCVZWoqBAn163d6Dt0JmADbf7mVZKz6FjD140=
 			</data>
 		</dict>
 		<key>CDVNotification.bundle/beep.wav</key>
@@ -9469,11 +9469,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			VO4g8pYruHS2O5MIl1o66vjpotg=
+			Bv1B5sn/61gnFte+EaaZTWeF1qE=
 			</data>
 			<key>hash2</key>
 			<data>
-			ZRL/1nKUAwIlWi3k3Cx3DKnCxkew2EgtWkYu+Tvajsw=
+			KBT7YrVInu9Q1oz5HUgVSTnRNbNHkR3AUwDsovs4emY=
 			</data>
 		</dict>
 		<key>config.xml</key>
@@ -33515,11 +33515,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			rn4Lb/KcUkvjudvmWpTqvnTJ8HA=
+			yVl6DhfSYF4J/xDFaiIezEhDBPg=
 			</data>
 			<key>hash2</key>
 			<data>
-			din9PjDPPiXipGgvpSwYgLPqVldeUJPDXC1AQolnKuU=
+			/iUuuxlwNffXhcyLhyszcstghVXlWs0CS99U3xqWjCg=
 			</data>
 		</dict>
 		<key>www/js/service/get-img-service.js</key>
@@ -33537,11 +33537,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			tZKesaYy7wkngI33csT4xw5F29g=
+			Rj7dbFsf564nwPi4G9jDehpCax0=
 			</data>
 			<key>hash2</key>
 			<data>
-			oF9NLOVt3dk4m5u1QPYFEiBg5usaMnROIpOSvYo7A28=
+			ez91yDPmZY+fTcwavUa3F8gslVAp6Sa4hpqJaZXxl+I=
 			</data>
 		</dict>
 		<key>www/js/setting.js</key>
@@ -33559,11 +33559,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			y9VkPQ7gXZ9WgQBtQdXolKGl8Lk=
+			FJrPo5L4a5hIJBbiMJ5mhsKfCbA=
 			</data>
 			<key>hash2</key>
 			<data>
-			ZVG1nAu0PulC0mGfmaO1BcUK7VuiuLIx2RlBGjY+aR4=
+			SU2V2HFyjQnTzPW8zf0oAVm0JxPH8svDQomAP/3j7GU=
 			</data>
 		</dict>
 		<key>www/js/star.js</key>

@@ -44,8 +44,9 @@ angular.module('stampRallyApp').factory('get_permission_service', ['page_val', '
             page_val.lng = 130.484;
             //高度
             page_val.alt = Math.floor(position.coords.altitude * Math.pow(10, n)) / Math.pow(10, n);
-            //位置精度
-            page_val.acc = Math.floor(position.coords.accuracy * Math.pow(10, n)) / Math.pow(10, n);
+            //位置精度(iOSで4G回線使用時にかなり大きな値になるので一旦０にする)
+            // page_val.acc = Math.floor(position.coords.accuracy * Math.pow(10, n)) / Math.pow(10, n);
+            page_val.acc = 0;
             var gpsData = {
                 user_id: id,
                 course_id: page_val.course_id,

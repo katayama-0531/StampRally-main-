@@ -193,6 +193,7 @@ console.log(postData);
             timeout: 5000
         };
         var data = page_val.near_spot_data[0];
+        data["rally_id"]=page_val.rally_id;
         data["course_id"]=page_val.course_id;
         data["user_id"]=id;
         data["lat"]=page_val.lat;
