@@ -9,16 +9,16 @@
 		<key>CFBundleIdentifier</key>
 		<string>com.japan-izm.stamprallykyusyu</string>
 		<key>CFBundleShortVersionString</key>
-		<string>1.3.3</string>
+		<string>1.3.4</string>
 		<key>CFBundleVersion</key>
-		<string>1.3.3</string>
+		<string>1.3.4</string>
 		<key>SigningIdentity</key>
 		<string>iPhone Developer: Gorou Azuno (P928NYAS5A)</string>
 	</dict>
 	<key>ArchiveVersion</key>
 	<integer>2</integer>
 	<key>CreationDate</key>
-	<date>2018-05-09T01:57:21Z</date>
+	<date>2018-05-11T08:29:36Z</date>
 	<key>Name</key>
 	<string>StampRally</string>
 	<key>SchemeName</key>

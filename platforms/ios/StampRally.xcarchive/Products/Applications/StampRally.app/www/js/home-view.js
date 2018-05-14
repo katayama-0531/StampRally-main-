@@ -101,6 +101,9 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
         if(navi.pages.length==1){
             roadingModal.show();
         }
+        // if(navi.pages.length >= 2){
+        //     navi.resetToPage("html/home.html");
+        // }   
         
         if(event.index==page_val.homeTab){
             console.log("homeタブへ切り替え前");
@@ -118,6 +121,9 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
             //スタンプが押せる画面ではないので非表示にする
             stampBtn.style.visibility="hidden";
             compBtn.style.visibility="hidden";
+
+            page_val.course_id=0;
+
         }
     });
     
@@ -155,6 +161,12 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                 page_val.header_news_img=page_val.default_news_img;
                 page_val.header_setting_img=page_val.default_setting_img;
                 page="";
+            }
+            homeFrame.addEventListener('load',load);
+            homeFrame.src=page_val.url+"index.php";
+            if (device.platform == "iOS") {
+                document.getElementById('homeFrame').addEventListener('load',load);
+                document.getElementById('homeFrame').src=page_val.url+"index.php";
             }
         }
     });
@@ -288,7 +300,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                 case "":
                     ifrm.postMessage(postMessage, page_val.url+"index.php");
                     roadingModal.hide();
-                    break;
+                    break; 
                 case "rally":
                     gpsBtn.style.visibility="visible";
                     ifrm.postMessage(postMessage, page_val.url+"rally/index.php");
@@ -533,6 +545,14 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                             page_val.spot_name=event.data["title"];
                             roadingModal.hide();
                         break;
+                        case "dit":
+                            couponBtn.style.visibility="hidden";
+                            mapBtn.style.visibility="hidden";
+                            gpsBtn.style.visibility="hidden";
+                            compBtn.style.visibility="hidden";
+                            stampBtn.style.visibility="hidden";
+                            page="";
+                        break;
                         default:
                             page="rally";
                             completeSearch(id);
@@ -706,9 +726,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                             page_val.rally_mode="stop";
                             break;
                         case "privilege":
-                            mapBtn.style.visibility="hidden";
-                            stampBtn.style.visibility="hidden";
-                            compBtn.style.visibility="hidden";
+                        　
                             page="stop";
                             break;
                         case "detail":
@@ -734,6 +752,14 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                             };
                             page_val.near_spot_data[0]=position ;
                             roadingModal.hide();
+                        break;
+                        case "dit":
+                            couponBtn.style.visibility="hidden";
+                            mapBtn.style.visibility="hidden";
+                            gpsBtn.style.visibility="hidden";
+                            compBtn.style.visibility="hidden";
+                            stampBtn.style.visibility="hidden";
+                            page="";
                         break;
                         default:
                             page="rally";
@@ -901,8 +927,6 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                     gpsBtn.style.visibility="visible";
                     page_val.stamp_comp_flg=0;
                     permissionAndGps();
-                    // roadingModal.hide();
-                    // permissionAndGps();
                 }
             },
             // 失敗時　（deferred.reject）

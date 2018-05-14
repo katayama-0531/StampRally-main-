@@ -37,11 +37,11 @@ angular.module('stampRallyApp').factory('get_permission_service', ['page_val', '
             //緯度
             page_val.lat = Math.floor(position.coords.latitude * Math.pow(10, n)) / Math.pow(10, n);
             //TODO:テスト用
-            page_val.lat = 33.1473;
+            // page_val.lat = 33.2545;
             //経度
             page_val.lng = Math.floor(position.coords.longitude * Math.pow(10, n)) / Math.pow(10, n);
             //TODO:テスト用
-            page_val.lng = 130.484;
+            // page_val.lng = 130.546;
             //高度
             page_val.alt = Math.floor(position.coords.altitude * Math.pow(10, n)) / Math.pow(10, n);
             //位置精度

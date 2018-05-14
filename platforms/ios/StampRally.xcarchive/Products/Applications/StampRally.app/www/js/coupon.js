@@ -185,8 +185,6 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                     ifrm.postMessage(postMessage, page_val.url+"rally/map/index.php");
                     break;
                 case "detail":
-                    ifrm.postMessage(postMessage, page_val.url+"detail/index.php");
-                    break;
                 case "list_detail":
                     ifrm.postMessage(postMessage, page_val.url+"detail/index.php");
                     roadingModal.hide();
@@ -203,6 +201,10 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                     roadingModal.hide();
                     break;
                 case "wait":
+                    break;
+                case "dit":
+                    roadingModal.hide();
+                    page="rally";
                     break;
                 default:
                     postMessage =
@@ -375,6 +377,14 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                             page_val.near_spot_data[0]=position ;
                             roadingModal.hide();
                         break;
+                        case "dit":
+                            couponBtn.style.visibility="hidden";
+                            mapBtn.style.visibility="hidden";
+                            gpsBtn.style.visibility="hidden";
+                            compBtn.style.visibility="hidden";
+                            stampBtn.style.visibility="hidden";
+                            page="dit";
+                            break;
                         default:
                             page="rally";
                             completeStampSearch(id);

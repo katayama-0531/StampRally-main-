@@ -67,11 +67,9 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
             page_val.rally_mode="";
             page_val.nearSpot="";
             spotFrame.src=page_val.url+"nearby/index.php";
-            if (device.platform == "iOS") {
-                document.getElementById('spotFrame').src=page_val.url+"nearby/index.php";
-            }
             spotFrame.addEventListener('load',spotLoad);
             if (device.platform == "iOS") {
+                document.getElementById('spotFrame').src=page_val.url+"nearby/index.php";
                 document.getElementById('spotFrame').addEventListener('load',spotLoad);
             }
         }
@@ -131,9 +129,7 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
             switch(page_val.rally_mode){
                 case "":
                     if(page_val.nearSpot=="" || page_val.nearSpot!=page_val.spot_id){
-                        if(page_val.stamp_comp_flg==0){
-                            spotPermissionAndGps();
-                        }
+                        spotPermissionAndGps();
                     }else{
                         postMessage =
                         {   "user":id,
@@ -170,7 +166,7 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                             sCompleteSearch(id);
                         }
                     }
-                    completeSpotS(id);
+                    sCompleteSearch(id);
                     break;
                 case "list":
                     postMessage =
@@ -196,16 +192,6 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                     ifrm.postMessage(postMessage, page_val.url+"near_map/index.php");
                     break;
                 case "detail":
-                    var postMessage =
-                            {   "user":id,
-                                "rally_id":page_val.rally_id,
-                                "course_id":page_val.course_id,
-                                "spot_id":page_val.spot_id,
-                                "page":"stop"
-                            };
-                    gpsBtn.style.visibility="visible";
-                    ifrm.postMessage(postMessage, page_val.url+"detail/index.php");
-                    break;
                 case "list_detail":
                     var postMessage =
                         {   "user":id,
@@ -248,6 +234,24 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                 case "coupon":
                     roadingModal.show();
                     spotPermissionAndGps();
+                    break;
+                case "dit":
+                    couponBtn.style.visibility="hidden";
+                    mapBtn.style.visibility="hidden";
+                    gpsBtn.style.visibility="hidden";
+                    compBtn.style.visibility="hidden";
+                    stampBtn.style.visibility="hidden";
+                    page_val.rally_mode="rally";
+                    roadingModal.hide();
+                    break;
+                case "privilege":
+                    couponBtn.style.visibility="hidden";
+                    mapBtn.style.visibility="hidden";
+                    gpsBtn.style.visibility="hidden";
+                    compBtn.style.visibility="hidden";
+                    stampBtn.style.visibility="hidden";
+                    page_val.rally_mode="rally";
+                    roadingModal.hide();
                     break;
                 default:
                     var postMessage =
@@ -348,7 +352,7 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                                 cSearch(msg);
                                 break;
                             case "stamp":
-                                nearStampSpotSearch (data);
+                                nearStampSpotSearch (msg);
                                 break;
                             default:
                                 spotNearSpotSearch(msg);
@@ -470,6 +474,22 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                     stampBtn.style.visibility="visible";
                 }
                 page="";
+                // iframeのwindowオブジェクトを取得
+                var ifrm = spotFrame.contentWindow;
+                if(!ifrm){
+                    ifrm=document.getElementById('spotFrame').contentWindow;
+                }
+                var postMessage =
+                {   "user":id,
+                    "rally_id":page_val.rally_id,
+                    "course_id":page_val.course_id,
+                    "spot_id":page_val.spot_id,
+                    "lat":page_val.lat,
+                    "lng":page_val.lng,
+                    "mode":"stamp"
+                };
+                ifrm.postMessage(postMessage, page_val.url+"rally/index.php");
+                gpsModal.hide();
                 roadingModal.hide();
             },
             // 失敗時　（deferred.reject）

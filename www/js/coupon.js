@@ -202,6 +202,10 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                     break;
                 case "wait":
                     break;
+                case "dit":
+                    roadingModal.hide();
+                    page="rally";
+                    break;
                 default:
                     postMessage =
                     {   "user":id,
@@ -373,6 +377,14 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                             page_val.near_spot_data[0]=position ;
                             roadingModal.hide();
                         break;
+                        case "dit":
+                            couponBtn.style.visibility="hidden";
+                            mapBtn.style.visibility="hidden";
+                            gpsBtn.style.visibility="hidden";
+                            compBtn.style.visibility="hidden";
+                            stampBtn.style.visibility="hidden";
+                            page="dit";
+                            break;
                         default:
                             page="rally";
                             completeStampSearch(id);
