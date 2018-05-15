@@ -49,10 +49,6 @@ app.controller('rallyCtr', ['page_val', function(page_val) {
     });
     
     //iframe読み込み完了後の処理
-    // rallyFrame.addEventListener('load',rallyLoad);
-    // if (device.platform == "iOS") {
-    //     document.getElementById('rallyFrame').addEventListener('load',rallyLoad);
-    // }
     document.getElementById('rallyFrame').addEventListener('load',rallyLoad);
 
     function rallyLoad(){
