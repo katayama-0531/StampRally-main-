@@ -35,6 +35,7 @@ app.constant('page_val', {
   'lng':0,
   'alt':0,
   'acc':0,
+  'map_mode':'',
   'coupon':"",
   'nearSpot':"",
   'spot_name':"",

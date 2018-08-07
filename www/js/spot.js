@@ -184,11 +184,12 @@ app.controller('spotCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                         "user":id,
                         "course_id":page_val.course_id,
                         "rally_id":page_val.rally_id,
+                        "spot_id":page_val.spot_id,
+                        "map_mode":page_val.map_mode,
                         "page":"home",
                         "lat":page_val.lat,
                         "lng":page_val.lng
-                    }
-                    
+                    };
                     ifrm.postMessage(postMessage, page_val.url+"near_map/index.php");
                     break;
                 case "detail":

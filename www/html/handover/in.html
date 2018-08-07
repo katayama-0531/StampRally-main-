@@ -1,0 +1,29 @@
+<!--機種変更済み画面-->
+<ons-page ng-controller="inCtr as in" id="inPage">
+    <div class="pageHeader">
+        <h3>データ引継ぎ</h3>
+    </div>
+    <div style="width:90%;height:auto;margin: 0 auto 1em;">
+        <p style="font-weight:bold">あなたの引継ぎコードを入力して下さい。</p>
+    </div>
+    <div style="text-align:center;">
+        <input class="cord" id="cord" type="text" size="10" maxlength="8" ng-required pattern="[0-9A-Za-z]{8}"></input>
+    </div>
+    <div style="width:80%;height:auto;margin: 0 auto 1em;">
+        <p>引継ぎコードは英数八桁の文字列です。以降前の機種に記載されているコードを入力して下さい。<br>以下は登録時の4桁の数字を入力して下さい。</p>
+    </div>
+    <div style="text-align:center;margin: 0 auto 1em;">
+        <input id="pw0" float type="password" size="1" maxlength="1" pattern="\d*"></input>
+        <input id="pw1" float type="password" size="1" maxlength="1" pattern="\d*"></input>
+        <input id="pw2" float type="password" size="1" maxlength="1" pattern="\d*"></input>
+        <input id="pw3" float type="password" size="1" maxlength="1" pattern="\d*"></input>
+    </div>
+    <div style="width:80%;height:auto;margin: 0 auto;">
+        <p>データを引き継ぐと以前の機種のデータは削除されますのでご注意下さい。以前の機種で引継ぎデータ作成後、押されたスタンプは反映されません。<br>最新のデータを引き継がれることをおすすめします。</p>
+    </div>
+    <div style="text-align:center;">
+        <ons-button style="width:80%;" ng-click="in.handover()">
+            引継ぎデータを受け入れる
+        </ons-button>
+    </div>
+</ons-page>

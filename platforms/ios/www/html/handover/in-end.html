@@ -1,0 +1,27 @@
+<!--機種変更済み画面-->
+<ons-page ng-controller="inendCtr as inend" id="inendPage">
+    <div class="pageHeader">
+        <h3>データ引継ぎ</h3>
+    </div>
+    <div style="width:90%;height:auto;margin: 0 auto 1em;">
+        <p style="font-weight:bold">あなたの引継ぎコード</p>
+    </div>
+    <div style="text-align:center;">
+        <h1 id="endcord"></h1>
+    </div>
+    <div style="width:auto;height:5%;">
+    </div>
+    <div style="text-align:center;margin: 0 auto 1em;">
+        <h1 id="endpass"></h1>
+    </div>
+    <div style="width:auto;height:10%;">
+    </div>
+    <div style="width:80%;height:auto;margin: 0 auto;">
+        <p>データの引継ぎが終了しました。<br>引き続きスタンプラリーをお楽しみ下さい。</p>
+    </div>
+    <div style="text-align:center;">
+        <ons-button style="width:80%;" ng-click="inend.end()">
+            引継受け入れを終了
+        </ons-button>
+    </div>
+</ons-page>

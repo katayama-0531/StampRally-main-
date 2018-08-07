@@ -1,40 +1,29 @@
 <!--使い方画面-->
 <ons-page ng-controller="howtoCtr as howto" id="howtoPage">
-    <div>
-            <img id="close" src="img/manual/done.png" style="position: absolute; width:8%; height:auto; right:0; z-index: 3;" ng-click="howto.closeTouch()">
-            <img id="right" class="cover-img-right" src="img/manual/next.png">
-            <img id="left" class="cover-img-left" src="img/manual/back.png" style="visibility:hidden;">
-            <ons-carousel swipeable overscrollable auto-scroll fullscreen auto-scroll-ratio=0.3 ons-postchange="howto.carouselChange($event)" var="carousel">
+        <img id="close" src="img/manual/done.png" style="position: absolute; width:8%; height:auto; right:0; z-index: 3;" ng-click="howto.closeTouch()">
+        <img id="right" class="cover-img-right" src="img/manual/next.png">
+        <img id="left" class="cover-img-left" src="img/manual/back.png" style="visibility:hidden;">
+        <ons-carousel swipeable overscrollable auto-scroll fullscreen auto-scroll-ratio=0.3 ons-postchange="howto.carouselChange($event)" var="carousel" style="width:auto; height:100%">
         <ons-carousel-item>
-            <div>
-                <img id="imgTest1" src="img/manual/manual-01.png" style="width:90%; height:auto;">
-            </div>
+            <img id="imgTest1" src="img/manual/manual-01.png" style="width:auto; height:100%">
         </ons-carousel-item>
         <ons-carousel-item>
-            <div>
-                <img id="imgTest2" src="img/manual/manual-02.png" style="width:90%; height:auto;">
-            </div>
+            <img id="imgTest2" src="img/manual/manual-02.png" style="width:auto; height:100%">
         </ons-carousel-item>
         <ons-carousel-item>
-            <div>
-                <img id="imgTest3" src="img/manual/manual-03.png" style="width:90%; height:auto;">
-            </div>
+            <img id="imgTest3" src="img/manual/manual-03.png" style="width:auto; height:100%">
         </ons-carousel-item>
         <ons-carousel-item>
-            <div>
-                <img id="imgTest4" src="img/manual/manual-04.png" style="width:90%; height:auto;">
-            </div>
+            <img id="imgTest4" src="img/manual/manual-04.png" style="width:auto; height:100%">
         </ons-carousel-item>
         <ons-carousel-item>
-            <div>
-                <img id="imgTest5" src="img/manual/manual-05.png" style="width:90%; height:auto;">
-            </div>
+            <img id="imgTest5" src="img/manual/manual-05.png" style="width:auto; height:100%">
         </ons-carousel-item>
         <ons-carousel-item>
-            <div>
-                <img id="imgTest6" src="img/manual/manual-06.png" style="width:90%; height:auto;">
-            </div>
+            <img id="imgTest6" src="img/manual/manual-06.png" style="width:auto; height:100%">
+        </ons-carousel-item>
+        <ons-carousel-item>
+            <img id="imgTest7" src="img/manual/manual-07.png" style="width:auto; height:100%">
         </ons-carousel-item>
     </ons-carousel>
-</div>
 </ons-page>

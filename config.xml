@@ -1,6 +1,9 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="com.japan-izm.stamprallykyusyu" version="1.3.4" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <preference name="Orientation" value="portrait" />
+    <preference name="webviewbounce" value="false" />
+    <preference name="UIWebViewBounce" value="false" />
+    <preference name="DisallowOverscroll" value="true" />
     <name>StampRally</name>
     <description>
         A sample Apache Cordova application that responds to the deviceready event.
@@ -73,7 +76,7 @@
         <icon height="172" src="res/ios/icon-172.png" width="172" />
         <icon height="196" src="res/ios/icon-196.png" width="196" />
         <icon height="1024" src="res/ios/icon-1024.png" width="1024" />
-        <icon height="1025" src="res/ios/icon-1024.png" width="1025" />
+        <icon height="1025" src="res/ios/icon-1025.png" width="1025" />
         <preference name="NSLocationWhenInUseUsageDescription" value="このアプリは、周辺情報取得のため、位置情報を取得します。" />
         <preference name="NSAllowsArbitraryLoadsInWebContent" value="YES" />
     </platform>

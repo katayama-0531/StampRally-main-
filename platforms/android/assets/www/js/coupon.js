@@ -179,10 +179,12 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                         "user":id,
                         "course_id":page_val.course_id,
                         "rally_id":page_val.rally_id,
+                        "spot_id":page_val.spot_id,
+                        "map_mode":page_val.map_mode,
                         "page":"home",
                         "lat":page_val.lat,
                         "lng":page_val.lng
-                    }
+                    };
                     ifrm.postMessage(postMessage, page_val.url+"rally/map/index.php");
                     break;
                 case "detail":
@@ -300,7 +302,11 @@ app.controller('couponCtr', ['$timeout', '$q', 'page_val', 'get_permission_servi
                             page_val.spot_id=event.data["spot_id"];
                         }
                     }
-                    
+                    if(!angular.isUndefined(event.data["map_mode"])){
+                        if(event.data["map_mode"]!=""){
+                            page_val.map_mode=event.data["map_mode"];
+                        }
+                    }
                     if(event.data["stamp_type"]=="comp"){
                         page_val.stamp_comp_flg=1;
                     }else{

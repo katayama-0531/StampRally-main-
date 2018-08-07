@@ -249,6 +249,123 @@ console.log(postData);
             console.log("ステータス："+status);
             deferred.reject(data.data,status);
         });
+    },
+    getCord: function (deferred,id){
+        //Ajax通信でphpにアクセス
+        var url = page_val.root_url+"api/getCord.php",
+        config = {
+            timeout: 5000
+        };
+
+        var postData={};
+        postData.userId=id;
+
+        var req = {
+            method: 'POST',
+            url: url,
+            data: postData
+        };
+        $http(req).then(function onSuccess(data, status) {
+            console.log("引き継ぎコード取得成功");
+            console.log(data.data);
+            deferred.resolve(data.data);
+        }, function onError(data, status) {
+            deferred.reject(data.data,status);
+            setTimeout(function() {
+                ons.notification.alert({ message: "エラーが発生しました。", title: "エラー", cancelable: true });
+                }, 0);
+            console.log("エラー："+data);
+            console.log("ステータス："+status);
+        });
+    },
+    setCord: function (deferred,data){
+        //Ajax通信でphpにアクセス
+        var url = page_val.root_url+"api/setCord.php",
+        config = {
+            timeout: 5000
+        };
+
+        var postData={};
+        postData.userId=data["user_id"];
+        postData.cord=data["cord"];
+
+
+        var req = {
+            method: 'POST',
+            url: url,
+            data: postData
+        };
+        $http(req).then(function onSuccess(data, status) {
+            console.log("引き継ぎコード保存成功");
+            console.log(data.data);
+            deferred.resolve(data.data);
+        }, function onError(data, status) {
+            deferred.reject(data.data,status);
+            setTimeout(function() {
+                ons.notification.alert({ message: "エラーが発生しました。", title: "エラー", cancelable: true });
+                }, 0);
+            console.log("エラー："+data);
+            console.log("ステータス："+status);
+        });
+    },
+    setPw: function (deferred,data){
+        //Ajax通信でphpにアクセス
+        var url = page_val.root_url+"api/setPw.php",
+        config = {
+            timeout: 5000
+        };
+        var postData={};
+        postData.userId=data["user_id"];
+        postData.cord=data["cord"];
+        postData.pw=data["pw"];
+
+        var req = {
+            method: 'POST',
+            url: url,
+            data: postData
+        };
+        $http(req).then(function onSuccess(data, status) {
+            console.log("引き継ぎPW保存成功");
+            console.log(data.data);
+            deferred.resolve(data.data);
+        }, function onError(data, status) {
+            deferred.reject(data.data,status);
+            setTimeout(function() {
+                ons.notification.alert({ message: "エラーが発生しました。", title: "エラー", cancelable: true });
+                }, 0);
+            console.log("エラー："+data);
+            console.log("ステータス："+status);
+        });
+    },
+    setHandover: function (deferred,data){
+        //Ajax通信でphpにアクセス
+        var url = page_val.root_url+"api/handover.php",
+        config = {
+            timeout: 5000
+        };
+
+        var postData={};
+        postData.userId=data["user_id"];
+        postData.cord=data["cord"];
+        postData.pw=data["pw"];
+        
+        var req = {
+            method: 'POST',
+            url: url,
+            data: postData
+        };
+        $http(req).then(function onSuccess(data, status) {
+            console.log("引き継ぎ成功");
+            console.log(data.data);
+            deferred.resolve(data.data);
+        }, function onError(data, status) {
+            deferred.reject(data.data,status);
+            setTimeout(function() {
+                ons.notification.alert({ message: "エラーが発生しました。", title: "エラー", cancelable: true });
+                }, 0);
+            console.log("エラー："+data);
+            console.log("ステータス："+status);
+        });
     }
  };
 }]);

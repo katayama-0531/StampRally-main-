@@ -1,0 +1,25 @@
+<!--引き継ぎコード発行画面-->
+<ons-page ng-controller="outendCtr as outend" id="outendPage">
+    <div class="pageHeader">
+        <h3>データ引継ぎ</h3>
+    </div>
+    <div style="width:80%;height:auto; margin: 0 auto 1em;">
+        <h2>あなたの引継コード</h2>
+        <h1>{{name}}</h1>
+    </div>
+    <div style="width:80%;height:auto; margin: 0 auto;">
+        <p>引継ぎコードが登録されました。<br>移行する機種で上記コードと下記4桁の数字を入力して下さい。</p>
+    </div>
+    <div style="text-align:center;margin: 0 auto 1em;">
+        <h1 id="end_pw"></h1>
+    </div>
+    <div style="width:80%;height:auto; margin: 0 auto 1em;">
+        <p>押してあるスタンプなどはデータを登録した時点のものが引き継がれます。登録してから押したスタンプは反映されませんのでご注意下さい。<br>
+        これ以降再度引継ぎデータを登録する場合はコードの発行からやり直して下さい。</p>
+    </div>
+    <div style="text-align:center;">
+        <ons-button style="width:80%;" ng-click="outend.end()">
+            引継登録を終了する
+        </ons-button>
+    </div>
+</ons-page>

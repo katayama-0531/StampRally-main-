@@ -1,0 +1,24 @@
+<!--コード発行画面-->
+<ons-page ng-controller="hOutCtr as hOut" id="hOutPage">
+        <div class="pageHeader">
+            <h3>データ引継ぎ</h3>
+        </div>
+        <div style="width:80%;height:auto; margin: 0 auto 1em;">
+            <p> 現在お楽しみいただいているラリーのスタンプやお気に入りスポットなどを別の端末に引き継ぐことができます。この機能を利用すると異なるキャリア、異なるOSの端末へもデータを移行することができます。
+                <br><br>
+                データの移行には以下のボタンで発行する「引継コード」とデータを登録するための4桁の数字が必要になります。
+            </p>
+        </div>
+        <div style="text-align:center;">
+            <ons-button style="width:80%;" ng-click="navi.bringPageTop('html/handover/out.html')">
+                引継コードを発行
+            </ons-button>
+        </div>
+        <div style="width:100%;height:10%;">
+        </div>
+        <div style="text-align:center;">
+            <ons-button style="width:80%;" ng-click="navi.popPage()">
+                引継をやめる
+            </ons-button>
+        </div>
+    </ons-page>

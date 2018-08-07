@@ -137,7 +137,7 @@ display: block;
 
 .pageHeader {
 background: #0071bc;
-padding: 8px 15px;
+padding: 6px 15px;
 margin-bottom: 15px;
 display: -webkit-flex;
 display: -moz-flex;
@@ -155,4 +155,79 @@ margin-right: auto;
 }
 .pHeaSearch {
 margin-left: auto;
+}
+
+.cord {
+    border:0;
+    padding:10px;
+    font-family:Arial, sans-serif;
+    color:#000000;
+    border:solid 1px #000000;
+    margin:0 0 2%;
+    width:80%;
+    height:auto;
+    font-size:3em;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+#pw0 {
+    border:0;
+    padding:10px;
+    font-family:Arial, sans-serif;
+    color:#000000;
+    border:solid 1px #000000;
+    margin:0 0 2%;
+    width:15%;
+    height:auto;
+    font-size:3.5em;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+#pw1 {
+    border:0;
+    padding:10px;
+    font-family:Arial, sans-serif;
+    color:#000000;
+    border:solid 1px #000000;
+    margin:0 0 2%;
+    width:15%;
+    height:auto;
+    font-size:3.5em;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+#pw2 {
+    border:0;
+    padding:10px;
+    font-family:Arial, sans-serif;
+    color:#000000;
+    border:solid 1px #000000;
+    margin:0 0 2%;
+    width:15%;
+    height:auto;
+    font-size:3.5em;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+}
+
+#pw3 {
+    border:0;
+    padding:10px;
+    font-family:Arial, sans-serif;
+    color:#000000;
+    border:solid 1px #000000;
+    margin:0 0 2%;
+    width:15%;
+    height:auto;
+    font-size:3.5em;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
 }

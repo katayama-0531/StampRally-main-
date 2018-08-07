@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="bower_components/onsenui/css/onsenui.css">
     <link rel="stylesheet" href="bower_components/onsenui/css/onsen-css-components.css">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css" />
+    <!--<script src="bower_components/jquery-ui/themes/base/jquery-ui.min.css" type="text/javascript" charset="utf-8" async></script>-->
     <link rel="stylesheet" href="js/util/jquery-ui-1.12.1/jquery-ui.min.css"> 
     <link rel="stylesheet" href="css/style.css">
 
@@ -24,7 +25,9 @@
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="bower_components/ngstorage/ngStorage.js"></script>
     <!--jQuery-->
-    <script src="js/util/jquery-3.1.1.min.js" type="text/javascript" charset="utf-8" async></script>
+    <script src="bower_components/jquery/dist/jquery.min.js" type="text/javascript" charset="utf-8" async></script>
+    <!--<script src="bower_components/jquery-ui/jquery-ui.min.js" type="text/javascript" charset="utf-8" async></script>
+    <script src="bower_components/jquery.ui.touch-punch/src/jquery.ui.touch-punch.js" type="text/javascript" charset="utf-8" async></script>-->
     <script src="js/util/jquery-ui-1.12.1/jquery-ui.min.js" type="text/javascript" charset="utf-8" async></script>
     <script src="js/util/jquery.ui.touch-punch.min.js" type="text/javascript" charset="utf-8" async></script>
 
@@ -47,8 +50,20 @@
     <script src="js/entry.js"></script>
     <!-- ヘッダーメニューとフッターメニューのスクリプト-->
     <script src="js/tab-bar.js"></script>
-    <!-- ヘッダーメニューとフッターメニューのスクリプト-->
+    <!-- アプリの使い方のスクリプト-->
     <script src="js/howto.js"></script>
+    <!-- データ引継ぎのスクリプト-->
+    <script src="js/handover.js"></script>
+    <!-- 引継ぎコード発行のスクリプト-->
+    <script src="js/hOut.js"></script>
+    <!-- 引継ぎコード発行のスクリプト-->
+    <script src="js/out.js"></script>
+    <!-- 引継ぎコード発行完了のスクリプト-->
+    <script src="js/out-end.js"></script>
+    <!-- 引継ぎ受入れのスクリプト-->
+    <script src="js/in.js"></script>
+    <!-- 引継ぎ受入れ完了のスクリプト-->
+    <script src="js/in-end.js"></script>
     <!-- サービス-->
     <script src="js/service/get-img-service.js"></script>
     <script src="js/service/get-permission-service.js"></script>
@@ -87,8 +102,6 @@
 </ons-modal>
     <!--ログイン画面-->
     <ons-page ng-controller="tabCtr as tab">
-    <!--スタンプ画像-->
-    <img id="stampImg" src="" style="position:absolute; z-index: 10000; bottom:25%; left:13%;visibility:hidden;">
     <!--ツールバー-->
     <ons-toolbar id="header" style="background-color:WHITE"　fixed-style>
         <div class="toolbar__left toolbar--material__left" style="position: relative;">
@@ -106,6 +119,8 @@
                 </span>
         </div>
     </ons-toolbar>
+    <!--スタンプ画像-->
+    <img id="stampImg" src="" style="position:absolute; z-index: 10000; bottom:25%; left:13%;visibility:hidden;">
     <!--現在地確認ボタン(スタンプ)-->
     <div id="gpsBtn" style="position:absolute; bottom: 0; right:39%; z-index:10000; width: 90px;
     height: 90px; visibility:hidden;">
@@ -158,6 +173,9 @@
                     <ons-list-item modifier="tappable" class="list__item__line-height" ng-click="tab.contactOpen()">
                         お問い合わせ
                     </ons-list-item>
+                    <ons-list-item modifier="tappable" class="list__item__line-height" ng-click="tab.handoverOpen()">
+                        データ引継ぎ
+                    </ons-list-item>
                     <ons-list-header style="background-color: #0071bc;color:#ffffff;">
                         <ons-icon icon="fa-map"></ons-icon>マップアプリと連携
                     </ons-list-header>
@@ -170,7 +188,7 @@
         </ons-splitter-side>
         <ons-splitter-content>
             <!--タブバー-->
-            <ons-tabbar var="mainTab" modifier="autogrow" position="bottom">
+            <ons-tabbar var="mainTab">
                 <ons-tab page="html/home.html" active="true">
                     <img src="img_common/navbar_icon_home.png" width="auto" height="42" alt="">
                 </ons-tab>

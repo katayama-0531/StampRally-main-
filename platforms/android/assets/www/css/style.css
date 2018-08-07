@@ -4,9 +4,11 @@
 /*アニメーションのcss*/
 
 @import "animate.css";
-html,
-body {
+html, body {
+    margin: 0;
+    padding: 0;
     height: 100%;
+    overflow: hidden;
     -webkit-touch-callout: none;
     /*テキスト長押しの選択ボックスを無効化*/
 }
@@ -26,6 +28,7 @@ iframe {
     padding: 0;
     border: none;
     cursor: pointer;
+    top: 0%;
 }
 
 ons-carousel-item {

@@ -78,14 +78,16 @@ app.controller('rallyCtr', ['page_val', function(page_val) {
                 }else{
                     switch(page_val.rally_mode){
                         case "map":
-                            var postMessage =
-                            {   "user":id,
+                            var postMessage={
+                                "user":id,
                                 "course_id":page_val.course_id,
                                 "rally_id":page_val.rally_id,
                                 "spot_id":page_val.spot_id,
+                                "map_mode":page_val.map_mode,
                                 "page":"home",
                                 "lat":page_val.lat,
-                                "lng":page_val.lng};
+                                "lng":page_val.lng
+                            };
                             rallyifrm.postMessage(postMessage, page_val.url+"rally/map/index.php");
                             roadingModal.hide();
                             break;

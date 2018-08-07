@@ -156,18 +156,18 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                         "user":id,
                         "course_id":page_val.course_id,
                         "rally_id":page_val.rally_id,
+                        "spot_id":page_val.spot_id,
+                        "map_mode":page_val.map_mode,
                         "page":"home",
                         "lat":page_val.lat,
                         "lng":page_val.lng
-                    }
+                    };
                     ifrm.postMessage(postMessage, page_val.url+"rally/map/index.php");
                     break;
                 case "detail":
-                    ifrm.postMessage(postMessage, page_val.url+"detail/index.php");
-                    roadingModal.hide();
-                    break;
                 case "list_detail":
                     ifrm.postMessage(postMessage, page_val.url+"detail/index.php");
+                    roadingModal.hide();
                     break;
                 case "stop":
                     postMessage =
@@ -282,6 +282,12 @@ app.controller('starCtr', ['$timeout', '$q', 'page_val', 'get_permission_service
                         }
                     }else{
                         page_val.spot_id=0;
+                    }
+
+                    if(!angular.isUndefined(event.data["map_mode"])){
+                        if(event.data["map_mode"]!=""){
+                            page_val.map_mode=event.data["map_mode"];
+                        }
                     }
                     
                     if(event.data["stamp_type"]=="comp"){

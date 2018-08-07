@@ -80,6 +80,8 @@
 		7B0B823ABD8046F6B69C2C6F /* CDVNotification.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = CDVNotification.h; path = "cordova-plugin-dialogs/CDVNotification.h"; sourceTree = "<group>"; };
 		7D1CF3699E3F458A85C31C7B /* CoreLocation.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		7F35813C30CF4C9995E7074D /* AudioToolbox.framework */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		8795F9DC20B6491500E5E974 /* 2_koudajyuniti.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = 2_koudajyuniti.gpx; path = ../../../gpxData/2_koudajyuniti.gpx; sourceTree = "<group>"; };
+		8795F9DE20B64B8800E5E974 /* 1_mitinoekimiyama.gpx */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = 1_mitinoekimiyama.gpx; path = ../../../gpxData/1_mitinoekimiyama.gpx; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* StampRally-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "StampRally-Info.plist"; path = "StampRally/StampRally-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = SOURCE_ROOT; };
 		90DA15B172BD43CB980FDC4D /* CDVFile.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVFile.m; path = "cordova-plugin-file/CDVFile.m"; sourceTree = "<group>"; };
 		916BEAAEF6984175996F27FB /* CDVLocation.m */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.objc; name = CDVLocation.m; path = "cordova-plugin-geolocation/CDVLocation.m"; sourceTree = "<group>"; };
@@ -140,6 +142,8 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				8795F9DE20B64B8800E5E974 /* 1_mitinoekimiyama.gpx */,
+				8795F9DC20B6491500E5E974 /* 2_koudajyuniti.gpx */,
 				EB87FDF41871DAF40020F90C /* config.xml */,
 				EB87FDF31871DA8E0020F90C /* www */,
 				EB87FDF11871DA420020F90C /* Staging */,

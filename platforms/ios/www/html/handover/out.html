@@ -1,0 +1,35 @@
+<!--引き継ぎコード発行画面-->
+<ons-page ng-controller="outCtr as out" id="outPage">
+    <div class="pageHeader">
+        <h3>データ引継ぎ</h3>
+    </div>
+    <div style="width:80%;height:auto; margin: 0 auto 1em;">
+        <h2>あなたの引継コード</h2>
+        <h1 id="cord">{{name}}</h1>
+    </div>
+    <div style="width:80%;height:auto; margin: 0 auto;">
+        <p>データを登録するため、4桁の数字を登録してください。<br>同じ数字は3つまで使うことができます。</p>
+    </div>
+    <div style="text-align:center;margin: 0 auto 1em;">
+        <input id="pw0" float type="password" size="1" maxlength="1" style="width:12%;height:auto;font-size:3.5em"></input>
+        <input id="pw1" float type="password" size="1" maxlength="1" style="width:12%;height:auto;font-size:3.5em"></input>
+        <input id="pw2" float type="password" size="1" maxlength="1" style="width:12%;height:auto;font-size:3.5em"></input>
+        <input id="pw3" float type="password" size="1" maxlength="1" style="width:12%;height:auto;font-size:3.5em"></input>
+    </div>
+    <div style="width:80%;height:auto; margin: 0 auto 1em;">
+        <p>4桁の数字を入力したら以下の「引き継ぎデータを登録」をタップして下さい。この数字は表示されませんので忘れないようにメモなどしておいて下さい。<br>
+        押してあるスタンプなどはデータを登録した時点のものが引き継がれます。登録してから押したスタンプは反映されませんのでご注意下さい。</p>
+    </div>
+    <div style="text-align:center;">
+        <ons-button style="width:80%;" ng-click="out.regist()">
+            引継ぎデータを登録
+        </ons-button>
+    </div>
+    <div style="width:100%;height:5%;">
+    </div>
+    <div style="text-align:center;">
+        <ons-button style="width:80%;" ng-click="navi.popPage()">
+                引継ぎをやめる
+        </ons-button>
+    </div>
+</ons-page>

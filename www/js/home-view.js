@@ -92,6 +92,8 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
             versionCheck ();
         }
     }, false);
+    mainTab.on('postchange',function(event){
+    });
 
     //アクティブなタブの切り替え前の処理
     mainTab.on('postchange',function(event){
@@ -143,7 +145,7 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
         compBtn.style.visibility="hidden";
         stampBtn.style.visibility="hidden";
         if(navi.pages.length >= 2){
-            navi.resetToPage("html/home.html");
+            navi.bringPageTop("html/home.html");
         }else{
             homeFrame.src=page_val.url+"index.php";
             if(device.platform == "iOS"){
@@ -168,6 +170,8 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                 document.getElementById('homeFrame').addEventListener('load',load);
                 document.getElementById('homeFrame').src=page_val.url+"index.php";
             }
+            //アプリ再起動
+            window.location = "index.html";
         }
     });
 
@@ -323,14 +327,13 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                         "user":id,
                         "course_id":page_val.course_id,
                         "rally_id":page_val.rally_id,
+                        "spot_id":page_val.spot_id,
+                        "map_mode":page_val.map_mode,
                         "page":"home",
                         "lat":page_val.lat,
                         "lng":page_val.lng
                     }
                     ifrm.postMessage(postMessage, page_val.url+"rally/map/index.php");
-                    break;
-                case "detail":
-                    ifrm.postMessage(postMessage, page_val.url+"detail/index.php");
                     break;
                 case "list_detail":
                 case "detail":
@@ -431,6 +434,11 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                     stampBtn.style.visibility="hidden";
                     gpsBtn.style.visibility="hidden";
                     page_val.spot_id=event.data["spot_id"];
+                    
+                    if(!angular.isUndefined(event.data["coupon_id"])){
+                        page_val.coupon_id=event.data["coupon_id"];
+                    }
+                    
                     page=event.data["page"];
                     if(event.data["mode"]=="detail_disp_end"){
                         couponBtn.style.visibility="visible";
@@ -456,6 +464,11 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                     if(!angular.isUndefined(event.data["spot_id"])){
                         if(event.data["spot_id"]!=0){
                             page_val.spot_id=event.data["spot_id"];
+                        }
+                    }
+                    if(!angular.isUndefined(event.data["map_mode"])){
+                        if(event.data["map_mode"]!=""){
+                            page_val.map_mode=event.data["map_mode"];
                         }
                     }
                     
@@ -633,10 +646,13 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                 roadingModal.show();
             }
             if($.type(event.data)=="string"){
-                if(page_val.rally_mode=="list"){
+                if(stringCount==0){
+                    stringCount++;
+                }else{
                     roadingModal.hide();
                 }
-                //roadingModal.hide();
+            }else{
+                page_val.rally_mode='';
             }
             switch (event.data["page"]){
                 case "near":
@@ -662,6 +678,12 @@ function($interval, $timeout, $q, page_val, get_img_service, get_permission_serv
                     if(!angular.isUndefined(event.data["spot_id"])){
                         if(event.data["spot_id"]!=0){
                             page_val.spot_id=event.data["spot_id"];
+                        }
+                    }
+
+                    if(!angular.isUndefined(event.data["map_mode"])){
+                        if(event.data["map_mode"]!=""){
+                            page_val.map_mode=event.data["map_mode"];
                         }
                     }
 
